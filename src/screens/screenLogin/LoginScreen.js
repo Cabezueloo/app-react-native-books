@@ -21,7 +21,7 @@ const LoginScreen = () => {
             <CustomButtonOne text={t(StringConstants.enter)}/>
             <Button 
             title={t(StringConstants.forgetPassword)}
-            onPress={() => navigation.navigate('ResetPassword')}
+            onPress={() => navigation.navigate('Reset')}
             />
         </View>
     );
