@@ -1,5 +1,8 @@
 {
     "login":"Iniciar Sesión",
     "username":"Nombre de Usuario",
-    "password":"Contraseña"
+    "password":"Contraseña",
+    "enter":"entrar",
+    "forgetPassword":"Contraseña olvidada?",
+    "mailRecovery":"Correo reseteo"
 }

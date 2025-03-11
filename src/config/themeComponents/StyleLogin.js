@@ -1,14 +1,13 @@
 import { StyleSheet } from 'react-native';
 import { lightColors,darkColors,size} from '@config'
+import { CommonDataManager } from 'services';
 
 
 
-const StyleLogin = (colorScheme) => {
+const StyleLogin = () => {
 
     
-    console.log(colorScheme,"in style view ")
-
-    const colors = colorScheme === 'dark' ? darkColors : lightColors;
+    const colors = new CommonDataManager().getColorScheme() === 'dark' ? darkColors : lightColors;
 
     //console.log(colors)
     return StyleSheet.create({

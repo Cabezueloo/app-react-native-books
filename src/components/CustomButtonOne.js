@@ -1,18 +1,16 @@
-import { Button, useColorScheme, Alert } from "react-native"
+import { Button, Alert } from "react-native"
 
-import { StyleLogin, StringConstants, lightColors, darkColors } from '@config';
+import {CommonDataManager} from "@service";
 
-const CustomButtonOne = () => {
+const CustomButtonOne = (props) => {
 
-    let colorScheme = useColorScheme();
-
-    const colors = colorScheme === 'dark' ? darkColors : lightColors;
+    let cdm =new CommonDataManager()
     
     return (
         <Button
-            title="Test"
+            title= {props.text}
             onPress={() => Alert.alert('Simple Button pressed')}
-            color={colors.accent}
+            color={cdm._colors.accent}
         />
     )
 }
