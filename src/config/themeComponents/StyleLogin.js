@@ -10,12 +10,14 @@ const StyleLogin = (colorScheme) => {
 
     const colors = colorScheme === 'dark' ? darkColors : lightColors;
 
+    //console.log(colors)
     return StyleSheet.create({
         input: {
             height: size.inputBoxes.containerHeight,
             margin: 12,
             fontSize: size.inputBoxes.textSize,
-            color: colors.text
+            color: colors.text,
+            placeholderTextColor: colors.text
         },
         title: {
             fontSize: size.heading,
@@ -25,7 +27,8 @@ const StyleLogin = (colorScheme) => {
                 flex: 1,
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: colors.background
+                
+                backgroundColor: colors.background,
             }
     });
     

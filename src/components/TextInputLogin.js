@@ -1,16 +1,18 @@
 import { TextInput, useColorScheme} from 'react-native';
 
-import {StyleLogin} from '@config';
+import { lightColors,darkColors,StyleLogin} from '@config';
 
 const TextInputLogin = (props) => {
 
+    let colorScheme = useColorScheme();
+    let style = StyleLogin(colorScheme);
+    const colors = colorScheme === 'dark' ? darkColors : lightColors;
     
-    let style = StyleLogin(useColorScheme());
-
     return (
         <TextInput
             style={style.input}
             placeholder={props.placeholderText}
+            placeholderTextColor={colors.text}
         ></TextInput>
     );
 
