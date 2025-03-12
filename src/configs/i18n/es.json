@@ -4,5 +4,6 @@
     "password":"Contraseña",
     "enter":"entrar",
     "forgetPassword":"Contraseña olvidada?",
-    "mailRecovery":"Correo reseteo"
+    "mailRecovery":"Correo de reseteo",
+    "developedBy":"Desarrollada por Àngel Cabezuelo"
 }

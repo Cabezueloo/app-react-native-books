@@ -4,6 +4,7 @@
     "password":"Password",
     "enter":"Enter",
     "forgetPassword":"Forget password?",
-    "mailRecovery":"Recovery mail"
+    "mailRecovery":"Recovery mail",
+    "developedBy":"Developed by Àngel Cabezuelo"
     
 }

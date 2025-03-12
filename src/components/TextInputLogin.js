@@ -1,6 +1,6 @@
 import { TextInput, useColorScheme} from 'react-native';
 
-import {StyleLogin} from '@config';
+import {StyleLogin} from 'configs';
 import { CommonDataManager } from 'services';
 
 const TextInputLogin = (props) => {

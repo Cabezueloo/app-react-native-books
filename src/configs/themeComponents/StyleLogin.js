@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { lightColors,darkColors,size} from '@config'
+import { lightColors,darkColors,size} from 'configs'
 import { CommonDataManager } from 'services';
 
 

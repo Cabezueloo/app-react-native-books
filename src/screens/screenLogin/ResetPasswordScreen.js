@@ -2,7 +2,7 @@ import {Text, Button, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import {TextInputLogin,CustomButtonOne} from '@components';
-import {StyleLogin, StringConstants} from '@config';
+import {StyleLogin, StringConstants} from 'configs';
 
 
 const ResetPasswordScreen = () => {

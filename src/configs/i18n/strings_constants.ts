@@ -4,6 +4,7 @@ export const StringConstants = {
     "username":"username",
     "password":"password",
     "enter":"enter",
-    "forgetPassword":"Forget password?",
-    "mailRecovery":"Recovery mail"
+    "forgetPassword":"forgetPassword",
+    "mailRecovery":"mailRecovery",
+    "developedBy":"developedBy"
 }

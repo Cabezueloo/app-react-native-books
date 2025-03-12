@@ -2,7 +2,7 @@ import {Text, useColorScheme, View,Button } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import {TextInputLogin,CustomButtonOne} from '@components';
-import {StyleLogin, StringConstants} from '@config';
+import {StyleLogin, StringConstants} from 'configs';
 
 
 const LoginScreen = () => {

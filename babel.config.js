@@ -7,10 +7,10 @@ module.exports = {
         root: ['./src'],
         alias: {
           '@components': 'components/index',
-          '@config': 'config/index',
+          '@config': 'configs/index',
           '@service': 'services/index',
           "@screen": 'screens/index',
-          // Añade aquí el resto de tus alias
+          // Resto
         },
       },
     ],

@@ -9,7 +9,7 @@
         "src/components/index"
       ],
       "@config": [
-        "src/config/index"
+        "src/configs/index"
       ],
       "@screen": [
         "src/screens/index"

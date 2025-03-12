@@ -7,11 +7,7 @@
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "splash": {
-      "image": "./src/assets/icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#2C3E50"
-    },
+    
     "ios": {
       "supportsTablet": true
     },
