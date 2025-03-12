@@ -10,6 +10,7 @@ module.exports = {
           '@config': 'configs/index',
           '@service': 'services/index',
           "@screen": 'screens/index',
+          "@style":"styles/index",
           // Resto
         },
       },

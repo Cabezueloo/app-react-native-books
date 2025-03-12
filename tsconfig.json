@@ -16,6 +16,9 @@
       ],
       "@service":[
         "src/services/index"
+      ],
+      "@style":[
+        "src/styles/index"
       ]
     },
   },

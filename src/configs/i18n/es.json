@@ -1,9 +1,14 @@
 {
     "login":"Iniciar Sesión",
     "username":"Nombre de Usuario",
+    "mail":"Correo",
     "password":"Contraseña",
+    "confirmPassword":"Confirmar contraseña",
     "enter":"entrar",
     "forgetPassword":"Contraseña olvidada?",
     "mailRecovery":"Correo de reseteo",
-    "developedBy":"Desarrollada por Àngel Cabezuelo"
+    "developedBy":"Desarrollada por Àngel Cabezuelo",
+    "backLogin":"Volver a inicio",
+    "register":"Regístrate",
+    "create_an_account":"Create an account"
 }

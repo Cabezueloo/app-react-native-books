@@ -1,10 +1,14 @@
 {
     "login":"Log In",
     "username":"Username",
+    "mail":"Mail",
     "password":"Password",
+    "confirmPassword":"Repet the password",
     "enter":"Enter",
     "forgetPassword":"Forget password?",
     "mailRecovery":"Recovery mail",
-    "developedBy":"Developed by Àngel Cabezuelo"
-    
+    "developedBy":"Developed by Àngel Cabezuelo",
+    "backLogin":"Back to login",
+    "register":"Register",
+    "create_an_account":"Crear cuenta"    
 }

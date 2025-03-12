@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { lightColors,darkColors,size} from 'configs'
+import { lightColors,darkColors,size,fonts} from 'styles'
 import { CommonDataManager } from 'services';
+
 
 
 
@@ -17,10 +18,18 @@ const StyleLogin = () => {
             fontSize: size.inputBoxes.textSize,
             color: colors.text,
             placeholderTextColor: colors.text
+            
         },
         title: {
             fontSize: size.heading,
             color: colors.primary
+        },
+        basicLabel: {
+            fontSize: size.bodyText,
+            color: colors.accent,
+            fontStyle: fonts.bold,
+            
+
         },
         container: {
                 flex: 1,

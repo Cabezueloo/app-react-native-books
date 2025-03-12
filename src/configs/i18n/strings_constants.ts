@@ -2,9 +2,14 @@
 export const StringConstants = {
     "login":"login",
     "username":"username",
+    "mail":"mail",
     "password":"password",
+    "confirmPassword":"confirmPassword",
     "enter":"enter",
     "forgetPassword":"forgetPassword",
     "mailRecovery":"mailRecovery",
-    "developedBy":"developedBy"
+    "developedBy":"developedBy",
+    "backLogin":"backLogin",
+    "register":"register",
+    "create_an_account":"create_an_account"
 }

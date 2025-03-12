@@ -1,5 +1,5 @@
 import { useColorScheme } from "react-native";
-import {lightColors,darkColors} from 'configs';
+import {lightColors,darkColors} from 'styles';
 
 export default class CommonDataManager {
     //cdm -> CommonDataManager
