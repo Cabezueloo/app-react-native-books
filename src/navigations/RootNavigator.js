@@ -7,6 +7,7 @@ import AppNavigator from './AppNavigator';
 import { StringConstants } from 'configs';
 import { lightColors, darkColors, StyleLogin } from 'styles';
 import { ThemeContext } from 'context';
+import HomeScreen from 'screens/screenApp/HomeScreen';
 
 
 //Controla qué navegador se muestra según el estado de autenticación
