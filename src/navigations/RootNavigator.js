@@ -11,15 +11,13 @@ import { ThemeContext } from 'context';
 
 //Controla qué navegador se muestra según el estado de autenticación
 const RootNavigator = () => {
+  console.log("ENTRA ROOT NAVIGATOR")
   //Simulación del estado de autenticación
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true)
   
-  console.log("Root navigator una línea antes")
-  console.log(useContext(ThemeContext))
   const { colorScheme, colors } = useContext(ThemeContext);
   
-  console.log("Root navigator una línea después")
 
   const { t } = useTranslation();
 

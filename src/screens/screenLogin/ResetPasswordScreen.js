@@ -11,6 +11,7 @@ import { ThemeContext } from 'context';
 
 
 const ResetPasswordScreen = ({route}) => {
+    console.log("ENTRA RESET PASSWORD SCREEN")
     const {t} = useTranslation();
     
     
@@ -22,7 +23,6 @@ const ResetPasswordScreen = ({route}) => {
     const navigation = useNavigation();
     const mailValue = route.params.mailValue
     
-    console.log("Mail value -> ",mailValue)
     const [resetMail,setResetMail] = useState(mailValue!=''?mailValue:'')
 
     return (

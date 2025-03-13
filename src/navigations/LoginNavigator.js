@@ -13,10 +13,11 @@ const LoginStack = createStackNavigator();
 
 
 const LoginNavigator = () => {
+  console.log("ENTRALOGIN NAVIGATOR")
   const { colorScheme, colors } = useContext(ThemeContext);
 
 
-
+  
 
   return (
     <>

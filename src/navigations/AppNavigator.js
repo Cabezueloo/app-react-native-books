@@ -5,6 +5,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
+  
+  console.log("ENTRA APP NAVIGATOR")
+
   return (
     <Tab.Navigator>
       
@@ -13,3 +16,4 @@ const AppNavigator = () => {
 };
 
 export default AppNavigator;
+

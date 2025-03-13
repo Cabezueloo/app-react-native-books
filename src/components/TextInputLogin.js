@@ -6,7 +6,7 @@ import { useContext } from 'react';
 
 
 const TextInputLogin = (props) => {
-    
+    console.log("ENTRA TEXT INPUT LOGIN")
     
     const { colorScheme, colors } = useContext(ThemeContext);
     

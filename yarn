@@ -1,0 +1,36 @@
+
+{
+  name: [32m'app-react-native-books'[39m,
+  slug: [32m'app-react-native-books'[39m,
+  version: [32m'1.0.0'[39m,
+  orientation: [32m'portrait'[39m,
+  icon: [32m'./src/assets/icon.png'[39m,
+  userInterfaceStyle: [32m'automatic'[39m,
+  newArchEnabled: [33mtrue[39m,
+  sdkVersion: [32m'52.0.0'[39m,
+  description: [90mundefined[39m,
+  platforms: [
+    [32m'ios'[39m,
+    [32m'android'[39m
+  ],
+  ios: {
+    supportsTablet: [33mtrue[39m
+  },
+  android: {
+    adaptiveIcon: {
+      foregroundImage: [32m'./src/assets/adaptive-icon.png'[39m,
+      backgroundColor: [32m'#2C3E50'[39m
+    }
+  },
+  web: {
+    favicon: [32m'./src/assets/favicon.png'[39m
+  },
+  _internal: {
+    isDebug: [33mfalse[39m,
+    projectRoot: [32m'/media/user/Samsung SSD/app-react-native-books'[39m,
+    dynamicConfigPath: [1mnull[22m,
+    staticConfigPath: [32m'/media/user/Samsung SSD/app-react-native-books/app.json'[39m,
+    packageJsonPath: [32m'/media/user/Samsung SSD/app-react-native-books/package.json'[39m
+  }
+}
+

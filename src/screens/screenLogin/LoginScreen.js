@@ -9,10 +9,14 @@ import { useContext, useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js'
 import { ThemeContext } from 'context';
 
-//const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
+const apiUrl = process.env.SUPABASEURL
+const apiKey = process.env.SUPABASEKEY
+const supabase = createClient(apiUrl, apiKey);
 
 
 const LoginScreen = () => {
+
+    console.log("ENTRA LOGIN SCREEN")
     const { t } = useTranslation();
     const navigation = useNavigation();
 

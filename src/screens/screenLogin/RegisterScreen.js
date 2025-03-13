@@ -14,6 +14,7 @@ import { createClient } from '@supabase/supabase-js'
 
 
 const RegisterScreen = ({route}) => {
+    console.log("ENTRA REGISTER SCREEN")
     const { t } = useTranslation();
     const navigation = useNavigation();
     

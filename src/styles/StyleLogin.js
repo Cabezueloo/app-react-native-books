@@ -4,13 +4,10 @@ import {size} from '../styles/theme'
 
 
 const StyleLogin = (props) => {
-
+    console.log("ENTRA STYLE LOGIN")
     const colorScheme = props.colorScheme
     const colors = props.colors
-    
-    
-
-    console.log(size)
+        
     return StyleSheet.create({
         input: {
             height: size.inputBoxes.containerHeight,

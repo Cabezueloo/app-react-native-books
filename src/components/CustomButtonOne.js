@@ -4,7 +4,7 @@ import { ThemeContext } from "context";
 import { useContext } from "react";
 
 const CustomButtonOne = (props) => {
-
+    console.log("ENTRA CUSTOM BUTTON ONE")
     const { colorScheme, colors } = useContext(ThemeContext);
     
     return (

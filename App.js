@@ -4,7 +4,7 @@ import { ThemeProvider } from 'context/ThemeContext';
 
 export default function App() {
 
-  console.log("MAIN")
+  
   return (
     <ThemeProvider>
       <NavigationContainer>
