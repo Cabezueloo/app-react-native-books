@@ -1,11 +1,12 @@
-import { CommonDataManager } from "services";
+import { ThemeContext } from "context";
 import { lightColors,darkColors, fonts } from "configs";
 import {StyleSheet} from 'react-native'
+import { useContext } from "react";
 
 export const BasicInput = () => {
 
-    let cdm = new CommonDataManager().getColorScheme()
-    let colors = cdm == "dark" ? lightColors : darkColors;
+    const { colorScheme, colors } = useContext(ThemeContext);
+    colors = (colorScheme == "dark") ? lightColors : darkColors;
     
     return StyleSheet.create({
         fonts: fonts.regular,

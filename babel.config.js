@@ -8,9 +8,10 @@ module.exports = {
         alias: {
           '@components': 'components/index',
           '@config': 'configs/index',
-          '@service': 'services/index',
+          '@services': 'services/index',
           "@screen": 'screens/index',
           "@style":"styles/index",
+          "@context":"context/index"
           // Resto
         },
       },

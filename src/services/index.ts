@@ -1,1 +1,1 @@
-export {default as CommonDataManager} from './CommonDataManager'
+export {default as useCommonData} from './useCommonData'

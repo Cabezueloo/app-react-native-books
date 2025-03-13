@@ -1,15 +1,17 @@
-import { TextInput, useColorScheme} from 'react-native';
+import { TextInput} from 'react-native';
 
 import {StyleLogin} from 'styles';
-import { CommonDataManager } from 'services';
+import { ThemeContext } from 'context';
+import { useContext } from 'react';
 
 
 const TextInputLogin = (props) => {
-
     
-    let cdm = new CommonDataManager()
     
-    let style = StyleLogin(cdm.getColorScheme());
+    const { colorScheme, colors } = useContext(ThemeContext);
+    
+    
+    let style = StyleLogin({colorScheme,colors});
     //Se comunica con el padre, así poder acceder a el value ya que es un componente personalizado
     const {value, onChange} = props;
 
@@ -21,7 +23,7 @@ const TextInputLogin = (props) => {
             placeholder={props.placeholderText}
             onChangeText={text => onChange(text)}
             value={value}
-            placeholderTextColor={cdm.getColors().text}
+            placeholderTextColor={colors.text}
             secureTextEntry={props.secureTextEntry}
         ></TextInput>
     );

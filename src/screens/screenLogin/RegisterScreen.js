@@ -4,13 +4,13 @@ import { useNavigation, } from '@react-navigation/native';
 import { TextInputLogin, CustomButtonOne } from 'components';
 import { PAGE_LOGIN, PAGE_RESET_PASSWORD, StringConstants } from 'configs';
 import { StyleLogin } from 'styles';
-import { useEffect, useState } from 'react';
-
+import { useState,useContext } from 'react';
+import { ThemeContext } from 'context';
 import { createClient } from '@supabase/supabase-js'
 
 
 
-const style = StyleLogin(); 
+
 
 
 const RegisterScreen = ({route}) => {
@@ -18,6 +18,9 @@ const RegisterScreen = ({route}) => {
     const navigation = useNavigation();
     
     const {value} = route.params.mailValue
+    const {colorScheme,colors} = useContext(ThemeContext)
+    
+    const style = StyleLogin({colorScheme,colors})
 
     // inputs y datos de Supabase y comunicar con hijos
     const [mailValue, setMailValue] = useState('');
@@ -36,24 +39,20 @@ const RegisterScreen = ({route}) => {
             <TextInputLogin
                 secureTextEntry
                 placeholderText={t(StringConstants.password)}
-                value={passwordValue}
                 onChange={newText => setPasswordValue(newText)}
             />
             
             <TextInputLogin
                 secureTextEntry
                 placeholderText={t(StringConstants.password)}
-                value={passwordValue}
                 onChange={newText => setPasswordConfirmationValue(newText)}
             />
 
             <CustomButtonOne text={t(StringConstants.create_an_account)} />
+            
             <Button
                 title={t(StringConstants.backLogin)}
-                onPress={() =>
-                    navigation.navigate(PAGE_LOGIN, {
-                        mailValue: mailValue
-                    })
+                onPress={() =>navigation.navigate(PAGE_LOGIN)
                 }
             />
             

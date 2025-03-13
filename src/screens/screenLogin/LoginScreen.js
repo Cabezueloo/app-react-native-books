@@ -4,9 +4,10 @@ import { useNavigation, } from '@react-navigation/native';
 import { TextInputLogin, CustomButtonOne } from 'components';
 import { PAGE_REGISTER, PAGE_RESET_PASSWORD, StringConstants } from 'configs';
 import { StyleLogin } from 'styles';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { createClient } from '@supabase/supabase-js'
+import { ThemeContext } from 'context';
 
 //const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 
@@ -20,7 +21,10 @@ const LoginScreen = () => {
     const [passwordValue, setPasswordValue] = useState('');
 
     const [error, setError] = useState(null);
-    const style = StyleLogin(); // Asumo que StyleLogin es una función que retorna estilos
+    
+    const {colorScheme,colors} = useContext(ThemeContext)
+    
+    const style = StyleLogin({colorScheme,colors})
 
     // Realizamos la consulta a Supabase cuando se monta el componente
     

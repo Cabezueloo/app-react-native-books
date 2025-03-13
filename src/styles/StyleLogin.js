@@ -1,16 +1,16 @@
 import { StyleSheet } from 'react-native';
-import { lightColors,darkColors,size,fonts} from 'styles'
-import { CommonDataManager } from 'services';
+import { fonts} from 'styles'
+import {size} from '../styles/theme'
 
 
+const StyleLogin = (props) => {
 
-
-const StyleLogin = () => {
-
+    const colorScheme = props.colorScheme
+    const colors = props.colors
     
-    const colors = new CommonDataManager().getColorScheme() === 'dark' ? darkColors : lightColors;
+    
 
-    //console.log(colors)
+    console.log(size)
     return StyleSheet.create({
         input: {
             height: size.inputBoxes.containerHeight,

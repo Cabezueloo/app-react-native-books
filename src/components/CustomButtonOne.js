@@ -1,16 +1,17 @@
 import { Button, Alert } from "react-native"
 
-import {CommonDataManager} from "@service";
+import { ThemeContext } from "context";
+import { useContext } from "react";
 
 const CustomButtonOne = (props) => {
 
-    let cdm =new CommonDataManager()
+    const { colorScheme, colors } = useContext(ThemeContext);
     
     return (
         <Button
             title= {props.text}
             onPress={() => Alert.alert('Simple Button pressed')}
-            color={cdm._colors.accent}
+            color={colors.accent}
         />
     )
 }
