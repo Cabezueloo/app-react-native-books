@@ -21,40 +21,6 @@ const LoginScreen = () => {
     console.log("ENTRA LOGIN SCREEN")
 
 
-    async function login() {
-        setLoading(true)
-        
-        const valueSearch = mailValue.includes('@') ? "email":"username"
-
-        const { data, error } = await supabase.from(TABLE_USER).select("password").eq(valueSearch,mailValue.toLocaleLowerCase())
-        const values = Object.values(data)
-        if (values.length == 0) {
-        console.log("No existe")
-
-        }else{
-            console.log("Sí existe")
-
-            const usernamePasswordInDataBase = values[0].password
-            console.log("Datbase ->", usernamePasswordInDataBase)
-
-            const digest = await generateDigest(passwordValue)
-            console.log("Introducida ->", digest)
-
-            
-            if(usernamePasswordInDataBase === digest){
-                console.log("Entrar al home")
-            }else{
-                console.log("Valores incorrectos")
-            }
-        }
-
-        if (error) { Alert.alert(error.message) }
-
-
-        setLoading(false)
-    }
-
-
     const { t } = useTranslation();
     const navigation = useNavigation();
 
@@ -68,23 +34,74 @@ const LoginScreen = () => {
 
     const style = StyleLogin({ colorScheme, colors })
 
-    // Realizamos la consulta a Supabase cuando se monta el componente
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const { data, error } = await supabase.from('User').select();
-            if (error) {
-                console.error("PETA")
-                console.error(error)
-                setError(error);
+
+    async function login() {
+        setLoading(true)
+
+        //Check if we eq by mail or username
+        const valueSearch = mailValue.includes('@') ? "email" : "username"
+
+        //Select to check if the mail or username exist
+        const { data, error } = await supabase.from(TABLE_USER).select("password").eq(valueSearch, mailValue.toLocaleLowerCase())
+        console.log(mailValue)
+        const values = Object.values(data)
+
+        if (values.length == 0) {
+            console.log("No existe")
+
+        } else {
+            console.log("Sí existe")
+
+            const usernamePasswordInDataBase = values[0].password
+            console.log("Datbase ->", usernamePasswordInDataBase)
+
+            const digest = await generateDigest(passwordValue)
+            console.log("Introducida ->", digest)
+
+
+            if (usernamePasswordInDataBase === digest) {
+
+                let usernameEmail = mailValue
+
+                if (valueSearch == "username") {
+                    const { data, error } = await supabase.from(TABLE_USER).select("email").eq(valueSearch, mailValue.toLocaleLowerCase())
+                    console.log(data)
+                    const valuesE = Object.values(data)
+                    usernameEmail = valuesE[0].email
+                    console.log(usernameEmail)
+                }
+
+                const { error } = await supabase.auth.signInWithPassword({
+                    email: usernameEmail,
+                    password: digest,
+                })
+
+                if (error) { Alert.alert(error.message) } 
+                else { console.log("Entrar al home") }
+
+                //console.log(Object.values(data)[0].id)
+
+
+                console.log(await supabase.auth.getUser())
+                //console.log(data)
+
+
+
             } else {
-
-                console.log(data);
+                console.log("Valores incorrectos")
             }
-        };
+        }
 
-        fetchData();
-    }, []);
+        if (error) { Alert.alert(error.message) }
+
+
+        setLoading(false)
+    }
+
+
+
+
 
     return (
         <View style={style.container}>
@@ -101,10 +118,10 @@ const LoginScreen = () => {
                 value={passwordValue}
                 onChange={newText => setPasswordValue(newText)}
             />
-            
+
             <Button title={t(StringConstants.enter)}
                 disabled={loading}
-                onPress={()=>login()} />
+                onPress={() => login()} />
 
             <Button
                 title={t(StringConstants.forgetPassword)}
