@@ -8,14 +8,13 @@ import { useContext, useEffect, useState } from 'react';
 
 import { createClient } from '@supabase/supabase-js'
 import { ThemeContext } from 'context';
+import { supabase } from 'services/supabase';
 
-const apiUrl = process.env.SUPABASEURL
-const apiKey = process.env.SUPABASEKEY
-const supabase = createClient(apiUrl, apiKey);
+
 
 
 const LoginScreen = () => {
-
+    
     console.log("ENTRA LOGIN SCREEN")
     const { t } = useTranslation();
     const navigation = useNavigation();
@@ -36,6 +35,8 @@ const LoginScreen = () => {
         const fetchData = async () => {
             const { data, error } = await supabase.from('User').select();
             if (error) {
+                console.error("PETA")
+                console.error(error)
                 setError(error);
             } else {
 

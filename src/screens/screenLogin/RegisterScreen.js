@@ -8,11 +8,6 @@ import { useState,useContext } from 'react';
 import { ThemeContext } from 'context';
 import { createClient } from '@supabase/supabase-js'
 
-
-
-
-
-
 const RegisterScreen = ({route}) => {
     console.log("ENTRA REGISTER SCREEN")
     const { t } = useTranslation();
