@@ -34,14 +34,14 @@ const LoginScreen = () => {
         }else{
             console.log("Sí existe")
 
-            const usernamePassword = values[0].password
-            console.log("Datbase ->", usernamePassword)
+            const usernamePasswordInDataBase = values[0].password
+            console.log("Datbase ->", usernamePasswordInDataBase)
 
-            const digest = await generateDigest(usernamePassword)
+            const digest = await generateDigest(passwordValue)
             console.log("Introducida ->", digest)
 
             
-            if(usernamePassword === digest){
+            if(usernamePasswordInDataBase === digest){
                 console.log("Entrar al home")
             }else{
                 console.log("Valores incorrectos")
