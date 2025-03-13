@@ -10,5 +10,8 @@
     "developedBy":"Desarrollada por Àngel Cabezuelo",
     "backLogin":"Volver a inicio",
     "register":"Regístrate",
-    "create_an_account":"Create an account"
+    "create_an_account":"Crear cuenta",
+    "surname":"Apellido",
+    "name":"Nombre",
+    "username_or_email":"Usuario o correo"
 }
