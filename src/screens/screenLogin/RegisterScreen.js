@@ -2,7 +2,7 @@ import { Text, View, Button,Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, } from '@react-navigation/native';
 import { TextInputLogin, CustomButtonOne } from 'components';
-import { PAGE_LOGIN, PAGE_RESET_PASSWORD, StringConstants } from 'configs';
+import { PAGE_LOGIN, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from 'configs';
 import { StyleLogin } from 'styles';
 import { useState,useContext } from 'react';
 import { ThemeContext } from 'context';
@@ -20,6 +20,7 @@ const RegisterScreen = ({route}) => {
 
     // inputs y datos de Supabase y comunicar con hijos
     const [mailValue, setMailValue] = useState('');
+    const [usernameValue, setUsernameValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     const [passwordConfirmationValue, setPasswordConfirmationValue] = useState('');
     const [loading, setLoading] = useState(false)
@@ -41,6 +42,23 @@ const RegisterScreen = ({route}) => {
 
     async function signUpWithEmail() {
         setLoading(true)
+
+
+        
+        //Check if the username doesn't exist in database
+        const { data, errorGet } = await supabase
+        .from(TABLE_USER)
+        .select('username')
+        .eq('username',usernameValue)
+
+        
+        if (Object.keys(data).length!=0){
+            console.log("username existente")
+        }else{
+            console.log("username correcto")
+        }
+
+
         const {
           data: { session },
           error,
@@ -63,9 +81,10 @@ const RegisterScreen = ({route}) => {
             .from('User')
             .insert([
                 {
-                    id:user.id,username:"Manolo",email:mailValue,name:"ManoloNombre",surname:"Gomez",password:passwordValue,created_at:date,last_login:date
+                    id:user.id,username:"pepe",email:mailValue,name:"ManoloNombre",surname:"Gomez",password:passwordValue,created_at:date,last_login:date
                 }
-            ])
+            ]).select()
+
             if (error) {
                 console.error('Error inserting user data:', error);
               } else {
@@ -90,6 +109,14 @@ const RegisterScreen = ({route}) => {
                 value={mailValue}
                 onChange={newText => setMailValue(newText)}
             />
+            <TextInputLogin
+                
+                placeholderText={t(StringConstants.username)}
+                
+                onChange={newText => setUsernameValue(newText)}
+            />
+
+
             <TextInputLogin
                 secureTextEntry
                 placeholderText={t(StringConstants.password)}
