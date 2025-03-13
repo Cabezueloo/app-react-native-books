@@ -6,7 +6,6 @@ import { PAGE_LOGIN, PAGE_RESET_PASSWORD, StringConstants } from 'configs';
 import { StyleLogin } from 'styles';
 import { useState,useContext } from 'react';
 import { ThemeContext } from 'context';
-import { createClient } from '@supabase/supabase-js'
 import { supabase } from 'services/supabase';
 
 const RegisterScreen = ({route}) => {
@@ -24,6 +23,63 @@ const RegisterScreen = ({route}) => {
     const [passwordValue, setPasswordValue] = useState('');
     const [passwordConfirmationValue, setPasswordConfirmationValue] = useState('');
     const [loading, setLoading] = useState(false)
+
+    //REGISTER
+    async function signInWithEmail() {
+        setLoading(true)
+        const { error } = await supabase.auth.signInWithPassword({
+          email: mailValue,
+          password: passwordValue,
+        })
+    
+        if (error) {Alert.alert(error.message)}
+        
+
+        setLoading(false)
+      }
+
+
+    async function signUpWithEmail() {
+        setLoading(true)
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.signUp({
+          email: mailValue,
+          password: passwordValue,
+        })
+    
+        if (error) {
+            console.log(error.message)
+        }
+        //Create account in database
+        else{
+                               
+            const { data: { user } } = await supabase.auth.getUser()
+            console.log('User ID:', user.id);
+            const date = new Date().toISOString()
+            //Insert User ID to Table
+            const {data, error} = await supabase
+            .from('User')
+            .insert([
+                {
+                    id:user.id,username:"Manolo",email:mailValue,name:"ManoloNombre",surname:"Gomez",password:passwordValue,created_at:date,last_login:date
+                }
+            ])
+            if (error) {
+                console.error('Error inserting user data:', error);
+              } else {
+                console.log('User data inserted:', data);
+              }
+        }
+        
+        
+        setLoading(false)
+      }
+
+
+
+
 
     return (
         <View style={style.container}>
