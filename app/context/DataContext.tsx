@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
 import useCommonData from '../services/useCommonData';
 
-export const DataContext = createContext();
+export const DataContext = createContext(null);
 
 export const DataProvider = ({ children }) => {
   console.log("ENTRA THEME PROVIDER")

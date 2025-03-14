@@ -13,6 +13,7 @@ const useCommonData = () => {
 
   useEffect(() => {
     async function fetchUserData() {
+      
       // Obtiene la sesión actual
       const { data, error } = await supabase.auth.getUser();
       if (error || !data.user) {

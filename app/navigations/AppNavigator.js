@@ -13,10 +13,8 @@ const AppNavigator = (userData) => {
   console.log(userData)
   
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
-      <Tab.Screen name={PAGE_HOME} component={HomeScreen} />
-      
-    </Tab.Navigator>
+    
+    <Text>Entro</Text>
   );
 };
 
