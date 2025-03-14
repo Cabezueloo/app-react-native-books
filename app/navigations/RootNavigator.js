@@ -4,10 +4,10 @@ import { Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import LoginNavigator from './LoginNavigator';
 import AppNavigator from './AppNavigator';
-import { StringConstants, TABLE_USER } from 'configs';
-import { lightColors, darkColors, StyleLogin } from 'styles';
-import { DataContext } from 'context';
-import { getUser, supabase } from 'services/supabase';
+import { StringConstants, TABLE_USER } from 'app/configs';
+import { lightColors, darkColors, StyleLogin } from 'app/styles';
+import { DataContext } from 'app/context';
+import { getUser, supabase } from 'app/services/supabase';
 
 
 

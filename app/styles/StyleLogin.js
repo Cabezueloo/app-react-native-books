@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { fonts} from 'styles'
-import {size} from '../styles/theme'
+import { fonts} from '../styles'
+import {size} from './theme'
 
 
 const StyleLogin = (props) => {

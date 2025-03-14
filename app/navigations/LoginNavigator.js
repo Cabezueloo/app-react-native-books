@@ -1,12 +1,12 @@
 // src/navigation/AuthNavigator.js
 import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { LoginScreen, ResetPasswordScreen, RegisterScreen } from 'screens';
+import { LoginScreen, ResetPasswordScreen, RegisterScreen } from 'app/screens';
 
 import { StatusBar } from 'expo-status-bar';
 
-import {PAGE_LOGIN, PAGE_REGISTER, PAGE_RESET_PASSWORD } from 'configs';
-import { DataContext } from 'context';
+import {PAGE_LOGIN, PAGE_REGISTER, PAGE_RESET_PASSWORD } from 'app/configs';
+import { DataContext } from 'app/context';
 
 const LoginStack = createStackNavigator();
 

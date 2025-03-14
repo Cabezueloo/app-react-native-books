@@ -2,8 +2,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text } from 'react-native';
-import { PAGE_HOME } from 'configs';
-import HomeScreen from 'screens/screenApp/HomeScreen';
+import { PAGE_HOME } from 'app/configs';
+import HomeScreen from 'app/screens/screenApp/HomeScreen';
 
 const Tab = createBottomTabNavigator();
 

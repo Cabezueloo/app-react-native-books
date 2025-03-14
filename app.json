@@ -4,7 +4,7 @@
     "slug": "app-react-native-books",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/icon.png",
+    "icon": "./app/assets/icon.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -12,14 +12,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/adaptive-icon.png",
+        "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#2C3E50"
       }
     },
     "web": {
-      "favicon": "./src/assets/favicon.png"
+      "favicon": "./app/assets/favicon.png",
+      "bundler": "metro"
     },
-    "sdkVersion": "52.0.0"
+    "sdkVersion": "52.0.0",
+    "plugins": [
+      "expo-router"
+    ]
   },
   "name": "app-react-native-books"
 }

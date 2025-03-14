@@ -2,11 +2,11 @@ import {Text, Button, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import {StackActions, useNavigation} from '@react-navigation/native';
 
-import {TextInputLogin,CustomButtonOne} from 'components';
-import {StyleLogin} from 'styles';
-import {StringConstants,PAGE_RESET_PASSWORD, PAGE_LOGIN} from 'configs'
+import {TextInputLogin,CustomButtonOne} from 'app/components';
+import {StyleLogin} from 'app/styles';
+import {StringConstants,PAGE_RESET_PASSWORD, PAGE_LOGIN} from 'app/configs'
 import { useContext, useState } from 'react';
-import { DataContext, ThemeContext } from 'context';
+import { DataContext, ThemeContext } from 'app/context';
 
 
 

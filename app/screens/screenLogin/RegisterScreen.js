@@ -1,13 +1,13 @@
 import { Text, View, Button, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, } from '@react-navigation/native';
-import { TextInputLogin, CustomButtonOne } from 'components';
-import { PAGE_LOGIN, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from 'configs';
-import { StyleLogin } from 'styles';
+import { TextInputLogin, CustomButtonOne } from 'app/components';
+import { PAGE_LOGIN, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from 'app/configs';
+import { StyleLogin } from 'app/styles';
 import { useState, useContext } from 'react';
-import { DataContext, ThemeContext } from 'context';
-import { supabase } from 'services/supabase';
-import generateDigest from 'services/crypto';
+import { DataContext, ThemeContext } from 'app/context';
+import { supabase } from 'app/services/supabase';
+import generateDigest from 'app/services/crypto';
 
 const RegisterScreen = ({ route }) => {
     console.log("ENTRA REGISTER SCREEN")

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { supabase } from 'services/supabase';
+import { supabase } from 'app/services/supabase';
 import { View,Text } from 'react-native';
 const HomeScreen = () => {
   const [user, setUser] = useState(null);

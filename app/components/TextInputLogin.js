@@ -1,7 +1,7 @@
 import { TextInput} from 'react-native';
 
-import {StyleLogin} from 'styles';
-import { DataContext } from 'context';
+import {StyleLogin} from 'app/styles';
+import { DataContext } from 'app/context';
 import { useContext } from 'react';
 
 

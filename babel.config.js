@@ -1,10 +1,10 @@
 module.exports = {
-  presets: ['module:@react-native/babel-preset'],
+  presets: ['babel-preset-expo'],
   plugins: [
     [
       'module-resolver',
       {
-        root: ['./src'],
+        root: ['./app'],
         alias: {
           '@components': 'components/index',
           '@config': 'configs/index',

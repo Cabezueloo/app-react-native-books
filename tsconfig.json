@@ -3,25 +3,25 @@
     "baseUrl": ".",
     "paths": {
       "*": [
-        "src/*"
+        "/*"
       ],
       "@components": [
-        "src/components/index"
+        "app/components/index"
       ],
       "@config": [
-        "src/configs/index"
+        "app/configs/index"
       ],
       "@screen": [
-        "src/screens/index"
+        "app/screens/index"
       ],
       "@services":[
-        "src/services/index"
+        "app/services/index"
       ],
       "@style":[
-        "src/styles/index"
+        "app/styles/index"
       ],
       "@context":[
-        "src/context/index"
+        "app/context/index"
       ]
     },
   },
