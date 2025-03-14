@@ -5,7 +5,7 @@ import { TextInputLogin, CustomButtonOne } from 'components';
 import { PAGE_LOGIN, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from 'configs';
 import { StyleLogin } from 'styles';
 import { useState, useContext } from 'react';
-import { ThemeContext } from 'context';
+import { DataContext, ThemeContext } from 'context';
 import { supabase } from 'services/supabase';
 import generateDigest from 'services/crypto';
 
@@ -15,7 +15,7 @@ const RegisterScreen = ({ route }) => {
     const navigation = useNavigation();
 
     const { value } = route.params.mailValue
-    const { colorScheme, colors } = useContext(ThemeContext)
+    const { colorScheme, colors } = useContext(DataContext)
 
     const style = StyleLogin({ colorScheme, colors })
 
