@@ -13,8 +13,6 @@ import AppNavigator from 'navigations/AppNavigator';
 
 
 
-
-
 const LoginScreen = () => {
 
     console.log("ENTRA LOGIN SCREEN")
@@ -24,10 +22,11 @@ const LoginScreen = () => {
     const navigation = useNavigation();
 
     // Estados para inputs y datos de Supabase
-    const [mailValue, setMailValue] = useState('');
+    const [userOrMailValue, setUserOrMailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null);
+    const [userSupabase, setUserSupabase] = useState(null)
     const [isLogged, setIsLogged] = useState(false)
       
     const { colorScheme, colors } = useContext(ThemeContext)
@@ -40,17 +39,20 @@ const LoginScreen = () => {
         setLoading(true)
 
         //Check if we eq by mail or username
-        const valueSearch = mailValue.includes('@') ? "email" : "username"
+        const valueSearch = userOrMailValue.includes('@') ? "email" : "username"
 
         //Select to check if the mail or username exist
-        const { data, error } = await supabase.from(TABLE_USER).select("password").eq(valueSearch, mailValue.toLocaleLowerCase())
-        console.log(mailValue)
+        const { data, error } = await supabase.from(TABLE_USER).select("password").eq(valueSearch, userOrMailValue.toLocaleLowerCase())
+        
+        console.log(userOrMailValue)
+
         const values = Object.values(data)
 
         if (values.length == 0) {
             console.log("No existe")
 
-        } else {
+        } 
+        else {
             console.log("Sí existe")
 
             const usernamePasswordInDataBase = values[0].password
@@ -62,10 +64,10 @@ const LoginScreen = () => {
 
             if (usernamePasswordInDataBase === digest) {
 
-                let usernameEmail = mailValue
+                let usernameEmail = userOrMailValue
 
                 if (valueSearch == "username") {
-                    const { data, error } = await supabase.from(TABLE_USER).select("email").eq(valueSearch, mailValue.toLocaleLowerCase())
+                    const { data, error } = await supabase.from(TABLE_USER).select("email").eq(valueSearch, userOrMailValue.toLocaleLowerCase())
                     console.log(data)
                     const valuesE = Object.values(data)
                     usernameEmail = valuesE[0].email
@@ -82,6 +84,7 @@ const LoginScreen = () => {
                 else { 
                 
                     console.log("Entrar al home") 
+                    setUserSupabase((await supabase.from(TABLE_USER).select().eq(valueSearch, userOrMailValue.toLocaleLowerCase())).data)
                     setIsLogged(true)    
                 }
 
@@ -106,7 +109,8 @@ const LoginScreen = () => {
 
 
     if (isLogged){
-return  <AppNavigator />
+        
+return  <AppNavigator userData={userSupabase}/>
        
     }
     else{
@@ -120,8 +124,8 @@ return  <AppNavigator />
             <TextInputLogin
                 autoComplete="email"
                 placeholderText={t(StringConstants.username_or_email)}
-                value={mailValue}
-                onChange={newText => setMailValue(newText)}
+                value={userOrMailValue}
+                onChange={newText => setUserOrMailValue(newText)}
             />
             <TextInputLogin
                 secureTextEntry
@@ -139,7 +143,7 @@ return  <AppNavigator />
                 disabled={loading}
                 onPress={() =>
                     navigation.navigate(PAGE_RESET_PASSWORD, {
-                        mailValue: mailValue
+                        userOrMailValue: userOrMailValue
                     })
                 }
             />
@@ -148,7 +152,7 @@ return  <AppNavigator />
                 disabled={loading}
                 onPress={() =>
                     navigation.navigate(PAGE_REGISTER, {
-                        mailValue: mailValue
+                        userOrMailValue: userOrMailValue
                     })
                 }
             />

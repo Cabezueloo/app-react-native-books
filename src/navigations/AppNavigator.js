@@ -5,10 +5,10 @@ import { Text } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
-const AppNavigator = (props) => {
+const AppNavigator = (userData) => {
   
   console.log("ENTRA APP NAVIGATOR")
-  console.log(props.user)
+  console.log(userData)
   
   return (
     <Tab.Navigator>
