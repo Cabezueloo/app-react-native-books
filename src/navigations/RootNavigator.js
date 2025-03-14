@@ -4,10 +4,12 @@ import { Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import LoginNavigator from './LoginNavigator';
 import AppNavigator from './AppNavigator';
-import { StringConstants } from 'configs';
+import { StringConstants, TABLE_USER } from 'configs';
 import { lightColors, darkColors, StyleLogin } from 'styles';
 import { ThemeContext } from 'context';
-import HomeScreen from 'screens/screenApp/HomeScreen';
+import { getUser, supabase } from 'services/supabase';
+
+
 
 
 //Controla qué navegador se muestra según el estado de autenticación
@@ -16,7 +18,8 @@ const RootNavigator = () => {
   //Simulación del estado de autenticación
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true)
-  
+  const [userData,setUserData] = useState(null)
+
   const { colorScheme, colors } = useContext(ThemeContext);
   
 
@@ -29,13 +32,21 @@ const RootNavigator = () => {
   const style = StyleLogin({colorScheme,colors})
 
   useEffect(() => {
-    // Aquí se haría la comprobación de sesión, por ejemplo, con AsyncStorage o Firebase
-    // Simulamos un retardo para la verificación:
-    setTimeout(() => {
-      // Cambia a true si el usuario está autenticado
-      setIsAuthenticated(false);
+    const fetchUser = async () => {
+      
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        setIsAuthenticated(false);
+      } else {
+        setIsAuthenticated(true);
+        console.log("data.user -> " ,data.user.email)
+      setUserData(((await supabase.from(TABLE_USER).select().eq('email', data.user.email)).data))
+      
+      }
       setLoading(false);
-    }, 3000);
+    };
+
+    fetchUser();
   }, []);
 
   if (loading) {
@@ -55,7 +66,7 @@ const RootNavigator = () => {
     );
   }
 
-  return isAuthenticated ? <AppNavigator /> : <LoginNavigator />;
+  return isAuthenticated ? <AppNavigator userData={userData} /> : <LoginNavigator />;
 
 
 };

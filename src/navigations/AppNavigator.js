@@ -2,6 +2,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text } from 'react-native';
+import { PAGE_HOME } from 'configs';
+import HomeScreen from 'screens/screenApp/HomeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -11,7 +13,8 @@ const AppNavigator = (userData) => {
   console.log(userData)
   
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{headerShown: false}}>
+      <Tab.Screen name={PAGE_HOME} component={HomeScreen} />
       
     </Tab.Navigator>
   );
