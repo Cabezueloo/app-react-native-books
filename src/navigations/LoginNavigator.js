@@ -5,9 +5,10 @@ import { LoginScreen, ResetPasswordScreen, RegisterScreen } from 'screens';
 
 import { StatusBar } from 'expo-status-bar';
 
-import { PAGE_LOGIN, PAGE_REGISTER, PAGE_RESET_PASSWORD } from 'configs';
+import { PAGE_HOME, PAGE_LOGIN, PAGE_REGISTER, PAGE_RESET_PASSWORD } from 'configs';
 import { ThemeContext } from 'context';
 import { useColorScheme } from 'react-native';
+import HomeScreen from 'screens/screenApp/HomeScreen';
 
 const LoginStack = createStackNavigator();
 
@@ -30,6 +31,7 @@ const LoginNavigator = () => {
         <LoginStack.Screen name={PAGE_LOGIN} component={LoginScreen} />
         <LoginStack.Screen name={PAGE_REGISTER} component={RegisterScreen} />
         <LoginStack.Screen name={PAGE_RESET_PASSWORD} component={ResetPasswordScreen} />
+        <LoginStack.Screen name={PAGE_HOME} component={HomeScreen} />
       </LoginStack.Navigator>
     </>
   );

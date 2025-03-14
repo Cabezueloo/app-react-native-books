@@ -11,5 +11,8 @@ export const StringConstants = {
     "developedBy":"developedBy",
     "backLogin":"backLogin",
     "register":"register",
-    "create_an_account":"create_an_account"
+    "create_an_account":"create_an_account",
+    "surname": "surname",
+    "name":"name",
+    "username_or_email":"username_or_email"
 }
