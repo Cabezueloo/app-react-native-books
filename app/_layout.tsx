@@ -12,19 +12,9 @@ import { use } from 'i18next';
 
 //Controla qué navegador se muestra según el estado de autenticación
 export default function RootLayout() {
-  console.log("ENTRA ROOT NAVIGATOR")
+  console.log("ENTRA ROOT LAYAOUT")
   
   return (<Slot/>)
 
 };
-  
-const styles = (props) => StyleSheet.create({
-
-  container: {
-    flex: 1,
-    backgroundColor: props.color,
-    justifyContent: "center",
-    alignItems: "center",
-  }
-});
   

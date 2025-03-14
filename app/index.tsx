@@ -11,9 +11,10 @@ import { use } from 'i18next';
 import AppNavigator from './navigations/AppNavigator';
 import LoginNavigator from './navigations/LoginNavigator';
 import { NavigationContainer } from '@react-navigation/native';
+import LoginLayout from './screenLogin/_layout';
 
 export default function Start() {
-  console.log("ENTRA ROOT NAVIGATOR")
+  console.log("ENTRA START")
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState(null)
 
@@ -25,7 +26,7 @@ export default function Start() {
   useEffect(() => {
     setTimeout(() => {
 
-      setIsAuthenticated(isLogged)
+      setIsAuthenticated(false)
 
       if (isLogged) {
         setUserData(userDataInDataBase)
@@ -51,7 +52,7 @@ export default function Start() {
     <SafeAreaView>
       <DataProvider>
             
-    {isAuthenticated ? <AppNavigator userData={userData} /> : <LoginNavigator />}
+    {isAuthenticated ? <AppNavigator userData={userData} /> : <LoginLayout />}
 
     </DataProvider>
     </SafeAreaView>

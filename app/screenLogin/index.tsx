@@ -1,26 +1,25 @@
 import { Text, View, Button, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useNavigation, } from '@react-navigation/native';
-import { TextInputLogin, CustomButtonOne } from 'app/components';
-import { PAGE_REGISTER, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from 'app/configs';
-import { StyleLogin } from 'app/styles';
+import { TextInputLogin, CustomButtonOne } from '../components';
+import { PAGE_REGISTER, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from '../configs';
+import { StyleLogin } from '../styles';
 import { useContext, useEffect, useState } from 'react';
 
-import { DataContext, ThemeContext } from 'app/context';
-import { supabase } from 'app/services/supabase';
-import { generateDigest } from 'app/services/crypto';
-import AppNavigator from 'app/navigations/AppNavigator';
+import { DataContext } from '../context';
+import { supabase } from '../services/supabase';
+import { generateDigest } from '../services/crypto';
+import AppNavigator from '../navigations/AppNavigator';
 import { ToastAndroid } from 'react-native';
 
 
 
 
-const LoginScreen = () => {
 
-    console.log("ENTRA LOGIN SCREEN")
+export default function LoginScreen()  {
+
+    console.log("ENTRA  SCREEN")
 
     const { t } = useTranslation();
-    const navigation = useNavigation();
 
     // Estados
     const [userOrMailValue, setUserOrMailValue] = useState('');
@@ -127,24 +126,22 @@ const LoginScreen = () => {
                 <Button
                     title={t(StringConstants.forgetPassword)}
                     disabled={loading}
-                    onPress={() =>
-                        navigation.navigate(PAGE_RESET_PASSWORD, {
-                            userOrMailValue: userOrMailValue
-                        })
+                    onPress={() =>{
+                        console.log("p")
+                        
+                        }
                     }
                 />
                 <Button
                     title={t(StringConstants.register)}
                     disabled={loading}
-                    onPress={() =>
-                        navigation.navigate(PAGE_REGISTER, {
-                            mailValue: userOrMailValue
-                        })
+                    onPress={() =>{
+                        console.log("p")
+                        
+                        }
                     }
                 />
             </View>
         );
     }
 };
-
-export default LoginScreen;
