@@ -2,15 +2,14 @@ import { Text, View, Button, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, } from '@react-navigation/native';
 import { TextInputLogin, CustomButtonOne } from 'components';
-import { PAGE_REGISTER, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from 'configs';
+import {PAGE_REGISTER, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from 'configs';
 import { StyleLogin } from 'styles';
 import { useContext, useEffect, useState } from 'react';
-
-
 
 import { ThemeContext } from 'context';
 import { supabase } from 'services/supabase';
 import { generateDigest } from 'services/crypto';
+import AppNavigator from 'navigations/AppNavigator';
 
 
 
@@ -29,7 +28,8 @@ const LoginScreen = () => {
     const [passwordValue, setPasswordValue] = useState('');
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null);
-
+    const [isLogged, setIsLogged] = useState(false)
+      
     const { colorScheme, colors } = useContext(ThemeContext)
 
     const style = StyleLogin({ colorScheme, colors })
@@ -78,12 +78,15 @@ const LoginScreen = () => {
                 })
 
                 if (error) { Alert.alert(error.message) } 
-                else { console.log("Entrar al home") }
+                
+                else { 
+                
+                    console.log("Entrar al home") 
+                    setIsLogged(true)    
+                }
 
                 //console.log(Object.values(data)[0].id)
-
-
-                console.log(await supabase.auth.getUser())
+                
                 //console.log(data)
 
 
@@ -102,8 +105,16 @@ const LoginScreen = () => {
 
 
 
+    if (isLogged){
+return  <AppNavigator />
+       
+    }
+    else{
 
+    
     return (
+
+       
         <View style={style.container}>
             <Text style={style.title}>{t(StringConstants.login)}</Text>
             <TextInputLogin
@@ -143,6 +154,7 @@ const LoginScreen = () => {
             />
         </View>
     );
+}
 };
 
 export default LoginScreen;
