@@ -6,7 +6,7 @@ import {TextInputLogin,CustomButtonOne} from 'components';
 import {StyleLogin} from 'styles';
 import {StringConstants,PAGE_RESET_PASSWORD, PAGE_LOGIN} from 'configs'
 import { useContext, useState } from 'react';
-import { ThemeContext } from 'context';
+import { DataContext, ThemeContext } from 'context';
 
 
 
@@ -16,7 +16,7 @@ const ResetPasswordScreen = ({route}) => {
     
     
 
-    const {colorScheme,colors} = useContext(ThemeContext)
+    const {colorScheme,colors} = useContext(DataContext)
     
     const style = StyleLogin({colorScheme,colors})
 

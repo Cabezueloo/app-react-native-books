@@ -6,7 +6,7 @@ import LoginNavigator from './LoginNavigator';
 import AppNavigator from './AppNavigator';
 import { StringConstants, TABLE_USER } from 'configs';
 import { lightColors, darkColors, StyleLogin } from 'styles';
-import { ThemeContext } from 'context';
+import { DataContext } from 'context';
 import { getUser, supabase } from 'services/supabase';
 
 
@@ -14,40 +14,37 @@ import { getUser, supabase } from 'services/supabase';
 
 //Controla qué navegador se muestra según el estado de autenticación
 const RootNavigator = () => {
+
   console.log("ENTRA ROOT NAVIGATOR")
-  //Simulación del estado de autenticación
+
+  const { colorScheme, colors, isLogged, userDataInDataBase } = useContext(DataContext);
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true)
-  const [userData,setUserData] = useState(null)
+  const [userData, setUserData] = useState(null)
 
-  const { colorScheme, colors } = useContext(ThemeContext);
-  
+
+  console.log("Root Navigator -> ", isLogged)
+  console.log("Root Navigator -> ", userDataInDataBase)
 
   const { t } = useTranslation();
 
-
-
   const spinnerColor = colorScheme == 'dark' ? lightColors.background : darkColors.background
 
-  const style = StyleLogin({colorScheme,colors})
+  const style = StyleLogin({ colorScheme, colors })
 
   useEffect(() => {
-    const fetchUser = async () => {
-      
-      const { data, error } = await supabase.auth.getUser();
-      if (error) {
-        setIsAuthenticated(false);
-      } else {
-        setIsAuthenticated(true);
-        console.log("data.user -> " ,data.user.email)
-      setUserData(((await supabase.from(TABLE_USER).select().eq('email', data.user.email)).data))
-      
-      }
-      setLoading(false);
-    };
+    setTimeout(() => {
 
-    fetchUser();
-  }, []);
+      setIsAuthenticated(isLogged)
+
+      if (isLogged) {
+        setUserData(userDataInDataBase)
+      }
+      setLoading(false)
+    },1000)
+
+  });
 
   if (loading) {
     return (
