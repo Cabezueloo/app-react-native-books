@@ -34,6 +34,8 @@ const RootNavigator = () => {
   useEffect(() => {
     const fetchUser = async () => {
       
+      supabase.auth.signOut()
+
       const { data, error } = await supabase.auth.getUser();
       if (error) {
         setIsAuthenticated(false);
