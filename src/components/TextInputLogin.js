@@ -1,14 +1,14 @@
 import { TextInput} from 'react-native';
 
 import {StyleLogin} from 'styles';
-import { ThemeContext } from 'context';
+import { DataContext } from 'context';
 import { useContext } from 'react';
 
 
 const TextInputLogin = (props) => {
     console.log("ENTRA TEXT INPUT LOGIN")
     
-    const { colorScheme, colors } = useContext(ThemeContext);
+    const { colorScheme, colors } = useContext(DataContext);
     
     
     let style = StyleLogin({colorScheme,colors});

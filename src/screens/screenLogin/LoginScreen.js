@@ -6,7 +6,7 @@ import { PAGE_REGISTER, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from 
 import { StyleLogin } from 'styles';
 import { useContext, useEffect, useState } from 'react';
 
-import { ThemeContext } from 'context';
+import { DataContext, ThemeContext } from 'context';
 import { supabase } from 'services/supabase';
 import { generateDigest } from 'services/crypto';
 import AppNavigator from 'navigations/AppNavigator';
@@ -18,7 +18,6 @@ import { ToastAndroid } from 'react-native';
 const LoginScreen = () => {
 
     console.log("ENTRA LOGIN SCREEN")
-
 
     const { t } = useTranslation();
     const navigation = useNavigation();
@@ -32,7 +31,7 @@ const LoginScreen = () => {
     const [userSupabase, setUserSupabase] = useState(null)
     const [isLogged, setIsLogged] = useState(false)
 
-    const { colorScheme, colors } = useContext(ThemeContext)
+    const { colorScheme, colors } = useContext(DataContext)
 
     const style = StyleLogin({ colorScheme, colors })
 
@@ -53,12 +52,8 @@ const LoginScreen = () => {
         const values = (Object.values(data))
         const useDataInDataBase = values[0]
 
-        if (values.length == 0) {
-
-            showToast('Incorrect data')
-
-        }
-
+        if (values.length == 0)showToast('Incorrect data')
+        
         //Check the password
         else {
             console.log("Sí existe")
@@ -68,7 +63,7 @@ const LoginScreen = () => {
             //Cryptho the input pass
             const digest = await generateDigest(passwordValue)
 
-
+            //Same password, Login in the home
             if (usernamePasswordInDataBase === digest) {
 
                 let emailInDataBase = useDataInDataBase.email
@@ -87,7 +82,8 @@ const LoginScreen = () => {
                     setIsLogged(true)
                 }
 
-            } else {
+            } 
+            else {
                 showToast('Incorrect data')
             }
         }
@@ -97,7 +93,7 @@ const LoginScreen = () => {
 
         setLoading(false)
     }
-    
+
     if (isLogged) {
 
         return <AppNavigator userData={userSupabase} />
@@ -142,7 +138,7 @@ const LoginScreen = () => {
                     disabled={loading}
                     onPress={() =>
                         navigation.navigate(PAGE_REGISTER, {
-                            userOrMailValue: userOrMailValue
+                            mailValue: userOrMailValue
                         })
                     }
                 />

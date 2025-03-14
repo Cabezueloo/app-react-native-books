@@ -1,15 +1,15 @@
 import { NavigationContainer } from '@react-navigation/native';
 import RootNavigator from './src/navigations/RootNavigator'
-import { ThemeProvider } from 'context/ThemeContext';
+import { DataProvider, ThemeProvider } from 'context/DataContext';
 
 export default function App() {
 
   
   return (
-    <ThemeProvider>
+    <DataProvider>
       <NavigationContainer>
         <RootNavigator />
       </NavigationContainer>
-    </ThemeProvider>
+    </DataProvider>
   );
 }

@@ -6,14 +6,14 @@ import { LoginScreen, ResetPasswordScreen, RegisterScreen } from 'screens';
 import { StatusBar } from 'expo-status-bar';
 
 import {PAGE_LOGIN, PAGE_REGISTER, PAGE_RESET_PASSWORD } from 'configs';
-import { ThemeContext } from 'context';
+import { DataContext } from 'context';
 
 const LoginStack = createStackNavigator();
 
 
 const LoginNavigator = () => {
   console.log("ENTRA LOGIN NAVIGATOR")
-  const { colorScheme, colors } = useContext(ThemeContext);
+  const { colorScheme, colors } = useContext(DataContext);
 
   return (
     <>

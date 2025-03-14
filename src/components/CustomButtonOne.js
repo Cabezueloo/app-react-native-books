@@ -1,11 +1,12 @@
 import { Button, Alert } from "react-native"
 
-import { ThemeContext } from "context";
+
 import { useContext } from "react";
+import { DataContext } from "context";
 
 const CustomButtonOne = (props) => {
     console.log("ENTRA CUSTOM BUTTON ONE")
-    const { colorScheme, colors } = useContext(ThemeContext);
+    const { colorScheme, colors } = useContext(DataContext);
     
     return (
         <Button
