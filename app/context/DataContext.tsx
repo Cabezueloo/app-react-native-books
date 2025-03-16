@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import useCommonData from '../services/useCommonData';
+import {useCommonData} from '@services';
 
 export const DataContext = createContext(null);
 

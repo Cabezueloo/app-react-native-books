@@ -2,11 +2,12 @@ import {Text, Button, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import {StackActions, useNavigation} from '@react-navigation/native';
 
-import {TextInputLogin,CustomButtonOne} from 'app/components';
-import {StyleLogin} from 'app/styles';
-import {StringConstants,PAGE_RESET_PASSWORD, PAGE_LOGIN} from 'app/configs'
+import {TextInputLogin,CustomButtonOne} from '@components';
+import {StyleLogin} from '@styles';
+import {StringConstants,PAGE_RESET_PASSWORD, PAGE_LOGIN} from '@configs'
 import { useContext, useState } from 'react';
-import { DataContext, ThemeContext } from 'app/context';
+import { DataContext, ThemeContext } from '@contexts';
+import { Link } from 'expo-router';
 
 
 
@@ -20,10 +21,8 @@ const ResetPasswordScreen = ({route}) => {
     
     const style = StyleLogin({colorScheme,colors})
 
-    const navigation = useNavigation();
-    const mailValue = route.params.mailValue
     
-    const [resetMail,setResetMail] = useState(mailValue!=''?mailValue:'')
+    const [resetMail,setResetMail] = useState('')
 
     return (
             <View style={style.container} sharedT>
@@ -31,14 +30,13 @@ const ResetPasswordScreen = ({route}) => {
                 <TextInputLogin placeholderText={t(StringConstants.mailRecovery)} value={resetMail} onChange={ (newText) => setResetMail(newText)}/>
                 
                 <CustomButtonOne text={t(StringConstants.enter)}/>
+                
+                <Link href={'/screenLogin/'} asChild>
                 <Button 
                 title={t(StringConstants.backLogin)}
                 
-                onPress={() => navigation.dispatch(
-                    
-                    StackActions.replace(PAGE_LOGIN)
-                )}
                 />
+                </Link>
             </View>
         );
 }

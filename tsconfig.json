@@ -1,24 +1,21 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./app",
     "paths": {
-      "*": [
-        "/*"
-      ],
       "@components": [
-        "app/components/index"
+        "components/index"
       ],
-      "@config": [
-        "app/configs/index"
+      "@configs": [
+        "configs/index"
       ],
       "@services":[
-        "app/services/index"
+        "services/index"
       ],
-      "@style":[
-        "app/styles/index"
+      "@styles":[
+        "styles/index"
       ],
-      "@context":[
-        "app/context/index"
+      "@contexts":[
+        "context/index"
       ]
     },
   },

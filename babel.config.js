@@ -7,10 +7,10 @@ module.exports = {
         root: ['./app'],
         alias: {
           '@components': 'components/index',
-          '@config': 'configs/index',
+          '@configs': 'configs/index',
           '@services': 'services/index',
-          "@style":"styles/index",
-          "@context":"context/index"
+          "@styles":"styles/index",
+          "@contexts":"context/index"
           // Resto
         },
       },

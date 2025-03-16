@@ -1,20 +1,20 @@
 import { Text, View, Button, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useNavigation, } from '@react-navigation/native';
-import { TextInputLogin, CustomButtonOne } from 'app/components';
-import { PAGE_LOGIN, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from 'app/configs';
-import { StyleLogin } from 'app/styles';
+import { useNavigation, useRoute, } from '@react-navigation/native';
+import { TextInputLogin, CustomButtonOne } from '@components';
+import { PAGE_LOGIN, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from '@configs';
+import { StyleLogin } from '@styles';
 import { useState, useContext } from 'react';
-import { DataContext, ThemeContext } from 'app/context';
-import { supabase } from 'app/services/supabase';
-import generateDigest from 'app/services/crypto';
+import { DataContext} from '@contexts';
 
-const RegisterScreen = ({ route }) => {
+import {generateDigest, supabase} from '@services';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
+
+const RegisterScreen = () => {
     console.log("ENTRA REGISTER SCREEN")
     const { t } = useTranslation();
-    const navigation = useNavigation();
-
-    const { value } = route.params.mailValue
+    
     const { colorScheme, colors } = useContext(DataContext)
 
     const style = StyleLogin({ colorScheme, colors })
@@ -35,7 +35,7 @@ const RegisterScreen = ({ route }) => {
         setLoading(true)
 
         //Check if the username doesn't exist in database
-        const { data, errorGet } = await supabase
+        const { data } = await supabase
             .from(TABLE_USER)
             .select('username')
             .eq('username', usernameValue.toLocaleLowerCase())
@@ -101,9 +101,6 @@ const RegisterScreen = ({ route }) => {
     }
 
 
-
-
-
     return (
         <View style={style.container}>
             <Text style={style.title}>{t(StringConstants.register)}</Text>
@@ -154,14 +151,14 @@ const RegisterScreen = ({ route }) => {
                 onPress={() => signUpWithEmail()}
 
             />
-
+            <Link href='/screenLogin' asChild>
             <Button
 
                 title={t(StringConstants.backLogin)}
                 disabled={loading}
-                onPress={() => navigation.navigate(PAGE_LOGIN)
-                }
+                
             />
+            </Link>
 
         </View>
     );

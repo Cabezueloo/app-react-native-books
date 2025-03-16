@@ -1,18 +1,20 @@
 //import { PAGE_HOME, PAGE_LOGIN, PAGE_REGISTER, PAGE_RESET_PASSWORD } from '@config';
-import useCommonData from './services/useCommonData';
-import { darkColors, lightColors, StyleLogin } from './styles';
+import {useCommonData} from '@services';
+import { darkColors, lightColors, StyleLogin } from '@styles';
 import { Redirect} from 'expo-router'
-import {  useEffect, useState, useTransition } from 'react';
+import {  useEffect, useState, } from 'react';
 import { Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
-import { StringConstants } from './configs/i18n/strings_constants';
+import { StringConstants } from '@configs';
 
 export default function Start() {
+  
   console.log("ENTRA START")
+  const {t} = useTranslation()
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState(null)
-  const {t} = useTranslation()
   const [loading, setLoading] = useState(true)
   const { colorScheme, colors, isLogged, userDataInDataBase } = useCommonData()
 
@@ -51,7 +53,7 @@ export default function Start() {
     <SafeAreaProvider>
 
     <SafeAreaView style={styles({ color: colors.background }).container}>
-    {isAuthenticated} ? <Redirect href={'/login'}/> : <Redirect href={'/login'}/>
+    {isAuthenticated} ? <Redirect href={'/screenLogin'}/> : <Redirect href={'/screenLogin'}/>
     </SafeAreaView>
     </SafeAreaProvider>
 
