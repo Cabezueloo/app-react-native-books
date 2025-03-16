@@ -11,9 +11,6 @@
       "@config": [
         "app/configs/index"
       ],
-      "@screen": [
-        "app/screens/index"
-      ],
       "@services":[
         "app/services/index"
       ],

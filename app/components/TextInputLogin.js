@@ -3,12 +3,13 @@ import { TextInput} from 'react-native';
 import {StyleLogin} from 'app/styles';
 import { DataContext } from 'app/context';
 import { useContext } from 'react';
+import  useCommonData  from '../services/useCommonData';
 
 
 const TextInputLogin = (props) => {
     console.log("ENTRA TEXT INPUT LOGIN")
     
-    const { colorScheme, colors } = useContext(DataContext);
+    const { colorScheme, colors } = useCommonData();
     
     
     let style = StyleLogin({colorScheme,colors});

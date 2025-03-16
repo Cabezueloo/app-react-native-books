@@ -5,12 +5,13 @@ import { PAGE_REGISTER, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from 
 import { StyleLogin } from '../styles';
 import { useContext, useEffect, useState } from 'react';
 
-import { DataContext } from '../context';
 import { supabase } from '../services/supabase';
 import { generateDigest } from '../services/crypto';
 import AppNavigator from '../navigations/AppNavigator';
 import { ToastAndroid } from 'react-native';
 
+import  useCommonData  from '../services/useCommonData';
+import { DataContext } from '../context/DataContext';
 
 
 
@@ -26,11 +27,11 @@ export default function LoginScreen()  {
     const [passwordValue, setPasswordValue] = useState('');
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('');
-
+    console.log(useContext(DataContext))
     const [userSupabase, setUserSupabase] = useState(null)
     const [isLogged, setIsLogged] = useState(false)
 
-    const { colorScheme, colors } = useContext(DataContext)
+    const { colorScheme, colors } = useCommonData()
 
     const style = StyleLogin({ colorScheme, colors })
 

@@ -1,23 +1,18 @@
 //import { PAGE_HOME, PAGE_LOGIN, PAGE_REGISTER, PAGE_RESET_PASSWORD } from '@config';
 import useCommonData from './services/useCommonData';
-import { DataContext, DataProvider } from './context/DataContext';
 import { darkColors, lightColors, StyleLogin } from './styles';
-import { Stack } from 'expo-router'
-import { useContext, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Redirect} from 'expo-router'
+import {  useEffect, useState, useTransition } from 'react';
 import { Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { use } from 'i18next';
-import AppNavigator from './navigations/AppNavigator';
-import LoginNavigator from './navigations/LoginNavigator';
-import { NavigationContainer } from '@react-navigation/native';
-import LoginLayout from './screenLogin/_layout';
+import { useTranslation } from 'react-i18next';
+import { StringConstants } from './configs/i18n/strings_constants';
 
 export default function Start() {
   console.log("ENTRA START")
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState(null)
-
+  const {t} = useTranslation()
   const [loading, setLoading] = useState(true)
   const { colorScheme, colors, isLogged, userDataInDataBase } = useCommonData()
 
@@ -32,42 +27,44 @@ export default function Start() {
         setUserData(userDataInDataBase)
       }
       setLoading(false)
-    }, 1000)
+    }, 2000)
   })
   if (loading) {
     return (
-      <SafeAreaProvider>
-
-        <SafeAreaView style={styles({ color: colors.background }).container}>
-         
-        </SafeAreaView>
-      </SafeAreaProvider>
+       <SafeAreaProvider>
+     
+             <SafeAreaView style={styles({ color: colors.background }).container}>
+               <Image
+                 source={require('../app/assets/icon.png')}
+                 style={{    resizeMode: "cover",
+                 }}
+               />
+               <Text style={style.basicLabel}>{t(StringConstants.developedBy)}</Text>
+               <ActivityIndicator size={"large"} color={spinnerColor} />
+             </SafeAreaView>
+           </SafeAreaProvider>
 
     );
   }
 
   return (
-      <SafeAreaProvider>
+    <SafeAreaProvider>
 
-    <SafeAreaView>
-      <DataProvider>
-            
-    {isAuthenticated ? <AppNavigator userData={userData} /> : <LoginLayout />}
-
-    </DataProvider>
+    <SafeAreaView style={styles({ color: colors.background }).container}>
+    {isAuthenticated} ? <Redirect href={'/login'}/> : <Redirect href={'/login'}/>
     </SafeAreaView>
+    </SafeAreaProvider>
 
-      </SafeAreaProvider>
-
+    
   )
 
 };
 
-const styles = (props) => StyleSheet.create({
+const styles = (color) => StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: props.color,
+    backgroundColor: color,
     justifyContent: "center",
     alignItems: "center",
   }
