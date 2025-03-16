@@ -23,13 +23,13 @@ export default function Start() {
   useEffect(() => {
     setTimeout(() => {
 
-      setIsAuthenticated(false)
+      setIsAuthenticated(isLogged)
 
       if (isLogged) {
         setUserData(userDataInDataBase)
       }
       setLoading(false)
-    }, 2000)
+    }, 500)
   })
   if (loading) {
     return (

@@ -12,16 +12,22 @@ const useCommonData = () => {
   const colors = colorScheme === 'dark' ? darkColors : lightColors;
 
   useEffect(() => {
+    
     async function fetchUserData() {
       
       // Obtiene la sesión actual
       const { data, error } = await supabase.auth.getUser();
+      console.log("user ->" ,data)
+      
       if (error || !data.user) {
+        console.log("ENTRO AL FALSE")
         setIsLogged(false);
         setUserDataInDataBase([]);
         return;
       }
+
       setIsLogged(true);
+      console.log("isLogged -> " ,isLogged)
 
       // Consulta a la tabla de usuarios usando el email
       const { data: userData, error: dbError } = await supabase
@@ -40,7 +46,7 @@ const useCommonData = () => {
     fetchUserData();
   }, []);
 
-  return { colorScheme, colors, isLogged, userDataInDataBase };
+  return { colorScheme, colors, isLogged, setIsLogged, userDataInDataBase };
 };
 
 

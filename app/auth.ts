@@ -1,15 +1,14 @@
 import { TABLE_USER } from "@configs"
 import { DataContext } from "@contexts"
-import { generateDigest, supabase } from "@services"
+import { generateDigest, supabase, useCommonData } from "@services"
 import { Dispatch, SetStateAction, useContext } from "react"
 import { Alert } from "react-native"
 import { showToast } from "screenLogin"
 
-async function login(userOrMailValue: string, password: string,setUserDataBase: Dispatch<any>) {
+async function login(userOrMailValue: string, password: string, setUserDataBase: Dispatch<any>, setIsLogged: Dispatch<SetStateAction<boolean>>) {
 
     
     console.log("Entro")
-    const { colorScheme, colors, isLogged, userDataInDataBase } = useContext(DataContext)
 
     //Check if we need to eq by mail or username
     const valueSearch = userOrMailValue.includes('@') ? "email" : "username"
@@ -17,12 +16,14 @@ async function login(userOrMailValue: string, password: string,setUserDataBase: 
     //Select to check if the mail or username exist
     const { data, error } = await supabase.from(TABLE_USER).select().eq(valueSearch, userOrMailValue.toLocaleLowerCase())
 
+    console.log("tert")
     const values = (Object.values(data))
     const useDataInDataBase = values[0]
-console.log("values-> ",values.length)
-    if (values.length == 0) console.log('Incorrect data')
-
-    //Check the password
+    console.log("values.length -> ", values.length )
+    
+    if (values.length === 0) {
+        showToast('Incorrect data')
+    }//Check the password
     else {
         console.log("Sí existe")
         console.log("Check -> ", useDataInDataBase.email)
@@ -33,7 +34,7 @@ console.log("values-> ",values.length)
 
         //Same password, Login in the home
         if (usernamePasswordInDataBase === digest) {
-
+            
             let emailInDataBase = useDataInDataBase.email
 
             const { error } = await supabase.auth.signInWithPassword({
@@ -47,8 +48,7 @@ console.log("values-> ",values.length)
 
                 showToast('Welcome')
                 setUserDataBase(useDataInDataBase)
-
-                isLogged(true)
+                setIsLogged(true)
             }
 
         }

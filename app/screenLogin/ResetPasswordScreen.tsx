@@ -6,7 +6,7 @@ import {TextInputLogin,CustomButtonOne} from '@components';
 import {StyleLogin} from '@styles';
 import {StringConstants,PAGE_RESET_PASSWORD, PAGE_LOGIN} from '@configs'
 import { useContext, useState } from 'react';
-import { DataContext, ThemeContext } from '@contexts';
+import { DataContext } from '@contexts';
 import { Link } from 'expo-router';
 
 
@@ -25,7 +25,7 @@ const ResetPasswordScreen = ({route}) => {
     const [resetMail,setResetMail] = useState('')
 
     return (
-            <View style={style.container} sharedT>
+            <View style={style.container} >
                 <Text style={style.title}>{t(StringConstants.forgetPassword)}</Text>
                 <TextInputLogin placeholderText={t(StringConstants.mailRecovery)} value={resetMail} onChange={ (newText) => setResetMail(newText)}/>
                 

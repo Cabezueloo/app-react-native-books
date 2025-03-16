@@ -35,14 +35,12 @@ export default function LoginScreen() {
     const [userDataBase, setUserDataBase] = useState(null)
     
 
-    const { colorScheme, colors,isLogged,userDataInDataBase } = useContext(DataContext)
-    //const [isLogged,setIsLogged] = useState(false)
+    const { colorScheme, colors,isLogged,setIsLogged, userDataInDataBase } = useContext(DataContext)
+    
     
     const style = StyleLogin({ colorScheme, colors })
 
     
-
-
     if (isLogged) {
 
         return <AppNavigator userData={userDataBase} />
@@ -73,7 +71,7 @@ export default function LoginScreen() {
                     disabled={loading}
                     onPress={() => {
                         setLoading(true)
-                        login(userOrMailValue,passwordValue,setUserDataBase)
+                        login(userOrMailValue,passwordValue,setUserDataBase,setIsLogged)
                         setLoading(false)
                     }
                     } />
