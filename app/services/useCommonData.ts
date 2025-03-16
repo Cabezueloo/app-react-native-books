@@ -16,6 +16,7 @@ const useCommonData = () => {
     async function fetchUserData() {
       
       // Obtiene la sesión actual
+      supabase.auth.signOut()
       const { data, error } = await supabase.auth.getUser();
       console.log("user ->" ,data)
       
@@ -24,9 +25,11 @@ const useCommonData = () => {
         setIsLogged(false);
         setUserDataInDataBase([]);
         return;
+      }else{
+
+        setIsLogged(true);
       }
 
-      setIsLogged(true);
       console.log("isLogged -> " ,isLogged)
 
       // Consulta a la tabla de usuarios usando el email

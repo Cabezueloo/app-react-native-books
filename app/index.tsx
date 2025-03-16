@@ -7,13 +7,14 @@ import { Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { StringConstants } from '@configs';
+import { PaperProvider } from 'react-native-paper';
 
 export default function Start() {
   
   console.log("ENTRA START")
   const {t} = useTranslation()
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
   const [userData, setUserData] = useState(null)
   const [loading, setLoading] = useState(true)
   const { colorScheme, colors, isLogged, userDataInDataBase } = useCommonData()
@@ -23,14 +24,15 @@ export default function Start() {
   useEffect(() => {
     setTimeout(() => {
 
-      setIsAuthenticated(isLogged)
-
       if (isLogged) {
         setUserData(userDataInDataBase)
       }
       setLoading(false)
-    }, 500)
-  })
+    }, 2000)
+  },[isLogged])
+
+console.log("isLogged -> ",isLogged)
+
   if (loading) {
     return (
        <SafeAreaProvider>
@@ -50,23 +52,28 @@ export default function Start() {
   }
 
   return (
+    <PaperProvider>
+
     <SafeAreaProvider>
 
     <SafeAreaView style={styles({ color: colors.background }).container}>
-    {isAuthenticated} ? <Redirect href={'/screenLogin'}/> : <Redirect href={'/screenLogin'}/>
+    {isLogged ? <Redirect href={'/screenApp'}/> : <Redirect href={'/screenLogin'}/>}
     </SafeAreaView>
     </SafeAreaProvider>
+    </PaperProvider>
+
+
 
     
   )
 
 };
 
-const styles = (color) => StyleSheet.create({
+const styles = (props) => StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: color,
+    backgroundColor: props.color,
     justifyContent: "center",
     alignItems: "center",
   }

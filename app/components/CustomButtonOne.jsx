@@ -2,7 +2,7 @@ import { Button, Alert } from "react-native"
 
 
 import { useContext } from "react";
-import { DataContext } from "app/context";
+import { DataContext } from "@contexts";
 
 const CustomButtonOne = (props) => {
     console.log("ENTRA CUSTOM BUTTON ONE")

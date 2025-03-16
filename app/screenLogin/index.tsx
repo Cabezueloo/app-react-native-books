@@ -6,12 +6,12 @@ import { StyleLogin } from '@styles';
 import { SetStateAction, useContext, useEffect, useState } from 'react';
 
 import { supabase, generateDigest } from '@services';
-import AppNavigator from '../navigations/AppNavigator';
 import { ToastAndroid } from 'react-native';
 
 import { DataContext } from '@contexts';
-import { Link } from 'expo-router';
+import { Link, Redirect } from 'expo-router';
 import login from 'auth';
+import { TextInput } from 'react-native-paper';
 
 
 
@@ -31,7 +31,7 @@ export default function LoginScreen() {
     const [passwordValue, setPasswordValue] = useState('');
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('');
-    console.log(useContext(DataContext))
+    
     const [userDataBase, setUserDataBase] = useState(null)
     
 
@@ -39,11 +39,11 @@ export default function LoginScreen() {
     
     
     const style = StyleLogin({ colorScheme, colors })
-
+    
     
     if (isLogged) {
 
-        return <AppNavigator userData={userDataBase} />
+        return <Redirect href={'/screenApp'}/>
 
     }
     else {
@@ -54,6 +54,7 @@ export default function LoginScreen() {
 
             <View style={style.container}>
                 <Text style={style.title}>{t(StringConstants.login)}</Text>
+          
                 <TextInputLogin
                     autoComplete="email"
                     placeholderText={t(StringConstants.username_or_email)}
@@ -82,7 +83,7 @@ export default function LoginScreen() {
                         disabled={loading}
                     />
                 </Link>
-
+              
                 <Link href='/screenLogin/RegisterScreen' asChild>
 
                     <Button

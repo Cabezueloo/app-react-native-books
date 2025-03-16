@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { supabase } from 'app/services/supabase';
+import { supabase } from '@services';
 import { View,Text } from 'react-native';
 const HomeScreen = () => {
   const [user, setUser] = useState(null);
@@ -17,15 +17,8 @@ const HomeScreen = () => {
     };
 
     fetchUser();
-  }, []);
+  });
 
-  if (loading) {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Cargando...</Text>
-      </View>
-    );
-  }
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
