@@ -1,4 +1,4 @@
-import { DataProvider } from '../context/DataContext';
+import { DataProvider } from '../../context/DataContext';
 import { Slot, Stack } from 'expo-router';
 import { Text } from 'react-native';
 import { PaperProvider } from 'react-native-paper';

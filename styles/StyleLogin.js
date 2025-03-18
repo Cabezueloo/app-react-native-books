@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { fonts} from '../styles'
+import { fonts} from '.'
 import {size} from './theme'
 
 

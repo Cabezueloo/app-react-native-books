@@ -1,12 +1,12 @@
 //import { PAGE_HOME, PAGE_LOGIN, PAGE_REGISTER, PAGE_RESET_PASSWORD } from '@config';
-import {useCommonData} from '@services';
-import { darkColors, lightColors, StyleLogin } from '@styles';
+import {useCommonData} from '../services';
+import { darkColors, lightColors, StyleLogin } from '../styles';
 import { Redirect} from 'expo-router'
 import {  useEffect, useState, } from 'react';
 import { Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
-import { StringConstants } from '@configs';
+import { StringConstants } from '../configs';
 import { PaperProvider } from 'react-native-paper';
 
 export default function Start() {

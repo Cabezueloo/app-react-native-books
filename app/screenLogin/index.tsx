@@ -1,14 +1,14 @@
 import { Text, View, Button, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { TextInputLogin } from '@components';
-import { PAGE_REGISTER, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from '@configs';
-import { StyleLogin } from '@styles';
+import { TextInputLogin } from '../../components';
+import { PAGE_REGISTER, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from '../../configs';
+import { StyleLogin } from '../../styles';
 import { SetStateAction, useContext, useEffect, useState } from 'react';
 
-import { supabase, generateDigest } from '@services';
+import { supabase, generateDigest } from '../../services';
 import { ToastAndroid } from 'react-native';
 
-import { DataContext } from '@contexts';
+import { DataContext } from '../../context';
 import { Link, Redirect } from 'expo-router';
 import login from 'auth';
 import { TextInput } from 'react-native-paper';

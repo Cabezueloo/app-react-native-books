@@ -1,4 +1,4 @@
-import { DataProvider } from "context/DataContext"
+import { DataProvider } from "../../context/DataContext"
 import { Slot, Stack, Tabs } from "expo-router"
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 

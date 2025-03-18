@@ -1,7 +1,7 @@
 import {useColorScheme} from 'react-native';
-import { lightColors, darkColors } from '@styles';
-import { supabase } from '@services';
-import { TABLE_USER } from '@configs';
+import { lightColors, darkColors } from '../styles';
+import { supabase } from '.';
+import { TABLE_USER } from '../configs';
 import { useEffect, useState } from 'react';
 
 

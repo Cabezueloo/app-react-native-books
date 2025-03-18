@@ -1,13 +1,13 @@
 import { Text, View, Button, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, useRoute, } from '@react-navigation/native';
-import { TextInputLogin, CustomButtonOne } from '@components';
-import { PAGE_LOGIN, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from '@configs';
-import { StyleLogin } from '@styles';
+import { TextInputLogin, CustomButtonOne } from '../../components';
+import { PAGE_LOGIN, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from '../../configs';
+import { StyleLogin } from '../../styles';
 import { useState, useContext } from 'react';
-import { DataContext} from '@contexts';
+import { DataContext} from '../../context';
 
-import {generateDigest, supabase} from '@services';
+import {generateDigest, supabase} from '../../services';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Link } from 'expo-router';
 

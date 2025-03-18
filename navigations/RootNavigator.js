@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import LoginNavigator from './LoginNavigator';
-import { StringConstants, TABLE_USER } from '@configs';
-import { lightColors, darkColors, StyleLogin } from '@styles';
-import { DataContext } from '@contexts';
-import { getUser, supabase } from '@services';
+import { StringConstants, TABLE_USER } from '../configs';
+import { lightColors, darkColors, StyleLogin } from '../styles';
+import { DataContext } from '../context';
+import { getUser, supabase } from '../services';
 
 
 
