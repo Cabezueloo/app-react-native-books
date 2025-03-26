@@ -5,12 +5,25 @@
  * OpenAPI spec version: 1.0.0
  */
 
+export * from './apiBooksGetCollection200';
+export * from './apiBooksGetCollection200HydraSearch';
+export * from './apiBooksGetCollection200HydraSearchHydraMappingItem';
+export * from './apiBooksGetCollection200HydraSearchHydraMappingItemProperty';
+export * from './apiBooksGetCollection200HydraView';
+export * from './apiBooksGetCollectionParams';
 export * from './apiUsersGetCollection200';
 export * from './apiUsersGetCollection200HydraSearch';
 export * from './apiUsersGetCollection200HydraSearchHydraMappingItem';
 export * from './apiUsersGetCollection200HydraSearchHydraMappingItemProperty';
 export * from './apiUsersGetCollection200HydraView';
 export * from './apiUsersGetCollectionParams';
+export * from './book';
+export * from './bookInterchangeable';
+export * from './bookJsonld';
+export * from './bookJsonldContext';
+export * from './bookJsonldContextOneOf';
+export * from './bookJsonldContextOneOfHydra';
+export * from './bookJsonldInterchangeable';
 export * from './loginCheckPost200';
 export * from './loginCheckPostBody';
 export * from './user';

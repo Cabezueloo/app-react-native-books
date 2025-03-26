@@ -23,8 +23,12 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  ApiBooksGetCollection200,
+  ApiBooksGetCollectionParams,
   ApiUsersGetCollection200,
   ApiUsersGetCollectionParams,
+  Book,
+  BookJsonld,
   LoginCheckPost200,
   LoginCheckPostBody,
   User,
@@ -65,6 +69,446 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
 
+/**
+ * Retrieves the collection of Book resources.
+ * @summary Retrieves the collection of Book resources.
+ */
+export const apiBooksGetCollection = (
+    params?: ApiBooksGetCollectionParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<ApiBooksGetCollection200>(
+      {url: `/api/books`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+export const getApiBooksGetCollectionQueryKey = (params?: ApiBooksGetCollectionParams,) => {
+    return [`/api/books`, ...(params ? [params]: [])] as const;
+    }
+
+    
+export const getApiBooksGetCollectionQueryOptions = <TData = Awaited<ReturnType<typeof apiBooksGetCollection>>, TError = ErrorType<unknown>>(params?: ApiBooksGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBooksGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getApiBooksGetCollectionQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiBooksGetCollection>>> = ({ signal }) => apiBooksGetCollection(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiBooksGetCollection>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ApiBooksGetCollectionQueryResult = NonNullable<Awaited<ReturnType<typeof apiBooksGetCollection>>>
+export type ApiBooksGetCollectionQueryError = ErrorType<unknown>
+
+
+export function useApiBooksGetCollection<TData = Awaited<ReturnType<typeof apiBooksGetCollection>>, TError = ErrorType<unknown>>(
+ params: undefined |  ApiBooksGetCollectionParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBooksGetCollection>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiBooksGetCollection>>,
+          TError,
+          Awaited<ReturnType<typeof apiBooksGetCollection>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiBooksGetCollection<TData = Awaited<ReturnType<typeof apiBooksGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiBooksGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBooksGetCollection>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiBooksGetCollection>>,
+          TError,
+          Awaited<ReturnType<typeof apiBooksGetCollection>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiBooksGetCollection<TData = Awaited<ReturnType<typeof apiBooksGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiBooksGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBooksGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Retrieves the collection of Book resources.
+ */
+
+export function useApiBooksGetCollection<TData = Awaited<ReturnType<typeof apiBooksGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiBooksGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBooksGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getApiBooksGetCollectionQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * Creates a Book resource.
+ * @summary Creates a Book resource.
+ */
+export const apiBooksPost = (
+    bookJsonld: BodyType<NonReadonly<BookJsonld>>,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<BookJsonld>(
+      {url: `/api/books`, method: 'POST',
+      headers: {'Content-Type': 'application/ld+json', },
+      data: bookJsonld, signal
+    },
+      options);
+    }
+  
+
+
+export const getApiBooksPostMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksPost>>, TError,{data: BodyType<NonReadonly<BookJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiBooksPost>>, TError,{data: BodyType<NonReadonly<BookJsonld>>}, TContext> => {
+    
+const mutationKey = ['apiBooksPost'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiBooksPost>>, {data: BodyType<NonReadonly<BookJsonld>>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  apiBooksPost(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiBooksPostMutationResult = NonNullable<Awaited<ReturnType<typeof apiBooksPost>>>
+    export type ApiBooksPostMutationBody = BodyType<NonReadonly<BookJsonld>>
+    export type ApiBooksPostMutationError = ErrorType<void>
+
+    /**
+ * @summary Creates a Book resource.
+ */
+export const useApiBooksPost = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksPost>>, TError,{data: BodyType<NonReadonly<BookJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiBooksPost>>,
+        TError,
+        {data: BodyType<NonReadonly<BookJsonld>>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiBooksPostMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * Retrieves a Book resource.
+ * @summary Retrieves a Book resource.
+ */
+export const apiBooksIdGet = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<BookJsonld>(
+      {url: `/api/books/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getApiBooksIdGetQueryKey = (id: string,) => {
+    return [`/api/books/${id}`] as const;
+    }
+
+    
+export const getApiBooksIdGetQueryOptions = <TData = Awaited<ReturnType<typeof apiBooksIdGet>>, TError = ErrorType<void>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBooksIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getApiBooksIdGetQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiBooksIdGet>>> = ({ signal }) => apiBooksIdGet(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiBooksIdGet>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ApiBooksIdGetQueryResult = NonNullable<Awaited<ReturnType<typeof apiBooksIdGet>>>
+export type ApiBooksIdGetQueryError = ErrorType<void>
+
+
+export function useApiBooksIdGet<TData = Awaited<ReturnType<typeof apiBooksIdGet>>, TError = ErrorType<void>>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBooksIdGet>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiBooksIdGet>>,
+          TError,
+          Awaited<ReturnType<typeof apiBooksIdGet>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiBooksIdGet<TData = Awaited<ReturnType<typeof apiBooksIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBooksIdGet>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiBooksIdGet>>,
+          TError,
+          Awaited<ReturnType<typeof apiBooksIdGet>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiBooksIdGet<TData = Awaited<ReturnType<typeof apiBooksIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBooksIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Retrieves a Book resource.
+ */
+
+export function useApiBooksIdGet<TData = Awaited<ReturnType<typeof apiBooksIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBooksIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getApiBooksIdGetQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * Replaces the Book resource.
+ * @summary Replaces the Book resource.
+ */
+export const apiBooksIdPut = (
+    id: string,
+    bookJsonld: BodyType<NonReadonly<BookJsonld>>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<BookJsonld>(
+      {url: `/api/books/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/ld+json', },
+      data: bookJsonld
+    },
+      options);
+    }
+  
+
+
+export const getApiBooksIdPutMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPut>>, TError,{id: string;data: BodyType<NonReadonly<BookJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPut>>, TError,{id: string;data: BodyType<NonReadonly<BookJsonld>>}, TContext> => {
+    
+const mutationKey = ['apiBooksIdPut'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiBooksIdPut>>, {id: string;data: BodyType<NonReadonly<BookJsonld>>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  apiBooksIdPut(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiBooksIdPutMutationResult = NonNullable<Awaited<ReturnType<typeof apiBooksIdPut>>>
+    export type ApiBooksIdPutMutationBody = BodyType<NonReadonly<BookJsonld>>
+    export type ApiBooksIdPutMutationError = ErrorType<void>
+
+    /**
+ * @summary Replaces the Book resource.
+ */
+export const useApiBooksIdPut = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPut>>, TError,{id: string;data: BodyType<NonReadonly<BookJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiBooksIdPut>>,
+        TError,
+        {id: string;data: BodyType<NonReadonly<BookJsonld>>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiBooksIdPutMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * Removes the Book resource.
+ * @summary Removes the Book resource.
+ */
+export const apiBooksIdDelete = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<void>(
+      {url: `/api/books/${id}`, method: 'DELETE'
+    },
+      options);
+    }
+  
+
+
+export const getApiBooksIdDeleteMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdDelete>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdDelete>>, TError,{id: string}, TContext> => {
+    
+const mutationKey = ['apiBooksIdDelete'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiBooksIdDelete>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  apiBooksIdDelete(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiBooksIdDeleteMutationResult = NonNullable<Awaited<ReturnType<typeof apiBooksIdDelete>>>
+    
+    export type ApiBooksIdDeleteMutationError = ErrorType<void>
+
+    /**
+ * @summary Removes the Book resource.
+ */
+export const useApiBooksIdDelete = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdDelete>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiBooksIdDelete>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+
+      const mutationOptions = getApiBooksIdDeleteMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * Updates the Book resource.
+ * @summary Updates the Book resource.
+ */
+export const apiBooksIdPatch = (
+    id: string,
+    book: BodyType<NonReadonly<Book>>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<BookJsonld>(
+      {url: `/api/books/${id}`, method: 'PATCH',
+      headers: {'Content-Type': 'application/merge-patch+json', },
+      data: book
+    },
+      options);
+    }
+  
+
+
+export const getApiBooksIdPatchMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<Book>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<Book>>}, TContext> => {
+    
+const mutationKey = ['apiBooksIdPatch'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiBooksIdPatch>>, {id: string;data: BodyType<NonReadonly<Book>>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  apiBooksIdPatch(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiBooksIdPatchMutationResult = NonNullable<Awaited<ReturnType<typeof apiBooksIdPatch>>>
+    export type ApiBooksIdPatchMutationBody = BodyType<NonReadonly<Book>>
+    export type ApiBooksIdPatchMutationError = ErrorType<void>
+
+    /**
+ * @summary Updates the Book resource.
+ */
+export const useApiBooksIdPatch = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<Book>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiBooksIdPatch>>,
+        TError,
+        {id: string;data: BodyType<NonReadonly<Book>>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiBooksIdPatchMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
 /**
  * Creates a user token.
  * @summary Creates a user token.
