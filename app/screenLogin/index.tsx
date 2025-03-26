@@ -7,11 +7,10 @@ import { SetStateAction, useContext, useEffect, useState } from 'react';
 
 import { ToastAndroid } from 'react-native';
 
-import { DataContext } from '../../context';
 import { Link, Redirect, router } from 'expo-router';
 import { TextInput } from 'react-native-paper';
 import { useCommonData } from '../../services';
-import { useAuth } from '../../context/AuthContext';
+import { useAuthAndStyle } from '../../context/Context';
 import { LoginCheckPostBody } from '../../api/model';
 import { loginCheckPost } from '../../api/generated/helloAPIPlatform';
 
@@ -30,6 +29,7 @@ export function showToast(text, duration = 500) {
 
 export default function LoginScreen() {
 
+    
 
     interface FormLogin {
         email: string,
@@ -63,10 +63,10 @@ export default function LoginScreen() {
 
     const { t } = useTranslation();
 
-    const { signIn, setIsLoading, isLoading } = useAuth();
+    const { signIn, setIsLoading, isLoading,colorScheme,colors } = useAuthAndStyle();
 
 
-    const { colorScheme, colors } = useCommonData()
+    
 
 
     const style = StyleLogin({ colorScheme, colors })
@@ -90,6 +90,8 @@ export default function LoginScreen() {
                             autoComplete="email"
                             placeholder={t(StringConstants.email)}
                             value={values.email}
+                            placeholderTextColor={colors.text}
+                            style={{color:colors.text}}
                             onChangeText={handleChange('email')}
                             onBlur={handleBlur('email')}
                             error={errors.email}
@@ -99,6 +101,8 @@ export default function LoginScreen() {
                             autoComplete="off"
                             placeholder={t(StringConstants.password)}
                             value={values.password}
+                            placeholderTextColor={colors.text}
+                            style={{color:colors.text}}
                             onChangeText={handleChange('password')}
                             onBlur={handleBlur('password')}
                             error={errors.password}
@@ -109,14 +113,14 @@ export default function LoginScreen() {
                             disabled={isLoading}
                             onPress={() => handleSubmit()} />
 
-                        <Link href='/screenLogin/ResetPasswordScreen' asChild>
+                        <Link href={ROUTES.PAGE_RESET_PASSWORD} asChild>
                             <Button
                                 title={t(StringConstants.forgetPassword)}
                                 disabled={isLoading}
                             />
                         </Link>
 
-                        <Link href='/screenLogin/RegisterScreen' asChild>
+                        <Link href={ROUTES.PAGE_REGISTER} asChild>
 
                             <Button
                                 title={t(StringConstants.register)}

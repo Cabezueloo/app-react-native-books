@@ -1,5 +1,15 @@
 
-export const lightColors = {
+export interface Colors {
+    primary: string;
+    secondary: string;
+    accent: string;
+    background: string;
+    text: string;
+    warning: string;
+  }
+  
+
+export const lightColors : Colors= {
     primary: '#3498DB',
     secondary: '#2ECC71',
     accent: '#E67E22',
@@ -8,7 +18,7 @@ export const lightColors = {
     warning: '#E74C3C',
 };
 
-export const darkColors = {
+export const darkColors : Colors= {
     primary: '#2980B9', // Darker shade for primary
     secondary: '#27AE60', // Darker shade for secondary
     accent: '#D35400', // Darker shade for accent

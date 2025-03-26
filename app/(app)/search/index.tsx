@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import { View, Text, Button } from 'react-native';
-import { useAuth } from '../../../context/AuthContext';
+import { useAuthAndStyle } from '../../../context/Context';
 const HomeScreen = () => {
 
-  const { signOut, currentUser, apiMe, isLoading } = useAuth()
+  const { signOut, currentUser, apiMe, isLoading } = useAuthAndStyle()
 
   useEffect(() => {
     apiMe()

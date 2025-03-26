@@ -12,7 +12,7 @@ import { lightColors } from '../../styles';
 import CustomTextInput from '../../components/CustomTextInput';
 import { apiUsersPost, loginCheckPost } from '../../api/generated/helloAPIPlatform';
 import { UserJsonld } from '../../api/model';
-import { useAuth } from '../../context/AuthContext';
+import { useAuthAndStyle } from '../../context/Context';
 import { ROUTES } from '../../constants/Routes';
 
 
@@ -39,7 +39,7 @@ const schema = yup.object().shape({
 
 const RegisterScreen = () => {
     const { t } = useTranslation();
-    const { signIn } = useAuth()
+    const { signIn } = useAuthAndStyle()
     const colorScheme = "light"
     const colors = lightColors
     const style = StyleLogin({ colorScheme, colors });
@@ -156,7 +156,7 @@ const RegisterScreen = () => {
                             disabled={loading}
                         />
 
-                        <Link href='/screenLogin' asChild>
+                        <Link href={ROUTES.PAGE_LOGIN} asChild>
                             <Button
                                 title={t(StringConstants.backLogin)}
                                 disabled={loading}

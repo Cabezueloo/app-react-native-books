@@ -6,7 +6,6 @@ import {TextInputLogin,CustomButtonOne} from '../../components';
 import {StyleLogin} from '../../styles';
 import {StringConstants} from '../../configs'
 import { useContext, useState } from 'react';
-import { DataContext } from '../../context';
 import { Link } from 'expo-router';
 import { useCommonData } from '../../services';
 import { ROUTES } from '../../constants/Routes';

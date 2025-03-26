@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 4,
         marginTop: 5,
-        marginBottom: 5
+        marginBottom: 5,
+        
     },
     errorText: {
         color: 'red', // Default error color, can be overridden with errorStyle prop

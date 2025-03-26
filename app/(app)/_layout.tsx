@@ -1,26 +1,35 @@
-import { DataProvider } from "../../context/DataContext"
+
 import { Slot, Stack, Tabs } from "expo-router"
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { ROUTES } from "../../constants/Routes";
 
 export default function AppLayout() {
   console.log("LOGIN LAYOUT")
 
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue',headerShown:false }}>
+    <Tabs screenOptions={{ tabBarActiveTintColor: '#3498DB',headerShown:false }}>
       <Tabs.Screen
-        name="index"
+        name="search/index"
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="favorites"
+        name={ROUTES.PAGE_FAVORITES}
         options={{
           title: 'Favorites',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="heart" color={color} />,
         }}
       />
+       <Tabs.Screen
+        name={ROUTES.PAGE_PROFILE}
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} />,
+        }}
+      />
     </Tabs>
+    
   );
 }

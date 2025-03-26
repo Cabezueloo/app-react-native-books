@@ -13,7 +13,7 @@ import { loginCheckPost } from '../api/generated/helloAPIPlatform';
 import { storeData } from '../utils/asyncStorage';
 import { LOCAL_STORAGE_KEY_TOKEN } from '../constants/Common';
 import { ROUTES } from '../constants/Routes';
-import { useAuth } from '../context/AuthContext';
+import { useAuthAndStyle } from '../context/Context';
 
 export default function Start() {
 
@@ -21,7 +21,7 @@ export default function Start() {
   const { t } = useTranslation()
 
   const { colorScheme, colors } = useCommonData()
-  const { isAuthenticated, isLoading, apiMe } = useAuth();
+  const { isAuthenticated, isLoading, apiMe } = useAuthAndStyle();
 
   const style = StyleLogin({ colorScheme, colors })
   const spinnerColor = colorScheme == 'dark' ? lightColors.background : darkColors.background

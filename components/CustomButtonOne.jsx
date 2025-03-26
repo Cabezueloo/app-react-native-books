@@ -2,7 +2,6 @@ import { Button, Alert } from "react-native"
 
 
 import { useContext } from "react";
-import { DataContext } from "../context";
 import { useCommonData } from "../services";
 
 const CustomButtonOne = (props) => {

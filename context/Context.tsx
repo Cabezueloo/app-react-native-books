@@ -7,9 +7,10 @@ import { getData, removeData, storeData } from '../utils/asyncStorage';
 import { router } from 'expo-router';
 
 import { createContext, useContext, useState } from 'react';
+import { lightColors, darkColors, Colors} from '../styles/theme'
+import { useColorScheme } from 'react-native';
 
-
-type AuthContextType = {
+type ContextType = {
   signIn: (token: string) => Promise<void>;
   signOut: () => Promise<void>;
   apiMe: () => Promise<void>;
@@ -17,18 +18,25 @@ type AuthContextType = {
   isLoading: boolean;
   isAuthenticated: boolean;
   currentUser?: UserJsonld;
+  colorScheme: string;
+  colors:Colors;
 };
 
-const AuthContext = createContext<AuthContextType>(null!);
+const Context = createContext<ContextType>(null!);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function Provider({ children }: { children: React.ReactNode }) {
   const [currentUser, setUser] = useState<UserJsonld | undefined>(undefined);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  //const colorScheme : string = 'light'
+  const colorScheme : string = useColorScheme()
+  const colors = colorScheme === 'dark' ? darkColors : lightColors;
+  
   const signIn = async (newToken: string) => {
     await storeData(LOCAL_STORAGE_KEY_TOKEN, newToken)
     setIsAuthenticated(true);
+    apiMe()
     router.replace(ROUTES.PAGE_SEARCH)
 
   };
@@ -74,12 +82,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ signIn, signOut, isLoading, isAuthenticated, apiMe, currentUser, setIsLoading }}>
+    <Context.Provider value={{ signIn, signOut, isLoading, isAuthenticated, apiMe, currentUser, setIsLoading,colorScheme,colors }}>
       {children}
-    </AuthContext.Provider>
+    </Context.Provider>
   );
 }
 
-export function useAuth() {
-  return useContext(AuthContext);
+export function useAuthAndStyle() {
+  return useContext(Context);
 }
