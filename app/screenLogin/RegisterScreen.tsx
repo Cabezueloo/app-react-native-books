@@ -7,7 +7,7 @@ import { StyleLogin } from '../../styles';
 import { useState, useContext } from 'react';
 import { DataContext} from '../../context';
 
-import {generateDigest} from '../../services';
+import {generateDigest, useCommonData} from '../../services';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Link } from 'expo-router';
 
@@ -15,7 +15,7 @@ const RegisterScreen = () => {
     console.log("ENTRA REGISTER SCREEN")
     const { t } = useTranslation();
     
-    const { colorScheme, colors } = useContext(DataContext)
+    const { colorScheme, colors } = useCommonData()
 
     const style = StyleLogin({ colorScheme, colors })
 

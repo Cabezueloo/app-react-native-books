@@ -4,20 +4,20 @@ import {StackActions, useNavigation} from '@react-navigation/native';
 
 import {TextInputLogin,CustomButtonOne} from '../../components';
 import {StyleLogin} from '../../styles';
-import {StringConstants,PAGE_RESET_PASSWORD, PAGE_LOGIN} from '../../configs'
+import {StringConstants} from '../../configs'
 import { useContext, useState } from 'react';
 import { DataContext } from '../../context';
 import { Link } from 'expo-router';
+import { useCommonData } from '../../services';
+import { ROUTES } from '../../constants/Routes';
 
 
 
-const ResetPasswordScreen = ({route}) => {
+const ResetPasswordScreen = () => {
     console.log("ENTRA RESET PASSWORD SCREEN")
+    const {colorScheme, colors} = useCommonData()
     const {t} = useTranslation();
     
-    
-
-    const {colorScheme,colors} = useContext(DataContext)
     
     const style = StyleLogin({colorScheme,colors})
 
@@ -31,7 +31,7 @@ const ResetPasswordScreen = ({route}) => {
                 
                 <CustomButtonOne text={t(StringConstants.enter)}/>
                 
-                <Link href={'/screenLogin/'} asChild>
+                <Link href={ROUTES.PAGE_LOGIN} asChild>
                 <Button 
                 title={t(StringConstants.backLogin)}
                 

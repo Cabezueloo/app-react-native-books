@@ -9,9 +9,13 @@ import {
   useQuery
 } from '@tanstack/react-query';
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   MutationFunction,
   QueryFunction,
   QueryKey,
+  UndefinedInitialDataOptions,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -128,6 +132,95 @@ export const useLoginCheckPost = <TError = ErrorType<unknown>,
     }
     
 /**
+ * Retrieves a User resource.
+ * @summary Retrieves a User resource.
+ */
+export const me = (
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<UserJsonld>(
+      {url: `/api/me`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getMeQueryKey = () => {
+    return [`/api/me`] as const;
+    }
+
+    
+export const getMeQueryOptions = <TData = Awaited<ReturnType<typeof me>>, TError = ErrorType<void>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getMeQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof me>>> = ({ signal }) => me(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type MeQueryResult = NonNullable<Awaited<ReturnType<typeof me>>>
+export type MeQueryError = ErrorType<void>
+
+
+export function useMe<TData = Awaited<ReturnType<typeof me>>, TError = ErrorType<void>>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof me>>,
+          TError,
+          Awaited<ReturnType<typeof me>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useMe<TData = Awaited<ReturnType<typeof me>>, TError = ErrorType<void>>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof me>>,
+          TError,
+          Awaited<ReturnType<typeof me>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useMe<TData = Awaited<ReturnType<typeof me>>, TError = ErrorType<void>>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Retrieves a User resource.
+ */
+
+export function useMe<TData = Awaited<ReturnType<typeof me>>, TError = ErrorType<void>>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getMeQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
  * Retrieves the collection of User resources.
  * @summary Retrieves the collection of User resources.
  */
@@ -150,7 +243,7 @@ export const getApiUsersGetCollectionQueryKey = (params?: ApiUsersGetCollectionP
     }
 
     
-export const getApiUsersGetCollectionQueryOptions = <TData = Awaited<ReturnType<typeof apiUsersGetCollection>>, TError = ErrorType<unknown>>(params?: ApiUsersGetCollectionParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof apiUsersGetCollection>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
+export const getApiUsersGetCollectionQueryOptions = <TData = Awaited<ReturnType<typeof apiUsersGetCollection>>, TError = ErrorType<unknown>>(params?: ApiUsersGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiUsersGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -165,25 +258,49 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiUsersGetCollection>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiUsersGetCollection>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
 export type ApiUsersGetCollectionQueryResult = NonNullable<Awaited<ReturnType<typeof apiUsersGetCollection>>>
 export type ApiUsersGetCollectionQueryError = ErrorType<unknown>
 
 
+export function useApiUsersGetCollection<TData = Awaited<ReturnType<typeof apiUsersGetCollection>>, TError = ErrorType<unknown>>(
+ params: undefined |  ApiUsersGetCollectionParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiUsersGetCollection>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiUsersGetCollection>>,
+          TError,
+          Awaited<ReturnType<typeof apiUsersGetCollection>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiUsersGetCollection<TData = Awaited<ReturnType<typeof apiUsersGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiUsersGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiUsersGetCollection>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiUsersGetCollection>>,
+          TError,
+          Awaited<ReturnType<typeof apiUsersGetCollection>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiUsersGetCollection<TData = Awaited<ReturnType<typeof apiUsersGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiUsersGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiUsersGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Retrieves the collection of User resources.
  */
 
 export function useApiUsersGetCollection<TData = Awaited<ReturnType<typeof apiUsersGetCollection>>, TError = ErrorType<unknown>>(
- params?: ApiUsersGetCollectionParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof apiUsersGetCollection>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
+ params?: ApiUsersGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiUsersGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getApiUsersGetCollectionQueryOptions(params,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -281,7 +398,7 @@ export const getApiUsersIdGetQueryKey = (id: string,) => {
     }
 
     
-export const getApiUsersIdGetQueryOptions = <TData = Awaited<ReturnType<typeof apiUsersIdGet>>, TError = ErrorType<void>>(id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof apiUsersIdGet>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
+export const getApiUsersIdGetQueryOptions = <TData = Awaited<ReturnType<typeof apiUsersIdGet>>, TError = ErrorType<void>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiUsersIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -296,25 +413,49 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiUsersIdGet>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiUsersIdGet>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
 export type ApiUsersIdGetQueryResult = NonNullable<Awaited<ReturnType<typeof apiUsersIdGet>>>
 export type ApiUsersIdGetQueryError = ErrorType<void>
 
 
+export function useApiUsersIdGet<TData = Awaited<ReturnType<typeof apiUsersIdGet>>, TError = ErrorType<void>>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiUsersIdGet>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiUsersIdGet>>,
+          TError,
+          Awaited<ReturnType<typeof apiUsersIdGet>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiUsersIdGet<TData = Awaited<ReturnType<typeof apiUsersIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiUsersIdGet>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiUsersIdGet>>,
+          TError,
+          Awaited<ReturnType<typeof apiUsersIdGet>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiUsersIdGet<TData = Awaited<ReturnType<typeof apiUsersIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiUsersIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary Retrieves a User resource.
  */
 
 export function useApiUsersIdGet<TData = Awaited<ReturnType<typeof apiUsersIdGet>>, TError = ErrorType<void>>(
- id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof apiUsersIdGet>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiUsersIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getApiUsersIdGetQueryOptions(id,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
   query.queryKey = queryOptions.queryKey ;
 

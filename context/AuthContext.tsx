@@ -1,3 +1,4 @@
+import { me } from '../api/generated/helloAPIPlatform';
 import { UserJsonld } from '../api/model';
 import { LOCAL_STORAGE_KEY_TOKEN } from '../constants/Common';
 import { ROUTES } from '../constants/Routes';
@@ -28,27 +29,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signIn = async (newToken: string) => {
     await storeData(LOCAL_STORAGE_KEY_TOKEN, newToken)
     setIsAuthenticated(true);
-    router.replace(ROUTES.PAGE_LOGIN)
+    router.replace(ROUTES.PAGE_SEARCH)
   };
 
   const signOut = async () => {
+    console.log("entra sign out")
     await removeData(LOCAL_STORAGE_KEY_TOKEN)
     setIsAuthenticated(false);
+    router.replace(ROUTES.PAGE_LOGIN)
+
   };
 
   const apiMe = async () => {
+    
+    setIsLoading(true);
     try {
       const token = await getData(LOCAL_STORAGE_KEY_TOKEN);
       
       if (!token)
       { 
+        setIsLoading(false);
         setIsAuthenticated(false);
         return;
       }
 
-      setIsLoading(true);
-      //const currentUser = await me();
-      const currentUser = undefined
+      
+      const currentUser = await me();
+      
       setIsLoading(false);
       if(currentUser != undefined)
       {

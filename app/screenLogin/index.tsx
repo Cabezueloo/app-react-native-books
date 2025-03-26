@@ -10,6 +10,10 @@ import { ToastAndroid } from 'react-native';
 import { DataContext } from '../../context';
 import { Link, Redirect } from 'expo-router';
 import { TextInput } from 'react-native-paper';
+import { useCommonData } from '../../services';
+import { useAuth } from '../../context/AuthContext';
+import { LoginCheckPostBody } from '../../api/model';
+import { loginCheckPost } from '../../api/generated/helloAPIPlatform';
 
 
 
@@ -20,82 +24,81 @@ export function showToast(text, duration = 500) {
 
 export default function LoginScreen() {
 
-    console.log("ENTRA  SCREEN")
+    const submitForm = async () => {
+        setIsLoading(true);
+        try {
+          
+          const response = await loginCheckPost({email:userEmail,password:passwordValue});
+          if (response?.token) {
+            console.log("HAY token")
+            await signIn(response.token);
+          }
+        } catch (err) {
+          console.log("Invalid credeentials")
+          
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+
 
     const { t } = useTranslation();
 
+    const { signIn, setIsLoading, isLoading } = useAuth();
+
     // Estados
-    const [userOrMailValue, setUserOrMailValue] = useState('');
+    const [userEmail, setUserOrMailValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState('');
     
-    const [userDataBase, setUserDataBase] = useState(null)
     
+    const { colorScheme, colors } = useCommonData()
 
-    const { colorScheme, colors,isLogged,setIsLogged, userDataInDataBase } = useContext(DataContext)
-    
-    
+
     const style = StyleLogin({ colorScheme, colors })
-    
-    
-    if (isLogged) {
-
-        return <Redirect href={'/screenApp'}/>
-
-    }
-    else {
 
 
-        return (
+    return (
 
 
-            <View style={style.container}>
-                <Text style={style.title}>{t(StringConstants.login)}</Text>
-          
-                <TextInputLogin
-                    autoComplete="email"
-                    placeholderText={t(StringConstants.username_or_email)}
-                    value={userOrMailValue}
-                    onChange={(newText: SetStateAction<string>) => setUserOrMailValue(newText)}
+        <View style={style.container}>
+            <Text style={style.title}>{t(StringConstants.login)}</Text>
+
+            <TextInputLogin
+                autoComplete="email"
+                placeholderText={t(StringConstants.mail)}
+                value={userEmail}
+                onChange={(newText: SetStateAction<string>) => setUserOrMailValue(newText)}
+            />
+            <TextInputLogin
+                secureTextEntry
+                placeholderText={t(StringConstants.password)}
+                value={passwordValue}
+                onChange={newText => setPasswordValue(newText)}
+            />
+
+            <Button title={t(StringConstants.enter)}
+                disabled={isLoading}
+                onPress={() => submitForm()
+                } />
+
+            <Link href='/screenLogin/ResetPasswordScreen' asChild>
+                <Button
+                    title={t(StringConstants.forgetPassword)}
+                    disabled={isLoading}
                 />
-                <TextInputLogin
-                    secureTextEntry
-                    placeholderText={t(StringConstants.password)}
-                    value={passwordValue}
-                    onChange={newText => setPasswordValue(newText)}
+            </Link>
+
+            <Link href='/screenLogin/RegisterScreen' asChild>
+
+                <Button
+                    title={t(StringConstants.register)}
+                    disabled={isLoading}
                 />
+            </Link>
 
-                <Button title={t(StringConstants.enter)}
-                    disabled={loading}
-                    onPress={() => {
-                        setLoading(true)
-                        setLoading(false)
-                    }
-                    } />
+        </View>
+    );
+}
 
-                <Link href='/screenLogin/ResetPasswordScreen' asChild>
-                    <Button
-                        title={t(StringConstants.forgetPassword)}
-                        disabled={loading}
-                    />
-                </Link>
-              
-                <Link href='/screenLogin/RegisterScreen' asChild>
-
-                    <Button
-                        title={t(StringConstants.register)}
-                        disabled={loading}
-                        onPress={() => {
-                            console.log("p")
-
-                        }
-                        }
-                    />
-                </Link>
-
-            </View>
-        );
-    }
-};
 
