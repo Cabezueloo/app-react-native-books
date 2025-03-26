@@ -6,7 +6,6 @@ import LoginNavigator from './LoginNavigator';
 import { StringConstants, TABLE_USER } from '../configs';
 import { lightColors, darkColors, StyleLogin } from '../styles';
 import { DataContext } from '../context';
-import { getUser, supabase } from '../services';
 
 
 

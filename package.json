@@ -4,9 +4,11 @@
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "android": "expo run:android",
+    "android:dev": "NODE_ENV=development npx expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "generate:opeanpi:dev": "dotenv -e .env -- npx orval"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.23.1",
@@ -16,11 +18,15 @@
     "@react-navigation/native-stack": "^7.2.1",
     "@react-navigation/stack": "^7.1.2",
     "@supabase/supabase-js": "^2.49.1",
+    "@tanstack/react-query": "^5.69.0",
+    "axios": "^1.8.4",
+    "dotenv": "^16.4.7",
     "expo": "^52.0.38",
     "expo-crypto": "~14.0.2",
     "expo-router": "~4.0.19",
     "expo-status-bar": "~2.0.1",
     "i18next": "^24.2.2",
+    "orval": "^7.7.0",
     "react": "18.3.1",
     "react-i18next": "^15.4.1",
     "react-native": "0.76.7",
@@ -42,6 +48,8 @@
     "@types/yargs": "^17.0.33",
     "@types/yargs-parser": "^21.0.3",
     "babel-plugin-module-resolver": "^5.0.2",
+    "dotenv-cli": "^8.0.0",
+    "react-native-dotenv": "^3.4.11",
     "typescript": "^5.3.3"
   },
   "private": true

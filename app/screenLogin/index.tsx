@@ -1,16 +1,14 @@
 import { Text, View, Button, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { TextInputLogin } from '../../components';
-import { PAGE_REGISTER, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from '../../configs';
+import { StringConstants } from '../../configs';
 import { StyleLogin } from '../../styles';
 import { SetStateAction, useContext, useEffect, useState } from 'react';
 
-import { supabase, generateDigest } from '../../services';
 import { ToastAndroid } from 'react-native';
 
 import { DataContext } from '../../context';
 import { Link, Redirect } from 'expo-router';
-import login from 'auth';
 import { TextInput } from 'react-native-paper';
 
 
@@ -72,7 +70,6 @@ export default function LoginScreen() {
                     disabled={loading}
                     onPress={() => {
                         setLoading(true)
-                        login(userOrMailValue,passwordValue,setUserDataBase,setIsLogged)
                         setLoading(false)
                     }
                     } />

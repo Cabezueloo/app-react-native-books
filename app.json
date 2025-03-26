@@ -7,15 +7,16 @@
     "icon": "./app/assets/icon.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "scheme":"books",
+    "scheme": "books",
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#2C3E50"
-      }
+      },
+      "package": "com.angel_18.appreactnativebooks"
     },
     "web": {
       "favicon": "./app/assets/favicon.png",

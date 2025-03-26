@@ -2,12 +2,12 @@ import { Text, View, Button, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation, useRoute, } from '@react-navigation/native';
 import { TextInputLogin, CustomButtonOne } from '../../components';
-import { PAGE_LOGIN, PAGE_RESET_PASSWORD, StringConstants, TABLE_USER } from '../../configs';
+import { StringConstants } from '../../configs';
 import { StyleLogin } from '../../styles';
 import { useState, useContext } from 'react';
 import { DataContext} from '../../context';
 
-import {generateDigest, supabase} from '../../services';
+import {generateDigest} from '../../services';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Link } from 'expo-router';
 
@@ -19,7 +19,7 @@ const RegisterScreen = () => {
 
     const style = StyleLogin({ colorScheme, colors })
 
-    // inputs y datos de Supabase y comunicar con hijos
+    // inputs y datos de  y comunicar con hijos
     const [mailValue, setMailValue] = useState('');
     const [nameValue, setNameValue] = useState('');
     const [surnameValue, setSurnameValue] = useState('');
@@ -31,74 +31,7 @@ const RegisterScreen = () => {
     //REGISTER
     
     //Register function
-    async function signUpWithEmail() {
-        setLoading(true)
-
-        //Check if the username doesn't exist in database
-        const { data } = await supabase
-            .from(TABLE_USER)
-            .select('username')
-            .eq('username', usernameValue.toLocaleLowerCase())
-
-
-        //TODO check same passwords, lenght ...
-        
-        //If doesn't exist the username, continue
-        if (Object.keys(data).length == 0) {
-            console.log("username correcto")
-            
-            const digest = await generateDigest(passwordValue)
-            //Sing Up, auth supabase
-            const {
-                data: { session },
-                error,
-            } = await supabase.auth.signUp({
-                email: mailValue,
-                password: digest,
-            })
-
-            if (error) {
-                console.log(error.message)
-            }
-
-            //Create account in database
-            else {
-
-                const { data: { user } } = await supabase.auth.getUser()
-                console.log('User ID:', user.id);
-                const date = new Date().toISOString()
-                
-                //Insert the new Table User
-                const { data, error } = await supabase
-                    .from('User')
-                    .insert([
-                        {
-                            id: user.id,
-                            username: usernameValue.toLocaleLowerCase(),
-                            email: mailValue,
-                            name: usernameValue,
-                            surname: surnameValue,
-                            password: digest,
-                            created_at: date,
-                            last_login: date
-                        }
-                    ]).select()
-
-                if (error) {
-                    console.error('Error inserting user data:', error);
-                } else {
-                    //TODO Enter to the home
-                    console.log('User data inserted:', data);
-                }
-            }
-        }
-        else {
-            console.log("username incorrecto")
-        }
-        
-        //Activate buttons
-        setLoading(false)
-    }
+   
 
 
     return (
@@ -148,7 +81,7 @@ const RegisterScreen = () => {
                 title={t(StringConstants.create_an_account)}
                 color={colors.accent}
                 disabled={loading}
-                onPress={() => signUpWithEmail()}
+                onPress={() => {}}
 
             />
             <Link href='/screenLogin' asChild>

@@ -1,55 +1,17 @@
 import {useColorScheme} from 'react-native';
 import { lightColors, darkColors } from '../styles';
-import { supabase } from '.';
+
 import { TABLE_USER } from '../configs';
 import { useEffect, useState } from 'react';
 
 
 const useCommonData = () => {
   const [isLogged, setIsLogged] = useState(false);
-  const [userDataInDataBase, setUserDataInDataBase] = useState([]);
   const colorScheme = useColorScheme();
   const colors = colorScheme === 'dark' ? darkColors : lightColors;
 
-  useEffect(() => {
-    
-    async function fetchUserData() {
-      
-      // Obtiene la sesión actual
-      supabase.auth.signOut()
-      const { data, error } = await supabase.auth.getUser();
-      console.log("user ->" ,data)
-      
-      if (error || !data.user) {
-        console.log("ENTRO AL FALSE")
-        setIsLogged(false);
-        setUserDataInDataBase([]);
-        return;
-      }else{
-
-        setIsLogged(true);
-      }
-
-      console.log("isLogged -> " ,isLogged)
-
-      // Consulta a la tabla de usuarios usando el email
-      const { data: userData, error: dbError } = await supabase
-        .from(TABLE_USER)
-        .select()
-        .eq('email', data.user.email)
-        .single(); // asumiendo que el email es único
-
-      if (dbError) {
-        console.error("Error al obtener datos del usuario:", dbError);
-        setUserDataInDataBase([]);
-      } else {
-        setUserDataInDataBase(userData);
-      }
-    }
-    fetchUserData();
-  }, []);
-
-  return { colorScheme, colors, isLogged, setIsLogged, userDataInDataBase };
+  
+  return { colorScheme, colors, isLogged, setIsLogged,};
 };
 
 
