@@ -2,12 +2,15 @@
 import { Slot, Stack, Tabs } from "expo-router"
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { ROUTES } from "../../constants/Routes";
+import { useAuthAndStyle } from "../../context/Context";
+import '../../global.css';
 
 export default function AppLayout() {
   console.log("LOGIN LAYOUT")
+  const {colors} = useAuthAndStyle()
 
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: '#3498DB',headerShown:false }}>
+    <Tabs  screenOptions={{ tabBarActiveTintColor: colors.primary, headerShown: false, }}>
       <Tabs.Screen
         name="search/index"
         options={{
@@ -22,7 +25,14 @@ export default function AppLayout() {
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="heart" color={color} />,
         }}
       />
-       <Tabs.Screen
+      <Tabs.Screen
+        name={ROUTES.PAGE_ADD}
+        options={{
+          title: 'Update',
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="plus" color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name={ROUTES.PAGE_PROFILE}
         options={{
           title: 'Profile',
@@ -30,6 +40,6 @@ export default function AppLayout() {
         }}
       />
     </Tabs>
-    
+
   );
 }
