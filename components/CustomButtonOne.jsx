@@ -3,14 +3,15 @@ import { Button, Alert } from "react-native"
 
 import { useContext } from "react";
 import { DataContext } from "../context";
+import { useCommonData } from "../services";
 
 const CustomButtonOne = (props) => {
     console.log("ENTRA CUSTOM BUTTON ONE")
-    const { colorScheme, colors } = useContext(DataContext);
+    const { colorScheme, colors } = useCommonData();
     
     return (
         <Button
-            title= {props.text}
+            title= {"f"}
             onPress={() => Alert.alert('Simple Button pressed')}
             color={colors.accent}
         />

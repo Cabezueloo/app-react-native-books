@@ -1,7 +1,7 @@
 {
     "login":"Log In",
     "username":"Username",
-    "mail":"Mail",
+    "email":"Email",
     "password":"Password",
     "confirmPassword":"Repet the password",
     "enter":"Enter",

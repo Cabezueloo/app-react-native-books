@@ -1,7 +1,7 @@
 {
     "login":"Iniciar Sesión",
     "username":"Nombre de Usuario",
-    "mail":"Correo",
+    "email":"Correo",
     "password":"Contraseña",
     "confirmPassword":"Confirmar contraseña",
     "enter":"entrar",

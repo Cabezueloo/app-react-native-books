@@ -2,7 +2,7 @@
 export const StringConstants = {
     "login":"login",
     "username":"username",
-    "mail":"mail",
+    "email":"email",
     "password":"password",
     "confirmPassword":"confirmPassword",
     "enter":"enter",

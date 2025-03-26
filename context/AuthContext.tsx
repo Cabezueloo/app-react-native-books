@@ -30,6 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await storeData(LOCAL_STORAGE_KEY_TOKEN, newToken)
     setIsAuthenticated(true);
     router.replace(ROUTES.PAGE_SEARCH)
+
   };
 
   const signOut = async () => {
@@ -45,7 +46,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(true);
     try {
       const token = await getData(LOCAL_STORAGE_KEY_TOKEN);
-      
+      console.log(token)
       if (!token)
       { 
         setIsLoading(false);
@@ -55,7 +56,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       
       const currentUser = await me();
-      
+      console.log("Current user despues de hacer el me ->",currentUser)
       setIsLoading(false);
       if(currentUser != undefined)
       {
