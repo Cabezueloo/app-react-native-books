@@ -52,9 +52,7 @@ const RegisterScreen = () => {
             email: values.email,
             name: values.name,
             surname: values.surname,
-            password: values.password,
-            createdAt: new Date().toISOString(),
-            lastLogin: new Date().toISOString()
+            password: values.password
         };
         console.log(newUser)
         try {

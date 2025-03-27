@@ -23,16 +23,29 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  ApiBookTransactionsGetCollection200,
+  ApiBookTransactionsGetCollectionParams,
   ApiBooksGetCollection200,
   ApiBooksGetCollectionParams,
+  ApiFavoriteBooksGetCollection200,
+  ApiFavoriteBooksGetCollectionParams,
+  ApiMessagesGetCollection200,
+  ApiMessagesGetCollectionParams,
   ApiUsersGetCollection200,
   ApiUsersGetCollectionParams,
   Book,
   BookJsonld,
+  BookTransaction,
+  BookTransactionJsonld,
+  FavoriteBook,
+  FavoriteBookJsonld,
   LoginCheckPost200,
   LoginCheckPostBody,
-  User,
-  UserJsonld
+  Message,
+  MessageJsonld,
+  UserJsonldUserRead,
+  UserJsonldUserWrite,
+  UserUserWrite
 } from '../model';
 
 import { customInstance } from '../axios-instance';
@@ -510,6 +523,886 @@ export const useApiBooksIdPatch = <TError = ErrorType<void>,
     }
     
 /**
+ * Retrieves the collection of BookTransaction resources.
+ * @summary Retrieves the collection of BookTransaction resources.
+ */
+export const apiBookTransactionsGetCollection = (
+    params?: ApiBookTransactionsGetCollectionParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<ApiBookTransactionsGetCollection200>(
+      {url: `/api/book_transactions`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+export const getApiBookTransactionsGetCollectionQueryKey = (params?: ApiBookTransactionsGetCollectionParams,) => {
+    return [`/api/book_transactions`, ...(params ? [params]: [])] as const;
+    }
+
+    
+export const getApiBookTransactionsGetCollectionQueryOptions = <TData = Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>, TError = ErrorType<unknown>>(params?: ApiBookTransactionsGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getApiBookTransactionsGetCollectionQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>> = ({ signal }) => apiBookTransactionsGetCollection(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ApiBookTransactionsGetCollectionQueryResult = NonNullable<Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>>
+export type ApiBookTransactionsGetCollectionQueryError = ErrorType<unknown>
+
+
+export function useApiBookTransactionsGetCollection<TData = Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>, TError = ErrorType<unknown>>(
+ params: undefined |  ApiBookTransactionsGetCollectionParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>,
+          TError,
+          Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiBookTransactionsGetCollection<TData = Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiBookTransactionsGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>,
+          TError,
+          Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiBookTransactionsGetCollection<TData = Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiBookTransactionsGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Retrieves the collection of BookTransaction resources.
+ */
+
+export function useApiBookTransactionsGetCollection<TData = Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiBookTransactionsGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBookTransactionsGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getApiBookTransactionsGetCollectionQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * Creates a BookTransaction resource.
+ * @summary Creates a BookTransaction resource.
+ */
+export const apiBookTransactionsPost = (
+    bookTransactionJsonld: BodyType<NonReadonly<BookTransactionJsonld>>,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<BookTransactionJsonld>(
+      {url: `/api/book_transactions`, method: 'POST',
+      headers: {'Content-Type': 'application/ld+json', },
+      data: bookTransactionJsonld, signal
+    },
+      options);
+    }
+  
+
+
+export const getApiBookTransactionsPostMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBookTransactionsPost>>, TError,{data: BodyType<NonReadonly<BookTransactionJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiBookTransactionsPost>>, TError,{data: BodyType<NonReadonly<BookTransactionJsonld>>}, TContext> => {
+    
+const mutationKey = ['apiBookTransactionsPost'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiBookTransactionsPost>>, {data: BodyType<NonReadonly<BookTransactionJsonld>>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  apiBookTransactionsPost(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiBookTransactionsPostMutationResult = NonNullable<Awaited<ReturnType<typeof apiBookTransactionsPost>>>
+    export type ApiBookTransactionsPostMutationBody = BodyType<NonReadonly<BookTransactionJsonld>>
+    export type ApiBookTransactionsPostMutationError = ErrorType<void>
+
+    /**
+ * @summary Creates a BookTransaction resource.
+ */
+export const useApiBookTransactionsPost = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBookTransactionsPost>>, TError,{data: BodyType<NonReadonly<BookTransactionJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiBookTransactionsPost>>,
+        TError,
+        {data: BodyType<NonReadonly<BookTransactionJsonld>>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiBookTransactionsPostMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * Retrieves a BookTransaction resource.
+ * @summary Retrieves a BookTransaction resource.
+ */
+export const apiBookTransactionsIdGet = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<BookTransactionJsonld>(
+      {url: `/api/book_transactions/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getApiBookTransactionsIdGetQueryKey = (id: string,) => {
+    return [`/api/book_transactions/${id}`] as const;
+    }
+
+    
+export const getApiBookTransactionsIdGetQueryOptions = <TData = Awaited<ReturnType<typeof apiBookTransactionsIdGet>>, TError = ErrorType<void>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBookTransactionsIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getApiBookTransactionsIdGetQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiBookTransactionsIdGet>>> = ({ signal }) => apiBookTransactionsIdGet(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiBookTransactionsIdGet>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ApiBookTransactionsIdGetQueryResult = NonNullable<Awaited<ReturnType<typeof apiBookTransactionsIdGet>>>
+export type ApiBookTransactionsIdGetQueryError = ErrorType<void>
+
+
+export function useApiBookTransactionsIdGet<TData = Awaited<ReturnType<typeof apiBookTransactionsIdGet>>, TError = ErrorType<void>>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBookTransactionsIdGet>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiBookTransactionsIdGet>>,
+          TError,
+          Awaited<ReturnType<typeof apiBookTransactionsIdGet>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiBookTransactionsIdGet<TData = Awaited<ReturnType<typeof apiBookTransactionsIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBookTransactionsIdGet>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiBookTransactionsIdGet>>,
+          TError,
+          Awaited<ReturnType<typeof apiBookTransactionsIdGet>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiBookTransactionsIdGet<TData = Awaited<ReturnType<typeof apiBookTransactionsIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBookTransactionsIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Retrieves a BookTransaction resource.
+ */
+
+export function useApiBookTransactionsIdGet<TData = Awaited<ReturnType<typeof apiBookTransactionsIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiBookTransactionsIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getApiBookTransactionsIdGetQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * Replaces the BookTransaction resource.
+ * @summary Replaces the BookTransaction resource.
+ */
+export const apiBookTransactionsIdPut = (
+    id: string,
+    bookTransactionJsonld: BodyType<NonReadonly<BookTransactionJsonld>>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<BookTransactionJsonld>(
+      {url: `/api/book_transactions/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/ld+json', },
+      data: bookTransactionJsonld
+    },
+      options);
+    }
+  
+
+
+export const getApiBookTransactionsIdPutMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBookTransactionsIdPut>>, TError,{id: string;data: BodyType<NonReadonly<BookTransactionJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiBookTransactionsIdPut>>, TError,{id: string;data: BodyType<NonReadonly<BookTransactionJsonld>>}, TContext> => {
+    
+const mutationKey = ['apiBookTransactionsIdPut'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiBookTransactionsIdPut>>, {id: string;data: BodyType<NonReadonly<BookTransactionJsonld>>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  apiBookTransactionsIdPut(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiBookTransactionsIdPutMutationResult = NonNullable<Awaited<ReturnType<typeof apiBookTransactionsIdPut>>>
+    export type ApiBookTransactionsIdPutMutationBody = BodyType<NonReadonly<BookTransactionJsonld>>
+    export type ApiBookTransactionsIdPutMutationError = ErrorType<void>
+
+    /**
+ * @summary Replaces the BookTransaction resource.
+ */
+export const useApiBookTransactionsIdPut = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBookTransactionsIdPut>>, TError,{id: string;data: BodyType<NonReadonly<BookTransactionJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiBookTransactionsIdPut>>,
+        TError,
+        {id: string;data: BodyType<NonReadonly<BookTransactionJsonld>>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiBookTransactionsIdPutMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * Removes the BookTransaction resource.
+ * @summary Removes the BookTransaction resource.
+ */
+export const apiBookTransactionsIdDelete = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<void>(
+      {url: `/api/book_transactions/${id}`, method: 'DELETE'
+    },
+      options);
+    }
+  
+
+
+export const getApiBookTransactionsIdDeleteMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBookTransactionsIdDelete>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiBookTransactionsIdDelete>>, TError,{id: string}, TContext> => {
+    
+const mutationKey = ['apiBookTransactionsIdDelete'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiBookTransactionsIdDelete>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  apiBookTransactionsIdDelete(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiBookTransactionsIdDeleteMutationResult = NonNullable<Awaited<ReturnType<typeof apiBookTransactionsIdDelete>>>
+    
+    export type ApiBookTransactionsIdDeleteMutationError = ErrorType<void>
+
+    /**
+ * @summary Removes the BookTransaction resource.
+ */
+export const useApiBookTransactionsIdDelete = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBookTransactionsIdDelete>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiBookTransactionsIdDelete>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+
+      const mutationOptions = getApiBookTransactionsIdDeleteMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * Updates the BookTransaction resource.
+ * @summary Updates the BookTransaction resource.
+ */
+export const apiBookTransactionsIdPatch = (
+    id: string,
+    bookTransaction: BodyType<NonReadonly<BookTransaction>>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<BookTransactionJsonld>(
+      {url: `/api/book_transactions/${id}`, method: 'PATCH',
+      headers: {'Content-Type': 'application/merge-patch+json', },
+      data: bookTransaction
+    },
+      options);
+    }
+  
+
+
+export const getApiBookTransactionsIdPatchMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBookTransactionsIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<BookTransaction>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiBookTransactionsIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<BookTransaction>>}, TContext> => {
+    
+const mutationKey = ['apiBookTransactionsIdPatch'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiBookTransactionsIdPatch>>, {id: string;data: BodyType<NonReadonly<BookTransaction>>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  apiBookTransactionsIdPatch(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiBookTransactionsIdPatchMutationResult = NonNullable<Awaited<ReturnType<typeof apiBookTransactionsIdPatch>>>
+    export type ApiBookTransactionsIdPatchMutationBody = BodyType<NonReadonly<BookTransaction>>
+    export type ApiBookTransactionsIdPatchMutationError = ErrorType<void>
+
+    /**
+ * @summary Updates the BookTransaction resource.
+ */
+export const useApiBookTransactionsIdPatch = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBookTransactionsIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<BookTransaction>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiBookTransactionsIdPatch>>,
+        TError,
+        {id: string;data: BodyType<NonReadonly<BookTransaction>>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiBookTransactionsIdPatchMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * Retrieves the collection of FavoriteBook resources.
+ * @summary Retrieves the collection of FavoriteBook resources.
+ */
+export const apiFavoriteBooksGetCollection = (
+    params?: ApiFavoriteBooksGetCollectionParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<ApiFavoriteBooksGetCollection200>(
+      {url: `/api/favorite_books`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+export const getApiFavoriteBooksGetCollectionQueryKey = (params?: ApiFavoriteBooksGetCollectionParams,) => {
+    return [`/api/favorite_books`, ...(params ? [params]: [])] as const;
+    }
+
+    
+export const getApiFavoriteBooksGetCollectionQueryOptions = <TData = Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>, TError = ErrorType<unknown>>(params?: ApiFavoriteBooksGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getApiFavoriteBooksGetCollectionQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>> = ({ signal }) => apiFavoriteBooksGetCollection(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ApiFavoriteBooksGetCollectionQueryResult = NonNullable<Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>>
+export type ApiFavoriteBooksGetCollectionQueryError = ErrorType<unknown>
+
+
+export function useApiFavoriteBooksGetCollection<TData = Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>, TError = ErrorType<unknown>>(
+ params: undefined |  ApiFavoriteBooksGetCollectionParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>,
+          TError,
+          Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiFavoriteBooksGetCollection<TData = Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiFavoriteBooksGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>,
+          TError,
+          Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiFavoriteBooksGetCollection<TData = Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiFavoriteBooksGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Retrieves the collection of FavoriteBook resources.
+ */
+
+export function useApiFavoriteBooksGetCollection<TData = Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiFavoriteBooksGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiFavoriteBooksGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getApiFavoriteBooksGetCollectionQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * Creates a FavoriteBook resource.
+ * @summary Creates a FavoriteBook resource.
+ */
+export const apiFavoriteBooksPost = (
+    favoriteBookJsonld: BodyType<NonReadonly<FavoriteBookJsonld>>,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<FavoriteBookJsonld>(
+      {url: `/api/favorite_books`, method: 'POST',
+      headers: {'Content-Type': 'application/ld+json', },
+      data: favoriteBookJsonld, signal
+    },
+      options);
+    }
+  
+
+
+export const getApiFavoriteBooksPostMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiFavoriteBooksPost>>, TError,{data: BodyType<NonReadonly<FavoriteBookJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiFavoriteBooksPost>>, TError,{data: BodyType<NonReadonly<FavoriteBookJsonld>>}, TContext> => {
+    
+const mutationKey = ['apiFavoriteBooksPost'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiFavoriteBooksPost>>, {data: BodyType<NonReadonly<FavoriteBookJsonld>>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  apiFavoriteBooksPost(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiFavoriteBooksPostMutationResult = NonNullable<Awaited<ReturnType<typeof apiFavoriteBooksPost>>>
+    export type ApiFavoriteBooksPostMutationBody = BodyType<NonReadonly<FavoriteBookJsonld>>
+    export type ApiFavoriteBooksPostMutationError = ErrorType<void>
+
+    /**
+ * @summary Creates a FavoriteBook resource.
+ */
+export const useApiFavoriteBooksPost = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiFavoriteBooksPost>>, TError,{data: BodyType<NonReadonly<FavoriteBookJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiFavoriteBooksPost>>,
+        TError,
+        {data: BodyType<NonReadonly<FavoriteBookJsonld>>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiFavoriteBooksPostMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * Retrieves a FavoriteBook resource.
+ * @summary Retrieves a FavoriteBook resource.
+ */
+export const apiFavoriteBooksIdGet = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<FavoriteBookJsonld>(
+      {url: `/api/favorite_books/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getApiFavoriteBooksIdGetQueryKey = (id: string,) => {
+    return [`/api/favorite_books/${id}`] as const;
+    }
+
+    
+export const getApiFavoriteBooksIdGetQueryOptions = <TData = Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>, TError = ErrorType<void>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getApiFavoriteBooksIdGetQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>> = ({ signal }) => apiFavoriteBooksIdGet(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ApiFavoriteBooksIdGetQueryResult = NonNullable<Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>>
+export type ApiFavoriteBooksIdGetQueryError = ErrorType<void>
+
+
+export function useApiFavoriteBooksIdGet<TData = Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>, TError = ErrorType<void>>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>,
+          TError,
+          Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiFavoriteBooksIdGet<TData = Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>,
+          TError,
+          Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiFavoriteBooksIdGet<TData = Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Retrieves a FavoriteBook resource.
+ */
+
+export function useApiFavoriteBooksIdGet<TData = Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getApiFavoriteBooksIdGetQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * Replaces the FavoriteBook resource.
+ * @summary Replaces the FavoriteBook resource.
+ */
+export const apiFavoriteBooksIdPut = (
+    id: string,
+    favoriteBookJsonld: BodyType<NonReadonly<FavoriteBookJsonld>>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<FavoriteBookJsonld>(
+      {url: `/api/favorite_books/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/ld+json', },
+      data: favoriteBookJsonld
+    },
+      options);
+    }
+  
+
+
+export const getApiFavoriteBooksIdPutMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdPut>>, TError,{id: string;data: BodyType<NonReadonly<FavoriteBookJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdPut>>, TError,{id: string;data: BodyType<NonReadonly<FavoriteBookJsonld>>}, TContext> => {
+    
+const mutationKey = ['apiFavoriteBooksIdPut'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiFavoriteBooksIdPut>>, {id: string;data: BodyType<NonReadonly<FavoriteBookJsonld>>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  apiFavoriteBooksIdPut(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiFavoriteBooksIdPutMutationResult = NonNullable<Awaited<ReturnType<typeof apiFavoriteBooksIdPut>>>
+    export type ApiFavoriteBooksIdPutMutationBody = BodyType<NonReadonly<FavoriteBookJsonld>>
+    export type ApiFavoriteBooksIdPutMutationError = ErrorType<void>
+
+    /**
+ * @summary Replaces the FavoriteBook resource.
+ */
+export const useApiFavoriteBooksIdPut = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdPut>>, TError,{id: string;data: BodyType<NonReadonly<FavoriteBookJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiFavoriteBooksIdPut>>,
+        TError,
+        {id: string;data: BodyType<NonReadonly<FavoriteBookJsonld>>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiFavoriteBooksIdPutMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * Removes the FavoriteBook resource.
+ * @summary Removes the FavoriteBook resource.
+ */
+export const apiFavoriteBooksIdDelete = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<void>(
+      {url: `/api/favorite_books/${id}`, method: 'DELETE'
+    },
+      options);
+    }
+  
+
+
+export const getApiFavoriteBooksIdDeleteMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdDelete>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdDelete>>, TError,{id: string}, TContext> => {
+    
+const mutationKey = ['apiFavoriteBooksIdDelete'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiFavoriteBooksIdDelete>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  apiFavoriteBooksIdDelete(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiFavoriteBooksIdDeleteMutationResult = NonNullable<Awaited<ReturnType<typeof apiFavoriteBooksIdDelete>>>
+    
+    export type ApiFavoriteBooksIdDeleteMutationError = ErrorType<void>
+
+    /**
+ * @summary Removes the FavoriteBook resource.
+ */
+export const useApiFavoriteBooksIdDelete = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdDelete>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiFavoriteBooksIdDelete>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+
+      const mutationOptions = getApiFavoriteBooksIdDeleteMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * Updates the FavoriteBook resource.
+ * @summary Updates the FavoriteBook resource.
+ */
+export const apiFavoriteBooksIdPatch = (
+    id: string,
+    favoriteBook: BodyType<NonReadonly<FavoriteBook>>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<FavoriteBookJsonld>(
+      {url: `/api/favorite_books/${id}`, method: 'PATCH',
+      headers: {'Content-Type': 'application/merge-patch+json', },
+      data: favoriteBook
+    },
+      options);
+    }
+  
+
+
+export const getApiFavoriteBooksIdPatchMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<FavoriteBook>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<FavoriteBook>>}, TContext> => {
+    
+const mutationKey = ['apiFavoriteBooksIdPatch'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiFavoriteBooksIdPatch>>, {id: string;data: BodyType<NonReadonly<FavoriteBook>>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  apiFavoriteBooksIdPatch(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiFavoriteBooksIdPatchMutationResult = NonNullable<Awaited<ReturnType<typeof apiFavoriteBooksIdPatch>>>
+    export type ApiFavoriteBooksIdPatchMutationBody = BodyType<NonReadonly<FavoriteBook>>
+    export type ApiFavoriteBooksIdPatchMutationError = ErrorType<void>
+
+    /**
+ * @summary Updates the FavoriteBook resource.
+ */
+export const useApiFavoriteBooksIdPatch = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiFavoriteBooksIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<FavoriteBook>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiFavoriteBooksIdPatch>>,
+        TError,
+        {id: string;data: BodyType<NonReadonly<FavoriteBook>>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiFavoriteBooksIdPatchMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
  * Creates a user token.
  * @summary Creates a user token.
  */
@@ -576,6 +1469,446 @@ export const useLoginCheckPost = <TError = ErrorType<unknown>,
     }
     
 /**
+ * Retrieves the collection of Message resources.
+ * @summary Retrieves the collection of Message resources.
+ */
+export const apiMessagesGetCollection = (
+    params?: ApiMessagesGetCollectionParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<ApiMessagesGetCollection200>(
+      {url: `/api/messages`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+export const getApiMessagesGetCollectionQueryKey = (params?: ApiMessagesGetCollectionParams,) => {
+    return [`/api/messages`, ...(params ? [params]: [])] as const;
+    }
+
+    
+export const getApiMessagesGetCollectionQueryOptions = <TData = Awaited<ReturnType<typeof apiMessagesGetCollection>>, TError = ErrorType<unknown>>(params?: ApiMessagesGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMessagesGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getApiMessagesGetCollectionQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiMessagesGetCollection>>> = ({ signal }) => apiMessagesGetCollection(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiMessagesGetCollection>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ApiMessagesGetCollectionQueryResult = NonNullable<Awaited<ReturnType<typeof apiMessagesGetCollection>>>
+export type ApiMessagesGetCollectionQueryError = ErrorType<unknown>
+
+
+export function useApiMessagesGetCollection<TData = Awaited<ReturnType<typeof apiMessagesGetCollection>>, TError = ErrorType<unknown>>(
+ params: undefined |  ApiMessagesGetCollectionParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMessagesGetCollection>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiMessagesGetCollection>>,
+          TError,
+          Awaited<ReturnType<typeof apiMessagesGetCollection>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiMessagesGetCollection<TData = Awaited<ReturnType<typeof apiMessagesGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiMessagesGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMessagesGetCollection>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiMessagesGetCollection>>,
+          TError,
+          Awaited<ReturnType<typeof apiMessagesGetCollection>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiMessagesGetCollection<TData = Awaited<ReturnType<typeof apiMessagesGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiMessagesGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMessagesGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Retrieves the collection of Message resources.
+ */
+
+export function useApiMessagesGetCollection<TData = Awaited<ReturnType<typeof apiMessagesGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiMessagesGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMessagesGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getApiMessagesGetCollectionQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * Creates a Message resource.
+ * @summary Creates a Message resource.
+ */
+export const apiMessagesPost = (
+    messageJsonld: BodyType<NonReadonly<MessageJsonld>>,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<MessageJsonld>(
+      {url: `/api/messages`, method: 'POST',
+      headers: {'Content-Type': 'application/ld+json', },
+      data: messageJsonld, signal
+    },
+      options);
+    }
+  
+
+
+export const getApiMessagesPostMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiMessagesPost>>, TError,{data: BodyType<NonReadonly<MessageJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiMessagesPost>>, TError,{data: BodyType<NonReadonly<MessageJsonld>>}, TContext> => {
+    
+const mutationKey = ['apiMessagesPost'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiMessagesPost>>, {data: BodyType<NonReadonly<MessageJsonld>>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  apiMessagesPost(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiMessagesPostMutationResult = NonNullable<Awaited<ReturnType<typeof apiMessagesPost>>>
+    export type ApiMessagesPostMutationBody = BodyType<NonReadonly<MessageJsonld>>
+    export type ApiMessagesPostMutationError = ErrorType<void>
+
+    /**
+ * @summary Creates a Message resource.
+ */
+export const useApiMessagesPost = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiMessagesPost>>, TError,{data: BodyType<NonReadonly<MessageJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiMessagesPost>>,
+        TError,
+        {data: BodyType<NonReadonly<MessageJsonld>>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiMessagesPostMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * Retrieves a Message resource.
+ * @summary Retrieves a Message resource.
+ */
+export const apiMessagesIdGet = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<MessageJsonld>(
+      {url: `/api/messages/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getApiMessagesIdGetQueryKey = (id: string,) => {
+    return [`/api/messages/${id}`] as const;
+    }
+
+    
+export const getApiMessagesIdGetQueryOptions = <TData = Awaited<ReturnType<typeof apiMessagesIdGet>>, TError = ErrorType<void>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMessagesIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getApiMessagesIdGetQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiMessagesIdGet>>> = ({ signal }) => apiMessagesIdGet(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiMessagesIdGet>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ApiMessagesIdGetQueryResult = NonNullable<Awaited<ReturnType<typeof apiMessagesIdGet>>>
+export type ApiMessagesIdGetQueryError = ErrorType<void>
+
+
+export function useApiMessagesIdGet<TData = Awaited<ReturnType<typeof apiMessagesIdGet>>, TError = ErrorType<void>>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMessagesIdGet>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiMessagesIdGet>>,
+          TError,
+          Awaited<ReturnType<typeof apiMessagesIdGet>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiMessagesIdGet<TData = Awaited<ReturnType<typeof apiMessagesIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMessagesIdGet>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiMessagesIdGet>>,
+          TError,
+          Awaited<ReturnType<typeof apiMessagesIdGet>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiMessagesIdGet<TData = Awaited<ReturnType<typeof apiMessagesIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMessagesIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Retrieves a Message resource.
+ */
+
+export function useApiMessagesIdGet<TData = Awaited<ReturnType<typeof apiMessagesIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMessagesIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getApiMessagesIdGetQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * Replaces the Message resource.
+ * @summary Replaces the Message resource.
+ */
+export const apiMessagesIdPut = (
+    id: string,
+    messageJsonld: BodyType<NonReadonly<MessageJsonld>>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<MessageJsonld>(
+      {url: `/api/messages/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/ld+json', },
+      data: messageJsonld
+    },
+      options);
+    }
+  
+
+
+export const getApiMessagesIdPutMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiMessagesIdPut>>, TError,{id: string;data: BodyType<NonReadonly<MessageJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiMessagesIdPut>>, TError,{id: string;data: BodyType<NonReadonly<MessageJsonld>>}, TContext> => {
+    
+const mutationKey = ['apiMessagesIdPut'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiMessagesIdPut>>, {id: string;data: BodyType<NonReadonly<MessageJsonld>>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  apiMessagesIdPut(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiMessagesIdPutMutationResult = NonNullable<Awaited<ReturnType<typeof apiMessagesIdPut>>>
+    export type ApiMessagesIdPutMutationBody = BodyType<NonReadonly<MessageJsonld>>
+    export type ApiMessagesIdPutMutationError = ErrorType<void>
+
+    /**
+ * @summary Replaces the Message resource.
+ */
+export const useApiMessagesIdPut = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiMessagesIdPut>>, TError,{id: string;data: BodyType<NonReadonly<MessageJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiMessagesIdPut>>,
+        TError,
+        {id: string;data: BodyType<NonReadonly<MessageJsonld>>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiMessagesIdPutMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * Removes the Message resource.
+ * @summary Removes the Message resource.
+ */
+export const apiMessagesIdDelete = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<void>(
+      {url: `/api/messages/${id}`, method: 'DELETE'
+    },
+      options);
+    }
+  
+
+
+export const getApiMessagesIdDeleteMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiMessagesIdDelete>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiMessagesIdDelete>>, TError,{id: string}, TContext> => {
+    
+const mutationKey = ['apiMessagesIdDelete'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiMessagesIdDelete>>, {id: string}> = (props) => {
+          const {id} = props ?? {};
+
+          return  apiMessagesIdDelete(id,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiMessagesIdDeleteMutationResult = NonNullable<Awaited<ReturnType<typeof apiMessagesIdDelete>>>
+    
+    export type ApiMessagesIdDeleteMutationError = ErrorType<void>
+
+    /**
+ * @summary Removes the Message resource.
+ */
+export const useApiMessagesIdDelete = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiMessagesIdDelete>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiMessagesIdDelete>>,
+        TError,
+        {id: string},
+        TContext
+      > => {
+
+      const mutationOptions = getApiMessagesIdDeleteMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * Updates the Message resource.
+ * @summary Updates the Message resource.
+ */
+export const apiMessagesIdPatch = (
+    id: string,
+    message: BodyType<NonReadonly<Message>>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<MessageJsonld>(
+      {url: `/api/messages/${id}`, method: 'PATCH',
+      headers: {'Content-Type': 'application/merge-patch+json', },
+      data: message
+    },
+      options);
+    }
+  
+
+
+export const getApiMessagesIdPatchMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiMessagesIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<Message>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiMessagesIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<Message>>}, TContext> => {
+    
+const mutationKey = ['apiMessagesIdPatch'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiMessagesIdPatch>>, {id: string;data: BodyType<NonReadonly<Message>>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  apiMessagesIdPatch(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiMessagesIdPatchMutationResult = NonNullable<Awaited<ReturnType<typeof apiMessagesIdPatch>>>
+    export type ApiMessagesIdPatchMutationBody = BodyType<NonReadonly<Message>>
+    export type ApiMessagesIdPatchMutationError = ErrorType<void>
+
+    /**
+ * @summary Updates the Message resource.
+ */
+export const useApiMessagesIdPatch = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiMessagesIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<Message>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiMessagesIdPatch>>,
+        TError,
+        {id: string;data: BodyType<NonReadonly<Message>>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiMessagesIdPatchMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
  * Retrieves a User resource.
  * @summary Retrieves a User resource.
  */
@@ -585,7 +1918,7 @@ export const me = (
 ) => {
       
       
-      return customInstance<UserJsonld>(
+      return customInstance<UserJsonldUserRead>(
       {url: `/api/me`, method: 'GET', signal
     },
       options);
@@ -759,15 +2092,15 @@ export function useApiUsersGetCollection<TData = Awaited<ReturnType<typeof apiUs
  * @summary Creates a User resource.
  */
 export const apiUsersPost = (
-    userJsonld: BodyType<NonReadonly<UserJsonld>>,
+    userJsonldUserWrite: BodyType<UserJsonldUserWrite>,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
       
       
-      return customInstance<UserJsonld>(
+      return customInstance<UserJsonldUserRead>(
       {url: `/api/users`, method: 'POST',
       headers: {'Content-Type': 'application/ld+json', },
-      data: userJsonld, signal
+      data: userJsonldUserWrite, signal
     },
       options);
     }
@@ -775,8 +2108,8 @@ export const apiUsersPost = (
 
 
 export const getApiUsersPostMutationOptions = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiUsersPost>>, TError,{data: BodyType<NonReadonly<UserJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof apiUsersPost>>, TError,{data: BodyType<NonReadonly<UserJsonld>>}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiUsersPost>>, TError,{data: BodyType<UserJsonldUserWrite>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiUsersPost>>, TError,{data: BodyType<UserJsonldUserWrite>}, TContext> => {
     
 const mutationKey = ['apiUsersPost'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -788,7 +2121,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiUsersPost>>, {data: BodyType<NonReadonly<UserJsonld>>}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiUsersPost>>, {data: BodyType<UserJsonldUserWrite>}> = (props) => {
           const {data} = props ?? {};
 
           return  apiUsersPost(data,requestOptions)
@@ -800,18 +2133,18 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
   return  { mutationFn, ...mutationOptions }}
 
     export type ApiUsersPostMutationResult = NonNullable<Awaited<ReturnType<typeof apiUsersPost>>>
-    export type ApiUsersPostMutationBody = BodyType<NonReadonly<UserJsonld>>
+    export type ApiUsersPostMutationBody = BodyType<UserJsonldUserWrite>
     export type ApiUsersPostMutationError = ErrorType<void>
 
     /**
  * @summary Creates a User resource.
  */
 export const useApiUsersPost = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiUsersPost>>, TError,{data: BodyType<NonReadonly<UserJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiUsersPost>>, TError,{data: BodyType<UserJsonldUserWrite>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationResult<
         Awaited<ReturnType<typeof apiUsersPost>>,
         TError,
-        {data: BodyType<NonReadonly<UserJsonld>>},
+        {data: BodyType<UserJsonldUserWrite>},
         TContext
       > => {
 
@@ -830,7 +2163,7 @@ export const apiUsersIdGet = (
 ) => {
       
       
-      return customInstance<UserJsonld>(
+      return customInstance<UserJsonldUserRead>(
       {url: `/api/users/${id}`, method: 'GET', signal
     },
       options);
@@ -915,14 +2248,14 @@ export function useApiUsersIdGet<TData = Awaited<ReturnType<typeof apiUsersIdGet
  */
 export const apiUsersIdPut = (
     id: string,
-    userJsonld: BodyType<NonReadonly<UserJsonld>>,
+    userJsonldUserWrite: BodyType<UserJsonldUserWrite>,
  options?: SecondParameter<typeof customInstance>,) => {
       
       
-      return customInstance<UserJsonld>(
+      return customInstance<UserJsonldUserRead>(
       {url: `/api/users/${id}`, method: 'PUT',
       headers: {'Content-Type': 'application/ld+json', },
-      data: userJsonld
+      data: userJsonldUserWrite
     },
       options);
     }
@@ -930,8 +2263,8 @@ export const apiUsersIdPut = (
 
 
 export const getApiUsersIdPutMutationOptions = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiUsersIdPut>>, TError,{id: string;data: BodyType<NonReadonly<UserJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof apiUsersIdPut>>, TError,{id: string;data: BodyType<NonReadonly<UserJsonld>>}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiUsersIdPut>>, TError,{id: string;data: BodyType<UserJsonldUserWrite>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiUsersIdPut>>, TError,{id: string;data: BodyType<UserJsonldUserWrite>}, TContext> => {
     
 const mutationKey = ['apiUsersIdPut'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -943,7 +2276,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiUsersIdPut>>, {id: string;data: BodyType<NonReadonly<UserJsonld>>}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiUsersIdPut>>, {id: string;data: BodyType<UserJsonldUserWrite>}> = (props) => {
           const {id,data} = props ?? {};
 
           return  apiUsersIdPut(id,data,requestOptions)
@@ -955,18 +2288,18 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
   return  { mutationFn, ...mutationOptions }}
 
     export type ApiUsersIdPutMutationResult = NonNullable<Awaited<ReturnType<typeof apiUsersIdPut>>>
-    export type ApiUsersIdPutMutationBody = BodyType<NonReadonly<UserJsonld>>
+    export type ApiUsersIdPutMutationBody = BodyType<UserJsonldUserWrite>
     export type ApiUsersIdPutMutationError = ErrorType<void>
 
     /**
  * @summary Replaces the User resource.
  */
 export const useApiUsersIdPut = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiUsersIdPut>>, TError,{id: string;data: BodyType<NonReadonly<UserJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiUsersIdPut>>, TError,{id: string;data: BodyType<UserJsonldUserWrite>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationResult<
         Awaited<ReturnType<typeof apiUsersIdPut>>,
         TError,
-        {id: string;data: BodyType<NonReadonly<UserJsonld>>},
+        {id: string;data: BodyType<UserJsonldUserWrite>},
         TContext
       > => {
 
@@ -1044,14 +2377,14 @@ export const useApiUsersIdDelete = <TError = ErrorType<void>,
  */
 export const apiUsersIdPatch = (
     id: string,
-    user: BodyType<NonReadonly<User>>,
+    userUserWrite: BodyType<UserUserWrite>,
  options?: SecondParameter<typeof customInstance>,) => {
       
       
-      return customInstance<UserJsonld>(
+      return customInstance<UserJsonldUserRead>(
       {url: `/api/users/${id}`, method: 'PATCH',
       headers: {'Content-Type': 'application/merge-patch+json', },
-      data: user
+      data: userUserWrite
     },
       options);
     }
@@ -1059,8 +2392,8 @@ export const apiUsersIdPatch = (
 
 
 export const getApiUsersIdPatchMutationOptions = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiUsersIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<User>>}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof apiUsersIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<User>>}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiUsersIdPatch>>, TError,{id: string;data: BodyType<UserUserWrite>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiUsersIdPatch>>, TError,{id: string;data: BodyType<UserUserWrite>}, TContext> => {
     
 const mutationKey = ['apiUsersIdPatch'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -1072,7 +2405,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiUsersIdPatch>>, {id: string;data: BodyType<NonReadonly<User>>}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiUsersIdPatch>>, {id: string;data: BodyType<UserUserWrite>}> = (props) => {
           const {id,data} = props ?? {};
 
           return  apiUsersIdPatch(id,data,requestOptions)
@@ -1084,18 +2417,18 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
   return  { mutationFn, ...mutationOptions }}
 
     export type ApiUsersIdPatchMutationResult = NonNullable<Awaited<ReturnType<typeof apiUsersIdPatch>>>
-    export type ApiUsersIdPatchMutationBody = BodyType<NonReadonly<User>>
+    export type ApiUsersIdPatchMutationBody = BodyType<UserUserWrite>
     export type ApiUsersIdPatchMutationError = ErrorType<void>
 
     /**
  * @summary Updates the User resource.
  */
 export const useApiUsersIdPatch = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiUsersIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<User>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiUsersIdPatch>>, TError,{id: string;data: BodyType<UserUserWrite>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationResult<
         Awaited<ReturnType<typeof apiUsersIdPatch>>,
         TError,
-        {id: string;data: BodyType<NonReadonly<User>>},
+        {id: string;data: BodyType<UserUserWrite>},
         TContext
       > => {
 

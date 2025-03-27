@@ -4,6 +4,7 @@
  * Hello API Platform
  * OpenAPI spec version: 1.0.0
  */
+import type { BookStatus } from './bookStatus';
 import type { BookInterchangeable } from './bookInterchangeable';
 
 export interface Book {
@@ -16,8 +17,11 @@ export interface Book {
   createdAt?: string;
   ubicatedIn?: number;
   description?: string;
-  ownerId?: number;
-  status?: string;
+  status?: BookStatus;
   imageBook?: string;
+  owner?: string;
+  favoriteBooks?: string[];
+  bookTransactions?: string[];
+  messages?: string[];
   readonly interchangeable?: BookInterchangeable;
 }

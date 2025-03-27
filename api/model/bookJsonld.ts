@@ -5,6 +5,7 @@
  * OpenAPI spec version: 1.0.0
  */
 import type { BookJsonldContext } from './bookJsonldContext';
+import type { BookJsonldStatus } from './bookJsonldStatus';
 import type { BookJsonldInterchangeable } from './bookJsonldInterchangeable';
 
 export interface BookJsonld {
@@ -20,8 +21,11 @@ export interface BookJsonld {
   createdAt?: string;
   ubicatedIn?: number;
   description?: string;
-  ownerId?: number;
-  status?: string;
+  status?: BookJsonldStatus;
   imageBook?: string;
+  owner?: string;
+  favoriteBooks?: string[];
+  bookTransactions?: string[];
+  messages?: string[];
   readonly interchangeable?: BookJsonldInterchangeable;
 }
