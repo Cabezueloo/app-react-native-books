@@ -22,5 +22,6 @@ export interface BookJsonld {
   description?: string;
   ownerId?: number;
   status?: string;
+  imageBook?: string;
   readonly interchangeable?: BookJsonldInterchangeable;
 }

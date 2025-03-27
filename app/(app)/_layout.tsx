@@ -3,7 +3,7 @@ import { Slot, Stack, Tabs } from "expo-router"
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { ROUTES } from "../../constants/Routes";
 import { useAuthAndStyle } from "../../context/Context";
-import '../../global.css';
+
 
 export default function AppLayout() {
   console.log("LOGIN LAYOUT")

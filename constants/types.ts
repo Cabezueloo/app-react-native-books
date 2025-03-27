@@ -1,3 +1,5 @@
+import { i18n, StringConstants } from "../configs";
+
 export type StatusBook = 'available' | 'sold' | 'exchanged';
 export type StatusTransaction = 'pending' | 'completed' | 'canceled'
 export type TransactionType = 'purchase' | 'sale' | 'swap'
@@ -15,7 +17,7 @@ export enum BookCategory {
 export function getCategoryName(category: BookCategory): string {
     switch (category) {
         case BookCategory.Fiction:
-            return 'Fiction';
+            return i18n.t(StringConstants.fiction);
         case BookCategory.Adventure:
             return 'Adventure';
         case BookCategory.Mystery:

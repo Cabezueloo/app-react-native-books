@@ -13,5 +13,11 @@
     "create_an_account":"Create account"  ,
     "surname":"Surname",
     "name" : "Name",
-    "username_or_email":"Username or Email"
+    "username_or_email":"Username or Email",
+    "title_add":"Sell a book",
+    "fiction":"Fiction",
+    "adventure":"Adventure",
+    "mystery":"Mystery",
+    "sci_fiction":"sci_fiction",
+    "select_category":"Select category"
 }

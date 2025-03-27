@@ -13,5 +13,12 @@
     "create_an_account":"Crear cuenta",
     "surname":"Apellido",
     "name":"Nombre",
-    "username_or_email":"Usuario o correo"
+    "username_or_email":"Usuario o correo",
+    "title_add":"Vende tú libro",
+    "fiction":"Ficcíon",
+    "adventure":"Aventura",
+    "mystery":"Misterio",
+    "sci_fiction":"Ciencia ficcíon",
+    "select_category":"Seleccione categoría"
+    
 }
