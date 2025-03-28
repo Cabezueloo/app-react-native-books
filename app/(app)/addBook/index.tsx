@@ -32,10 +32,10 @@ const AddBookScreen = () => {
   interface FormAddBook {
     name: string,
     author: string,
-    price: number,
+    price: number | null,
     is_interchangeable: boolean,
     description: string,
-    category: BookCategory,
+    category: BookCategory | null,
     image_book: any
   }
 
@@ -48,7 +48,11 @@ const AddBookScreen = () => {
     price: yup
       .number()
       .required('Price is required')
-      .min(0, 'Price must be a positive number'),
+      .min(1, 'Price must be a positive number'),
+      category: yup
+      .number()
+      .nullable() // allow null in the form state until a valid selection is made
+      .required('Category is required'),
     is_interchangeable: yup
       .boolean()
       .required('Interchangeability must be specified'),
@@ -59,12 +63,12 @@ const AddBookScreen = () => {
   });
 
   const onSubmit = async (values: FormAddBook) => {
-    
+    console.log(values.category)
     const data: BookJsonldBookWrite = {
       name: values.name,
       author: values.author,
       price: 19.3,
-      category: 4,
+      category: values.category,
       isInterchangeable: isInterchangeable,
       ubicatedIn: 0,
       description: values.description,
@@ -97,7 +101,7 @@ const AddBookScreen = () => {
         initialValues={{
           name: '',
           author: '',
-          price: 0,
+          price: null,
           is_interchangeable: false,
           description: '',
           category: null,
@@ -107,9 +111,9 @@ const AddBookScreen = () => {
         onSubmit={onSubmit}
 
       >
-        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+        {({ handleChange, setFieldValue, handleBlur, handleSubmit, values, errors, touched }) => (
           <>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>  
               <CustomTextInput
                 autoComplete="name"
                 placeholder={t(StringConstants.name_book)}
@@ -136,7 +140,7 @@ const AddBookScreen = () => {
               <CustomTextInput
                 autoComplete="cc-number"
                 placeholder={t(StringConstants.price)}
-                value={values.price.toString()}
+                value={''}
                 placeholderTextColor={colors.text}
                 style={{ color: colors.text, marginRight: 15 }}
                 onChangeText={handleChange('price')}
@@ -173,11 +177,15 @@ const AddBookScreen = () => {
               <Picker
 
                 style={{ alignItems: "center", width: 150 }}
-                onValueChange={(itemValue) => setCategoryValue(itemValue as number)}
-                prompt={t(StringConstants.select_category)}
+                selectedValue={values.category}
+                onValueChange={(itemValue) => {
+                  // Directly update the Formik value for category
+                  setFieldValue('category', itemValue);
+                }}
                 mode="dropdown"
 
               >
+                <Picker.Item label={t(StringConstants.select_category)} value={null} key={0} />
                 <Picker.Item label={t(StringConstants.fiction)} value={1} key={1} />
                 <Picker.Item label={t(StringConstants.adventure)} value={2} key={2} />
                 <Picker.Item label={t(StringConstants.mystery)} value={3} key={3} />
