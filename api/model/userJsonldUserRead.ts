@@ -10,6 +10,7 @@ export interface UserJsonldUserRead {
   readonly '@context'?: UserJsonldUserReadContext;
   readonly '@id'?: string;
   readonly '@type'?: string;
+  readonly id?: number;
   username?: string;
   email?: string;
   name?: string;

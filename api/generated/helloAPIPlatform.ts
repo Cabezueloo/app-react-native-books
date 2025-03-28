@@ -33,8 +33,9 @@ import type {
   ApiMessagesGetCollectionParams,
   ApiUsersGetCollection200,
   ApiUsersGetCollectionParams,
-  Book,
-  BookJsonld,
+  BookBookWrite,
+  BookJsonldBookRead,
+  BookJsonldBookWrite,
   BookTransaction,
   BookTransactionJsonld,
   FavoriteBook,
@@ -177,15 +178,15 @@ export function useApiBooksGetCollection<TData = Awaited<ReturnType<typeof apiBo
  * @summary Creates a Book resource.
  */
 export const apiBooksPost = (
-    bookJsonld: BodyType<NonReadonly<BookJsonld>>,
+    bookJsonldBookWrite: BodyType<BookJsonldBookWrite>,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
       
       
-      return customInstance<BookJsonld>(
+      return customInstance<BookJsonldBookRead>(
       {url: `/api/books`, method: 'POST',
       headers: {'Content-Type': 'application/ld+json', },
-      data: bookJsonld, signal
+      data: bookJsonldBookWrite, signal
     },
       options);
     }
@@ -193,8 +194,8 @@ export const apiBooksPost = (
 
 
 export const getApiBooksPostMutationOptions = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksPost>>, TError,{data: BodyType<NonReadonly<BookJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof apiBooksPost>>, TError,{data: BodyType<NonReadonly<BookJsonld>>}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksPost>>, TError,{data: BodyType<BookJsonldBookWrite>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiBooksPost>>, TError,{data: BodyType<BookJsonldBookWrite>}, TContext> => {
     
 const mutationKey = ['apiBooksPost'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -206,7 +207,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiBooksPost>>, {data: BodyType<NonReadonly<BookJsonld>>}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiBooksPost>>, {data: BodyType<BookJsonldBookWrite>}> = (props) => {
           const {data} = props ?? {};
 
           return  apiBooksPost(data,requestOptions)
@@ -218,18 +219,18 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
   return  { mutationFn, ...mutationOptions }}
 
     export type ApiBooksPostMutationResult = NonNullable<Awaited<ReturnType<typeof apiBooksPost>>>
-    export type ApiBooksPostMutationBody = BodyType<NonReadonly<BookJsonld>>
+    export type ApiBooksPostMutationBody = BodyType<BookJsonldBookWrite>
     export type ApiBooksPostMutationError = ErrorType<void>
 
     /**
  * @summary Creates a Book resource.
  */
 export const useApiBooksPost = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksPost>>, TError,{data: BodyType<NonReadonly<BookJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksPost>>, TError,{data: BodyType<BookJsonldBookWrite>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationResult<
         Awaited<ReturnType<typeof apiBooksPost>>,
         TError,
-        {data: BodyType<NonReadonly<BookJsonld>>},
+        {data: BodyType<BookJsonldBookWrite>},
         TContext
       > => {
 
@@ -248,7 +249,7 @@ export const apiBooksIdGet = (
 ) => {
       
       
-      return customInstance<BookJsonld>(
+      return customInstance<BookJsonldBookRead>(
       {url: `/api/books/${id}`, method: 'GET', signal
     },
       options);
@@ -333,14 +334,14 @@ export function useApiBooksIdGet<TData = Awaited<ReturnType<typeof apiBooksIdGet
  */
 export const apiBooksIdPut = (
     id: string,
-    bookJsonld: BodyType<NonReadonly<BookJsonld>>,
+    bookJsonldBookWrite: BodyType<BookJsonldBookWrite>,
  options?: SecondParameter<typeof customInstance>,) => {
       
       
-      return customInstance<BookJsonld>(
+      return customInstance<BookJsonldBookRead>(
       {url: `/api/books/${id}`, method: 'PUT',
       headers: {'Content-Type': 'application/ld+json', },
-      data: bookJsonld
+      data: bookJsonldBookWrite
     },
       options);
     }
@@ -348,8 +349,8 @@ export const apiBooksIdPut = (
 
 
 export const getApiBooksIdPutMutationOptions = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPut>>, TError,{id: string;data: BodyType<NonReadonly<BookJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPut>>, TError,{id: string;data: BodyType<NonReadonly<BookJsonld>>}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPut>>, TError,{id: string;data: BodyType<BookJsonldBookWrite>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPut>>, TError,{id: string;data: BodyType<BookJsonldBookWrite>}, TContext> => {
     
 const mutationKey = ['apiBooksIdPut'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -361,7 +362,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiBooksIdPut>>, {id: string;data: BodyType<NonReadonly<BookJsonld>>}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiBooksIdPut>>, {id: string;data: BodyType<BookJsonldBookWrite>}> = (props) => {
           const {id,data} = props ?? {};
 
           return  apiBooksIdPut(id,data,requestOptions)
@@ -373,18 +374,18 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
   return  { mutationFn, ...mutationOptions }}
 
     export type ApiBooksIdPutMutationResult = NonNullable<Awaited<ReturnType<typeof apiBooksIdPut>>>
-    export type ApiBooksIdPutMutationBody = BodyType<NonReadonly<BookJsonld>>
+    export type ApiBooksIdPutMutationBody = BodyType<BookJsonldBookWrite>
     export type ApiBooksIdPutMutationError = ErrorType<void>
 
     /**
  * @summary Replaces the Book resource.
  */
 export const useApiBooksIdPut = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPut>>, TError,{id: string;data: BodyType<NonReadonly<BookJsonld>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPut>>, TError,{id: string;data: BodyType<BookJsonldBookWrite>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationResult<
         Awaited<ReturnType<typeof apiBooksIdPut>>,
         TError,
-        {id: string;data: BodyType<NonReadonly<BookJsonld>>},
+        {id: string;data: BodyType<BookJsonldBookWrite>},
         TContext
       > => {
 
@@ -462,14 +463,14 @@ export const useApiBooksIdDelete = <TError = ErrorType<void>,
  */
 export const apiBooksIdPatch = (
     id: string,
-    book: BodyType<NonReadonly<Book>>,
+    bookBookWrite: BodyType<BookBookWrite>,
  options?: SecondParameter<typeof customInstance>,) => {
       
       
-      return customInstance<BookJsonld>(
+      return customInstance<BookJsonldBookRead>(
       {url: `/api/books/${id}`, method: 'PATCH',
       headers: {'Content-Type': 'application/merge-patch+json', },
-      data: book
+      data: bookBookWrite
     },
       options);
     }
@@ -477,8 +478,8 @@ export const apiBooksIdPatch = (
 
 
 export const getApiBooksIdPatchMutationOptions = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<Book>>}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<Book>>}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPatch>>, TError,{id: string;data: BodyType<BookBookWrite>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPatch>>, TError,{id: string;data: BodyType<BookBookWrite>}, TContext> => {
     
 const mutationKey = ['apiBooksIdPatch'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -490,7 +491,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiBooksIdPatch>>, {id: string;data: BodyType<NonReadonly<Book>>}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiBooksIdPatch>>, {id: string;data: BodyType<BookBookWrite>}> = (props) => {
           const {id,data} = props ?? {};
 
           return  apiBooksIdPatch(id,data,requestOptions)
@@ -502,18 +503,18 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
   return  { mutationFn, ...mutationOptions }}
 
     export type ApiBooksIdPatchMutationResult = NonNullable<Awaited<ReturnType<typeof apiBooksIdPatch>>>
-    export type ApiBooksIdPatchMutationBody = BodyType<NonReadonly<Book>>
+    export type ApiBooksIdPatchMutationBody = BodyType<BookBookWrite>
     export type ApiBooksIdPatchMutationError = ErrorType<void>
 
     /**
  * @summary Updates the Book resource.
  */
 export const useApiBooksIdPatch = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPatch>>, TError,{id: string;data: BodyType<NonReadonly<Book>>}, TContext>, request?: SecondParameter<typeof customInstance>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiBooksIdPatch>>, TError,{id: string;data: BodyType<BookBookWrite>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationResult<
         Awaited<ReturnType<typeof apiBooksIdPatch>>,
         TError,
-        {id: string;data: BodyType<NonReadonly<Book>>},
+        {id: string;data: BodyType<BookBookWrite>},
         TContext
       > => {
 

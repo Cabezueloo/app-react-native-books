@@ -6,6 +6,7 @@ import { Slot } from 'expo-router';
 
 import { StatusBar, Text, useColorScheme } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme()
@@ -19,6 +20,9 @@ export default function RootLayout() {
         <StatusBar barStyle={barStyle} backgroundColor={backgroundColor}/>
         <Provider>
             <Slot/>
+            <Toast
+            position='top' />
+
         </Provider>
         </SafeAreaView>
     </SafeAreaProvider>

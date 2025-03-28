@@ -11,15 +11,22 @@ import { useState } from "react";
 
 import { Formik } from "formik"
 import CustomTextInput from "../../../components/CustomTextInput"
+import { apiBooksPost, useApiBooksPost } from "../../../api/generated/helloAPIPlatform";
+import { BookJsonldBookWrite, BookJsonldUserRead, UserJsonldUserRead } from "../../../api/model";
+import { router } from "expo-router";
+import { ROUTES } from "../../../constants/Routes";
+
+import { toastSuccess } from "../../../utils/toast";
 
 const AddBookScreen = () => {
 
   const { currentUser, isLoading, colors } = useAuthAndStyle()
   const { t } = useTranslation()
-  const [fieldValue, setFieldValue] = useState();
+  const [categoryValue, setCategoryValue] = useState(1);
 
-  const [isInterchangeable, setIsInterchangeable] = useState(false);
+  const [isInterchangeable, setIsInterchangeable] = useState<boolean>(false)
   const toggleSwitch = () => setIsInterchangeable(previousState => !previousState);
+
 
 
   interface FormAddBook {
@@ -46,14 +53,36 @@ const AddBookScreen = () => {
       .boolean()
       .required('Interchangeability must be specified'),
     description: yup.string().required('Description is required'),
-    category: yup.mixed().required('Category is required'),
-    image_book: yup.mixed().required('Book image is required'),
+
+
 
   });
 
-  const onSubmit = (values: FormAddBook) => {
+  const onSubmit = async (values: FormAddBook) => {
+    
+    const data: BookJsonldBookWrite = {
+      name: values.name,
+      author: values.author,
+      price: 19.3,
+      category: 4,
+      isInterchangeable: isInterchangeable,
+      ubicatedIn: 0,
+      description: values.description,
+      status: "available",
+      ownerId: currentUser.id
+    }
 
-    console.log("Entro")
+    try {
+
+      const response = await apiBooksPost(data)
+
+      router.navigate(ROUTES.PAGE_SEARCH)
+      toastSuccess("Subido");
+
+    } catch (error) {
+      console.log(error)
+    }
+
   }
 
 
@@ -142,17 +171,17 @@ const AddBookScreen = () => {
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
               <Picker
-                selectedValue={fieldValue}
+
                 style={{ alignItems: "center", width: 150 }}
-                onValueChange={(itemValue) => setFieldValue(itemValue)}
-                placeholder={t(StringConstants.select_category)}
+                onValueChange={(itemValue) => setCategoryValue(itemValue as number)}
+                prompt={t(StringConstants.select_category)}
                 mode="dropdown"
-                
+
               >
-                <Picker.Item label={t(StringConstants.fiction)} value={1} />
-                <Picker.Item label={t(StringConstants.adventure)} value={2} />
-                <Picker.Item label={t(StringConstants.mystery)} value={3} />
-                <Picker.Item label={t(StringConstants.sci_fiction)} value={3} />
+                <Picker.Item label={t(StringConstants.fiction)} value={1} key={1} />
+                <Picker.Item label={t(StringConstants.adventure)} value={2} key={2} />
+                <Picker.Item label={t(StringConstants.mystery)} value={3} key={3} />
+                <Picker.Item label={t(StringConstants.sci_fiction)} value={4} key={4} />
               </Picker>
 
               <TextInput>TODO IMAGE</TextInput>
@@ -160,7 +189,9 @@ const AddBookScreen = () => {
 
 
             </View>
-          
+            {Object.keys(errors).length > 0 && (
+              <Text style={{ color: "red" }}>Validation Errors: {JSON.stringify(errors)}</Text>
+            )}
             <Button title="Subir" onPress={() => handleSubmit()} />
 
 
