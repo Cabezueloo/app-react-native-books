@@ -10,7 +10,7 @@ export type BookTransactionStatusTransaction = typeof BookTransactionStatusTrans
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const BookTransactionStatusTransaction = {
-  pending: 'pending',
-  completed: 'completed',
-  canceled: 'canceled',
+  Pending: 'Pending',
+  Completed: 'Completed',
+  Canceled: 'Canceled',
 } as const;

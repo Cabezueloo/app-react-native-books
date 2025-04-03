@@ -4,10 +4,23 @@
  * Hello API Platform
  * OpenAPI spec version: 1.0.0
  */
+import type { ApiBooksGetCollectionOrderCreatedAt } from './apiBooksGetCollectionOrderCreatedAt';
+import type { ApiBooksGetCollectionOrderPrice } from './apiBooksGetCollectionOrderPrice';
 
 export type ApiBooksGetCollectionParams = {
 /**
  * The collection page number
  */
 page?: number;
+name?: string;
+author?: string;
+category?: number;
+'category[]'?: number[];
+'price[between]'?: string;
+'price[gt]'?: string;
+'price[gte]'?: string;
+'price[lt]'?: string;
+'price[lte]'?: string;
+'order[createdAt]'?: ApiBooksGetCollectionOrderCreatedAt;
+'order[price]'?: ApiBooksGetCollectionOrderPrice;
 };

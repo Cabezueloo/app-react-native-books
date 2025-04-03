@@ -10,7 +10,7 @@ export type BookTransactionJsonldTransactionType = typeof BookTransactionJsonldT
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const BookTransactionJsonldTransactionType = {
-  purchase: 'purchase',
-  sale: 'sale',
-  swap: 'swap',
+  Purchase: 'Purchase',
+  Sale: 'Sale',
+  Swap: 'Swap',
 } as const;

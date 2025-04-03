@@ -67,12 +67,12 @@ const AddBookScreen = () => {
     const data: BookJsonldBookWrite = {
       name: values.name,
       author: values.author,
-      price: 19.3,
+      price: values.price,
       category: values.category,
       isInterchangeable: isInterchangeable,
       ubicatedIn: 0,
       description: values.description,
-      status: "available",
+      status: "Available",
       ownerId: currentUser.id
     }
 

@@ -29,6 +29,9 @@ import type {
   ApiBooksGetCollectionParams,
   ApiFavoriteBooksGetCollection200,
   ApiFavoriteBooksGetCollectionParams,
+  ApiMediaObjectsGetCollection200,
+  ApiMediaObjectsGetCollectionParams,
+  ApiMediaObjectsPostBody,
   ApiMessagesGetCollection200,
   ApiMessagesGetCollectionParams,
   ApiUsersGetCollection200,
@@ -42,6 +45,7 @@ import type {
   FavoriteBookJsonld,
   LoginCheckPost200,
   LoginCheckPostBody,
+  MediaObjectJsonldMediaObjectRead,
   Message,
   MessageJsonld,
   UserJsonldUserRead,
@@ -1469,6 +1473,255 @@ export const useLoginCheckPost = <TError = ErrorType<unknown>,
       return useMutation(mutationOptions);
     }
     
+/**
+ * Retrieves the collection of MediaObject resources.
+ * @summary Retrieves the collection of MediaObject resources.
+ */
+export const apiMediaObjectsGetCollection = (
+    params?: ApiMediaObjectsGetCollectionParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<ApiMediaObjectsGetCollection200>(
+      {url: `/api/media_objects`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+export const getApiMediaObjectsGetCollectionQueryKey = (params?: ApiMediaObjectsGetCollectionParams,) => {
+    return [`/api/media_objects`, ...(params ? [params]: [])] as const;
+    }
+
+    
+export const getApiMediaObjectsGetCollectionQueryOptions = <TData = Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>, TError = ErrorType<unknown>>(params?: ApiMediaObjectsGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getApiMediaObjectsGetCollectionQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>> = ({ signal }) => apiMediaObjectsGetCollection(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ApiMediaObjectsGetCollectionQueryResult = NonNullable<Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>>
+export type ApiMediaObjectsGetCollectionQueryError = ErrorType<unknown>
+
+
+export function useApiMediaObjectsGetCollection<TData = Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>, TError = ErrorType<unknown>>(
+ params: undefined |  ApiMediaObjectsGetCollectionParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>,
+          TError,
+          Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiMediaObjectsGetCollection<TData = Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiMediaObjectsGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>,
+          TError,
+          Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiMediaObjectsGetCollection<TData = Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiMediaObjectsGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Retrieves the collection of MediaObject resources.
+ */
+
+export function useApiMediaObjectsGetCollection<TData = Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>, TError = ErrorType<unknown>>(
+ params?: ApiMediaObjectsGetCollectionParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMediaObjectsGetCollection>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getApiMediaObjectsGetCollectionQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * Creates a MediaObject resource.
+ * @summary Creates a MediaObject resource.
+ */
+export const apiMediaObjectsPost = (
+    apiMediaObjectsPostBody?: BodyType<ApiMediaObjectsPostBody>,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      const formData = new FormData();
+if(apiMediaObjectsPostBody?.file !== undefined) {
+ formData.append('file', apiMediaObjectsPostBody.file)
+ }
+
+      return customInstance<MediaObjectJsonldMediaObjectRead>(
+      {url: `/api/media_objects`, method: 'POST',
+      headers: {'Content-Type': 'multipart/form-data', },
+       data: formData, signal
+    },
+      options);
+    }
+  
+
+
+export const getApiMediaObjectsPostMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiMediaObjectsPost>>, TError,{data: BodyType<ApiMediaObjectsPostBody>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiMediaObjectsPost>>, TError,{data: BodyType<ApiMediaObjectsPostBody>}, TContext> => {
+    
+const mutationKey = ['apiMediaObjectsPost'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiMediaObjectsPost>>, {data: BodyType<ApiMediaObjectsPostBody>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  apiMediaObjectsPost(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiMediaObjectsPostMutationResult = NonNullable<Awaited<ReturnType<typeof apiMediaObjectsPost>>>
+    export type ApiMediaObjectsPostMutationBody = BodyType<ApiMediaObjectsPostBody>
+    export type ApiMediaObjectsPostMutationError = ErrorType<void>
+
+    /**
+ * @summary Creates a MediaObject resource.
+ */
+export const useApiMediaObjectsPost = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiMediaObjectsPost>>, TError,{data: BodyType<ApiMediaObjectsPostBody>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiMediaObjectsPost>>,
+        TError,
+        {data: BodyType<ApiMediaObjectsPostBody>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiMediaObjectsPostMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * Retrieves a MediaObject resource.
+ * @summary Retrieves a MediaObject resource.
+ */
+export const apiMediaObjectsIdGet = (
+    id: string,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<MediaObjectJsonldMediaObjectRead>(
+      {url: `/api/media_objects/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getApiMediaObjectsIdGetQueryKey = (id: string,) => {
+    return [`/api/media_objects/${id}`] as const;
+    }
+
+    
+export const getApiMediaObjectsIdGetQueryOptions = <TData = Awaited<ReturnType<typeof apiMediaObjectsIdGet>>, TError = ErrorType<void>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMediaObjectsIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getApiMediaObjectsIdGetQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiMediaObjectsIdGet>>> = ({ signal }) => apiMediaObjectsIdGet(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiMediaObjectsIdGet>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ApiMediaObjectsIdGetQueryResult = NonNullable<Awaited<ReturnType<typeof apiMediaObjectsIdGet>>>
+export type ApiMediaObjectsIdGetQueryError = ErrorType<void>
+
+
+export function useApiMediaObjectsIdGet<TData = Awaited<ReturnType<typeof apiMediaObjectsIdGet>>, TError = ErrorType<void>>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMediaObjectsIdGet>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiMediaObjectsIdGet>>,
+          TError,
+          Awaited<ReturnType<typeof apiMediaObjectsIdGet>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiMediaObjectsIdGet<TData = Awaited<ReturnType<typeof apiMediaObjectsIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMediaObjectsIdGet>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiMediaObjectsIdGet>>,
+          TError,
+          Awaited<ReturnType<typeof apiMediaObjectsIdGet>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiMediaObjectsIdGet<TData = Awaited<ReturnType<typeof apiMediaObjectsIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMediaObjectsIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Retrieves a MediaObject resource.
+ */
+
+export function useApiMediaObjectsIdGet<TData = Awaited<ReturnType<typeof apiMediaObjectsIdGet>>, TError = ErrorType<void>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiMediaObjectsIdGet>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getApiMediaObjectsIdGetQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
 /**
  * Retrieves the collection of Message resources.
  * @summary Retrieves the collection of Message resources.

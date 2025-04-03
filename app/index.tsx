@@ -20,22 +20,31 @@ export default function Start() {
   console.log("ENTRA START")
   const { t } = useTranslation()
 
-  const { colorScheme, colors } = useCommonData()
-  const { isAuthenticated, isLoading, apiMe } = useAuthAndStyle();
+  
+  const { isAuthenticated, isLoading, apiMe,colorScheme, colors} = useAuthAndStyle();
 
   const style = StyleLogin({ colorScheme, colors })
   const spinnerColor = colorScheme == 'dark' ? lightColors.background : darkColors.background
 
-  useEffect(
-    () => {
-      const getApiMe = async () => await apiMe();
-      getApiMe();
-    }, []
-  )
-
   
+   // Add local state for initial loading
+  const [initialLoading, setInitialLoading] = useState(true);
 
-  if (isLoading) {
+  useEffect(() => {
+    // Set timeout to handle initial 3-second delay
+    const timeout = setTimeout(() => {
+      setInitialLoading(false);
+      // Trigger authentication check after initial delay
+      apiMe();
+    }, 1500);
+
+    // Cleanup timeout on component unmount
+    return () => clearTimeout(timeout);
+  }, []); // Empty dependency array ensures this runs only once
+
+  // Show spinner during initial loading or auth check
+  if (initialLoading || isLoading) {
+    
     return (
       <SafeAreaProvider>
 

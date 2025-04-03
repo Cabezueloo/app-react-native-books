@@ -10,7 +10,7 @@ export type BookTransactionJsonldStatusTransaction = typeof BookTransactionJsonl
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const BookTransactionJsonldStatusTransaction = {
-  pending: 'pending',
-  completed: 'completed',
-  canceled: 'canceled',
+  Pending: 'Pending',
+  Completed: 'Completed',
+  Canceled: 'Canceled',
 } as const;

@@ -41,6 +41,7 @@ export default function LoginScreen() {
         setIsLoading(true);
         try {
 
+            console.log("A")
             const response = await loginCheckPost({ email: values.email, password: values.password });
             if (response?.token) {
                 await storeData(LOCAL_STORAGE_KEY_TOKEN,response.token)
