@@ -19,6 +19,11 @@
     "adventure":"Aventura",
     "mystery":"Misterio",
     "sci_fiction":"Ciencia ficcíon",
-    "select_category":"Seleccione categoría"
+    "select_category":"Seleccione categoría",
+    "orderByAscPrice":"Precio ascendiente",
+    "orderByDescPrice":"Precio descendiente",
+    "orderByMoreRecent":"Más reciente",
+    "orderByMoreOld":"Menos reciente",
+    "orderBy":"Sin preferencia"
     
 }

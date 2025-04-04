@@ -24,5 +24,10 @@ export const StringConstants = {
     "author":"author",
     "price":"price",
     "description":"description",
-    "select_category":"select_category"
+    "select_category":"select_category",
+    "orderByAscPrice":'orderByAscPrice',
+    "orderByDescPrice":'orderByDescPrice',
+    "orderByMoreRecent":'orderByMoreRecent',
+    "orderByMoreOld":'orderByMoreOld',
+    "orderBy":"orderBy"
 }
