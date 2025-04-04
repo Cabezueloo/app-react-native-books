@@ -13,17 +13,19 @@ export enum BookCategory {
     // Add more categories as needed
 }
 
+
+
 // Example usage:
 export function getCategoryName(category: BookCategory): string {
     switch (category) {
         case BookCategory.Fiction:
             return i18n.t(StringConstants.fiction);
         case BookCategory.Adventure:
-            return 'Adventure';
+            return i18n.t(StringConstants.adventure);
         case BookCategory.Mystery:
-            return 'Mystery';
+            return i18n.t(StringConstants.mystery);
         case BookCategory.SciFi:
-            return 'Science Fiction';
+            return i18n.t(StringConstants.sci_fiction);
         default:
             return 'Unknown';
     }

@@ -9,6 +9,8 @@ import type { ApiBooksGetCollection200HydraView } from './apiBooksGetCollection2
 import type { ApiBooksGetCollection200HydraSearch } from './apiBooksGetCollection200HydraSearch';
 
 export type ApiBooksGetCollection200 = {
+  id: string;
+  name: string;
   'hydra:member': BookJsonldBookRead[];
   /** @minimum 0 */
   'hydra:totalItems'?: number;

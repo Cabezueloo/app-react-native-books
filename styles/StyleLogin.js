@@ -21,13 +21,6 @@ const StyleLogin = (props) => {
             fontSize: size.heading,
             color: colors.primary
         },
-        basicLabel: {
-            fontSize: size.bodyText,
-            color: colors.accent,
-            fontStyle: fonts.bold,
-            
-
-        },
         container: {
                 flex: 1,
                 alignItems: 'center',
