@@ -3,7 +3,7 @@ import { useAuthAndStyle } from "../../../context/Context"
 import { useTranslation } from "react-i18next"
 import { Picker } from '@react-native-picker/picker';
 
-
+import * as ImagePicker from 'expo-image-picker';
 import { StringConstants } from "../../../configs"
 import { BookCategory } from "../../../constants/types"
 import * as yup from 'yup';
@@ -11,8 +11,8 @@ import { useState } from "react";
 
 import { Formik } from "formik"
 import CustomTextInput from "../../../components/CustomTextInput"
-import { apiBooksPost, useApiBooksPost } from "../../../api/generated/helloAPIPlatform";
-import { BookJsonldBookWrite, BookJsonldUserRead, UserJsonldUserRead } from "../../../api/model";
+import { apiBooksPost, apiMediaObjectsPost, useApiBooksPost } from "../../../api/generated/helloAPIPlatform";
+import { ApiMediaObjectsPostBody, BookJsonldBookWrite, BookJsonldUserRead, UserJsonldUserRead } from "../../../api/model";
 import { router } from "expo-router";
 import { ROUTES } from "../../../constants/Routes";
 
@@ -26,6 +26,28 @@ const AddBookScreen = () => {
 
   const [isInterchangeable, setIsInterchangeable] = useState<boolean>(false)
   const toggleSwitch = () => setIsInterchangeable(previousState => !previousState);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+
+
+  const pickImageAsync = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsEditing: true,
+      quality: 1,
+      selectionLimit:1,
+      
+    });
+
+    if (!result.canceled) {
+      console.log("Si");
+      setSelectedImage(result.assets[0]);
+    } else {
+      alert('You did not select any image.');
+    }
+
+
+  }
 
 
 
@@ -36,7 +58,7 @@ const AddBookScreen = () => {
     is_interchangeable: boolean,
     description: string,
     category: BookCategory | null,
-    image_book: any
+    image_book: string
   }
 
 
@@ -49,7 +71,7 @@ const AddBookScreen = () => {
       .number()
       .required('Price is required')
       .min(1, 'Price must be a positive number'),
-      category: yup
+    category: yup
       .number()
       .nullable() // allow null in the form state until a valid selection is made
       .required('Category is required'),
@@ -62,21 +84,38 @@ const AddBookScreen = () => {
 
   });
 
-  const onSubmit = async (values: FormAddBook) => {
-    console.log(values.category)
-    const data: BookJsonldBookWrite = {
-      name: values.name,
-      author: values.author,
-      price: values.price,
-      category: values.category,
-      isInterchangeable: isInterchangeable,
-      ubicatedIn: 0,
-      description: values.description,
-      status: "Available",
-      ownerId: currentUser.id
-    }
 
+  const onSubmit = async (values: FormAddBook) => {
+    console.log("Enviar")
+
+    // Call API endpoint
     try {
+      
+      const file = {
+        uri: selectedImage.uri,
+        name: selectedImage.fileName || 'image.jpg', // Fallback filename if unavailable
+        type: selectedImage.mimeType || 'image/jpeg', // Fallback MIME type
+      };
+          
+      const resImage = await apiMediaObjectsPost({ file: file as unknown as Blob, // Type assertion to satisfy the Blob type
+      });
+      console.log('Response:', resImage); // Log the entire response
+      console.log(resImage["@id"]);
+
+
+      const data: BookJsonldBookWrite = {
+        name: values.name,
+        author: values.author,
+        price: 12,
+        category: values.category,
+        isInterchangeable: isInterchangeable,
+        ubicatedIn: 0,
+        description: values.description,
+        status: "Available",
+        ownerId: currentUser.id,
+        image: resImage["@id"]
+      }
+
 
       const response = await apiBooksPost(data)
 
@@ -113,7 +152,7 @@ const AddBookScreen = () => {
       >
         {({ handleChange, setFieldValue, handleBlur, handleSubmit, values, errors, touched }) => (
           <>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>  
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <CustomTextInput
                 autoComplete="name"
                 placeholder={t(StringConstants.name_book)}
@@ -192,7 +231,9 @@ const AddBookScreen = () => {
                 <Picker.Item label={t(StringConstants.sci_fiction)} value={4} key={4} />
               </Picker>
 
-              <TextInput>TODO IMAGE</TextInput>
+
+              <Button title="Choose from Device" onPress={() => pickImageAsync()} />
+
 
 
 
@@ -224,4 +265,4 @@ const AddBookScreen = () => {
   )
 
 }
-export default AddBookScreen
+export default AddBookScreen;
