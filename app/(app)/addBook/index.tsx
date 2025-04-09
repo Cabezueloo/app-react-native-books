@@ -106,7 +106,7 @@ const AddBookScreen = () => {
       const data: BookJsonldBookWrite = {
         name: values.name,
         author: values.author,
-        price: 12,
+        price: parseFloat(values.price+""),
         category: values.category,
         isInterchangeable: isInterchangeable,
         ubicatedIn: 0,
@@ -118,7 +118,7 @@ const AddBookScreen = () => {
         console.log('a')
 
       const response = await apiBooksPost(data)
-
+      
       router.navigate(ROUTES.PAGE_SEARCH)
       toastSuccess("Subido");
 
@@ -179,7 +179,8 @@ const AddBookScreen = () => {
               <CustomTextInput
                 autoComplete="cc-number"
                 placeholder={t(StringConstants.price)}
-                value={''}
+                value={null}
+                keyboardType="number-pad"
                 placeholderTextColor={colors.text}
                 style={{ color: colors.text, marginRight: 15 }}
                 onChangeText={handleChange('price')}

@@ -5,6 +5,7 @@
  * OpenAPI spec version: 1.0.0
  */
 import type { UserJsonldUserReadContext } from './userJsonldUserReadContext';
+import type { FavoriteBookJsonldUserRead } from './favoriteBookJsonldUserRead';
 
 export interface UserJsonldUserRead {
   readonly '@context'?: UserJsonldUserReadContext;
@@ -16,4 +17,5 @@ export interface UserJsonldUserRead {
   name?: string;
   surname?: string;
   password?: string;
+  favoriteBooks?: FavoriteBookJsonldUserRead[];
 }

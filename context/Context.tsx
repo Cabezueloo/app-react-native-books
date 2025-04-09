@@ -1,5 +1,5 @@
 import { me } from '../api/generated/helloAPIPlatform';
-import { UserJsonld } from '../api/model';
+import { UserJsonld, UserJsonldUserRead } from '../api/model';
 import { LOCAL_STORAGE_KEY_TOKEN } from '../constants/Common';
 import { ROUTES } from '../constants/Routes';
 import { getData, removeData, storeData } from '../utils/asyncStorage';
@@ -17,7 +17,7 @@ type ContextType = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
   isAuthenticated: boolean;
-  currentUser?: UserJsonld;
+  currentUser?: UserJsonldUserRead;
   colorScheme: string;
   colors:Colors;
 };
@@ -25,7 +25,7 @@ type ContextType = {
 const Context = createContext<ContextType>(null!);
 
 export function Provider({ children }: { children: React.ReactNode }) {
-  const [currentUser, setUser] = useState<UserJsonld | undefined>(undefined);
+  const [currentUser, setUser] = useState<UserJsonldUserRead | undefined>(undefined);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
