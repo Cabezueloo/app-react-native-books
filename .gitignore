@@ -9,7 +9,7 @@ dist/
 web-build/
 
 .env
-
+/android
 api/generated
 api/model
 

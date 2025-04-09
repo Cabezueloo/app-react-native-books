@@ -115,7 +115,7 @@ const AddBookScreen = () => {
         ownerId: currentUser.id,
         image: resImage["@id"]
       }
-
+        console.log('a')
 
       const response = await apiBooksPost(data)
 
