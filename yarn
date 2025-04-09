@@ -27,10 +27,10 @@
   },
   _internal: {
     isDebug: [33mfalse[39m,
-    projectRoot: [32m'/media/user/Samsung SSD/app-react-native-books'[39m,
+    projectRoot: [32m'/media/user/angel_ssd/app-react-native-books'[39m,
     dynamicConfigPath: [1mnull[22m,
-    staticConfigPath: [32m'/media/user/Samsung SSD/app-react-native-books/app.json'[39m,
-    packageJsonPath: [32m'/media/user/Samsung SSD/app-react-native-books/package.json'[39m
+    staticConfigPath: [32m'/media/user/angel_ssd/app-react-native-books/app.json'[39m,
+    packageJsonPath: [32m'/media/user/angel_ssd/app-react-native-books/package.json'[39m
   }
 }
 

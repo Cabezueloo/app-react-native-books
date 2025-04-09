@@ -4,12 +4,12 @@
  * Hello API Platform
  * OpenAPI spec version: 1.0.0
  */
-import type { UserJsonld } from './userJsonld';
+import type { UserJsonldUserRead } from './userJsonldUserRead';
 import type { ApiUsersGetCollection200HydraView } from './apiUsersGetCollection200HydraView';
 import type { ApiUsersGetCollection200HydraSearch } from './apiUsersGetCollection200HydraSearch';
 
 export type ApiUsersGetCollection200 = {
-  'hydra:member': UserJsonld[];
+  'hydra:member': UserJsonldUserRead[];
   /** @minimum 0 */
   'hydra:totalItems'?: number;
   'hydra:view'?: ApiUsersGetCollection200HydraView;

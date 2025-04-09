@@ -11,7 +11,7 @@ import { useCommonData } from '../../services';
 import { lightColors } from '../../styles';
 import CustomTextInput from '../../components/CustomTextInput';
 import { apiUsersPost, loginCheckPost } from '../../api/generated/helloAPIPlatform';
-import { UserJsonld } from '../../api/model';
+import { UserJsonld, UserJsonldUserWrite } from '../../api/model';
 import { useAuthAndStyle } from '../../context/Context';
 import { ROUTES } from '../../constants/Routes';
 
@@ -47,14 +47,12 @@ const RegisterScreen = () => {
 
     const onSubmit = async (values: FormSchemaRegister) => {
         console.log("Form values -> ", values);
-        const newUser: Partial<UserJsonld> = {
+        const newUser: UserJsonldUserWrite = {
             username: values.username,
             email: values.email,
             name: values.name,
             surname: values.surname,
-            password: values.password,
-            createdAt: new Date().toISOString(),
-            lastLogin: new Date().toISOString()
+            password: values.password
         };
         console.log(newUser)
         try {

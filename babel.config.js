@@ -3,6 +3,7 @@ module.exports = {
   plugins: [
     [
       'module-resolver',
+      
       {
         root: ['./app'],
         alias: {
