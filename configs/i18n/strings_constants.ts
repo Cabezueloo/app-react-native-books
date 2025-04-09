@@ -14,5 +14,20 @@ export const StringConstants = {
     "create_an_account":"create_an_account",
     "surname": "surname",
     "name":"name",
-    "username_or_email":"username_or_email"
+    "username_or_email":"username_or_email",
+    "title_add":"title_add",
+    "fiction":"fiction",
+    "adventure":"adventure",
+    "mystery":"mystery",
+    "sci_fiction":"sci_fiction",
+    "name_book" : "name_book",
+    "author":"author",
+    "price":"price",
+    "description":"description",
+    "select_category":"select_category",
+    "orderByAscPrice":'orderByAscPrice',
+    "orderByDescPrice":'orderByDescPrice',
+    "orderByMoreRecent":'orderByMoreRecent',
+    "orderByMoreOld":'orderByMoreOld',
+    "orderBy":"orderBy"
 }

@@ -26,7 +26,7 @@ const Context = createContext<ContextType>(null!);
 
 export function Provider({ children }: { children: React.ReactNode }) {
   const [currentUser, setUser] = useState<UserJsonld | undefined>(undefined);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   //const colorScheme : string = 'light'
@@ -52,12 +52,13 @@ export function Provider({ children }: { children: React.ReactNode }) {
   const apiMe = async () => {
     
     setIsLoading(true);
+    
     try {
       const token = await getData(LOCAL_STORAGE_KEY_TOKEN);
       console.log(token)
       if (!token)
       { 
-        setIsLoading(false);
+    
         setIsAuthenticated(false);
         return;
       }
@@ -65,7 +66,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
       
       const currentUser = await me();
       console.log("Current user despues de hacer el me ->",currentUser)
-      setIsLoading(false);
+      
       if(currentUser != undefined)
       {
         setUser(currentUser)
@@ -75,9 +76,11 @@ export function Provider({ children }: { children: React.ReactNode }) {
       }
     } catch {
       await signOut();
-      setIsLoading(false);
+      
       console.log("error")
       
+    }finally{
+      setIsLoading(false);
     }
   };
 

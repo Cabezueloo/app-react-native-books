@@ -1,17 +1,14 @@
 import { Text, View, Button, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { TextInputLogin } from '../../components';
+
 import { StringConstants } from '../../configs';
 import { StyleLogin } from '../../styles';
-import { SetStateAction, useContext, useEffect, useState } from 'react';
 
-import { ToastAndroid } from 'react-native';
+
+
 
 import { Link, Redirect, router } from 'expo-router';
-import { TextInput } from 'react-native-paper';
-import { useCommonData } from '../../services';
 import { useAuthAndStyle } from '../../context/Context';
-import { LoginCheckPostBody } from '../../api/model';
 import { loginCheckPost } from '../../api/generated/helloAPIPlatform';
 
 
@@ -21,11 +18,10 @@ import CustomTextInput from '../../components/CustomTextInput';
 import { storeData } from '../../utils/asyncStorage';
 import { LOCAL_STORAGE_KEY_TOKEN } from '../../constants/Common';
 import { ROUTES } from '../../constants/Routes';
+import { toastError, toastSuccess } from '../../utils/toast';
 
 
-export function showToast(text, duration = 500) {
-    ToastAndroid.show(text, duration)
-}
+
 
 export default function LoginScreen() {
 
@@ -45,14 +41,16 @@ export default function LoginScreen() {
         setIsLoading(true);
         try {
 
+            console.log("A")
             const response = await loginCheckPost({ email: values.email, password: values.password });
             if (response?.token) {
                 await storeData(LOCAL_STORAGE_KEY_TOKEN,response.token)
 
+                toastSuccess("Welcome")
                 router.navigate(ROUTES.PAGE_SEARCH)
             }
         } catch (err) {
-            console.log("Invalid credeentials")
+            toastError("Invalid credeentials")
 
         } finally {
             setIsLoading(false);
