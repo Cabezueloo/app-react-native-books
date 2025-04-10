@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import { SearchBar } from 'react-native-elements'
-import { View, Button, StyleSheet, FlatList, StatusBar, ActivityIndicator } from 'react-native'
+import { View, Button, StyleSheet, FlatList, StatusBar, ActivityIndicator, Text } from 'react-native'
 import { useAuthAndStyle } from '../../../context/Context'
 import { apiBooksGetCollection } from '../../../api/generated/helloAPIPlatform'
 import { ApiBooksGetCollectionOrderCreatedAt, ApiBooksGetCollectionOrderPrice, BookJsonldBookRead } from '../../../api/model'
@@ -11,16 +11,23 @@ import { useTranslation } from 'react-i18next'
 import { StringConstants } from '../../../configs'
 import MultiSelect from 'react-native-multiple-select';
 import { Picker } from '@react-native-picker/picker'
-
+import { init } from 'i18next'
+import { actionTypes, initialState, reducer } from '../../../constants/Reducer'
 
 const HomeScreen = () => {
-  const { signOut, currentUser, colors } = useAuthAndStyle()
+  const { signOut, currentUser,apiMe, colors } = useAuthAndStyle()
   const [search, setSearch] = useState<string>('')
-  const [books, setBooks] = useState<BookJsonldBookRead[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+
+  type valueType = 'createdAt' | 'price'
+  type byType = 'asc' | 'desc'
+
   const [selectedCategory, setSelectedCategory] = useState<number[]>([])
   const { t } = useTranslation()
-  const [selectedOrder, setSelectedOrder] = useState<{ value: string; by: string } | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<{ value: valueType; by: byType } | null>(null);
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const { books, loading, error, page, isListEnd } = state;
 
   const items = [
     { id: 1, name: t(StringConstants.fiction) },
@@ -30,32 +37,52 @@ const HomeScreen = () => {
     // ... other items
   ];
 
+  const fetchData = async () => {
+    
+    if (isListEnd) return
+    dispatch({ type: actionTypes.API_REQUEST });
+    try {
 
-  useEffect(() => {
-    const fetchData = async (name: string = "") => {
-      try {
-        setIsLoading(true)
+      const response = await apiBooksGetCollection({
+        name: search,
+        page: page,
+        "category[]": selectedCategory,
+        ...(selectedOrder && {
+          [`order[${selectedOrder.value}]`]: selectedOrder.by as ApiBooksGetCollectionOrderCreatedAt | ApiBooksGetCollectionOrderPrice
 
-        const response = await apiBooksGetCollection({
-          name: name,
-          "category[]": selectedCategory,
-          ...(selectedOrder && {
-            [`order[${selectedOrder.value}]`]: selectedOrder.by as ApiBooksGetCollectionOrderCreatedAt | ApiBooksGetCollectionOrderPrice
-
-          })
-        });
+        })
+      });
 
 
-        setBooks(response['hydra:member'])
-      } catch (error) {
-        console.error('Error fetching books:', error)
-      } finally {
-        setIsLoading(false)
+      const booksFromResponse: BookJsonldBookRead[] = response['hydra:member'];
+      if (booksFromResponse.length === 0) {
+        dispatch({ type: actionTypes.API_LIST_END });
+      } else {
+        dispatch({ type: actionTypes.API_SUCCESS, payload: { books: booksFromResponse } });
       }
+    } catch (err) {
+      dispatch({ type: actionTypes.API_FAILURE, error: err });
+      console.error('Error fetching books:', err);
     }
-    fetchData()
-  }, [])
 
+  }
+  useEffect(() => {
+
+    fetchData()
+    console.log(books.length)
+
+  }, [page])
+
+
+  const loadMoreBooks = () => {
+    if (!loading && !isListEnd) {
+
+      dispatch({ type: actionTypes.SET_PAGE, payload: page + 1 });
+    } else {
+      console.log(books.length)
+      console.log("LLENO")
+    }
+  };
 
   return (
     <>
@@ -69,56 +96,64 @@ const HomeScreen = () => {
         onClear={() => { setSearch('') }}
       />
 
-<View style={{ flexDirection: 'row' }}>
-  <View style={{ flex: 1 }}>
-    <MultiSelect
-      hideTags
-      items={items}
-      uniqueKey="id"
-      onSelectedItemsChange={setSelectedCategory}
-      selectedItems={selectedCategory}
-      selectText="Select Categories"
-      searchInputPlaceholderText="Search Categories..."
-      tagRemoveIconColor="#CCC"
-      tagBorderColor="#CCC"
-      tagTextColor="#000"
-      selectedItemTextColor="#CCC"
-      selectedItemIconColor="#CCC"
-      itemTextColor="#000"
-      displayKey="name"
-      hideSubmitButton={true}
-    />
-  </View>
-  <View style={{ flex: 1 }}>
-    <Picker
-      selectedValue={selectedOrder}
-      onValueChange={(itemValue) => setSelectedOrder(itemValue)}
-    >
-      <Picker.Item label={t(StringConstants.orderBy)} value={null} key={0} />
-      <Picker.Item label={t(StringConstants.orderByAscPrice)} value={{ value: 'price', by: 'asc' }} key={1} />
-      <Picker.Item label={t(StringConstants.orderByDescPrice)} value={{ value: 'price', by: 'desc' }} key={2} />
-      <Picker.Item label={t(StringConstants.orderByMoreOld)} value={{ value: 'createdAt', by: 'asc' }} key={3} />
-      <Picker.Item label={t(StringConstants.orderByMoreRecent)} value={{ value: 'createdAt', by: 'desc' }} key={4} />
-    </Picker>
-  </View>
-</View>
+      <View style={{ flexDirection: 'row' }}>
+        <View style={{ flex: 1 }}>
+          <MultiSelect
+            hideTags
+            items={items}
+            uniqueKey="id"
+            onSelectedItemsChange={setSelectedCategory}
+            selectedItems={selectedCategory}
+            selectText="Select Categories"
+            searchInputPlaceholderText="Search Categories..."
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#000"
+            selectedItemTextColor="#CCC"
+            selectedItemIconColor="#CCC"
+            itemTextColor="#000"
+            displayKey="name"
+            hideSubmitButton={true}
+          />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Picker
+            selectedValue={selectedOrder}
+            onValueChange={(itemValue) => setSelectedOrder(itemValue)}
+          >
+            <Picker.Item label={t(StringConstants.orderBy)} value={null} key={0} />
+            <Picker.Item label={t(StringConstants.orderByAscPrice)} value={{ value: 'price', by: 'asc' }} key={1} />
+            <Picker.Item label={t(StringConstants.orderByDescPrice)} value={{ value: 'price', by: 'desc' }} key={2} />
+            <Picker.Item label={t(StringConstants.orderByMoreOld)} value={{ value: 'createdAt', by: 'asc' }} key={3} />
+            <Picker.Item label={t(StringConstants.orderByMoreRecent)} value={{ value: 'createdAt', by: 'desc' }} key={4} />
+          </Picker>
+        </View>
+      </View>
 
 
 
 
       <View style={{ flex: 1, backgroundColor: colors.background }}>
-        {isLoading ? (
+        {loading && page === 1 ? (
           <ActivityIndicator size="large" color={colors.primary} />
         ) : (
-
-          <FlatList
-            numColumns={2}
-            data={books}
-            renderItem={({ item }) => <ItemBook book={item} />}
-            keyExtractor={(item) => item['@id']}
-            contentContainerStyle={{ padding: 16 }}
-          />
-
+          <>
+            {error && <Text>Error: {error.message || 'Something went wrong'}</Text>}
+            <FlatList
+              numColumns={2}
+              data={books}  // Use the books from the reducer state
+              renderItem={({ item }) => <ItemBook book={item} />}
+              keyExtractor={(item) => item['@id']}
+              contentContainerStyle={{ padding: 16 }}
+              onEndReachedThreshold={0.5}
+              onEndReached={loadMoreBooks}
+              ListFooterComponent={
+                loading && page > 1 ? (
+                  <ActivityIndicator size="small" color={colors.primary} />
+                ) : null
+              }
+            />
+          </>
         )}
 
         <Button
@@ -126,6 +161,16 @@ const HomeScreen = () => {
           title="Sign out"
           onPress={signOut}
         />
+        <Button
+          color={colors.primary}
+          title="Buscar"
+          onPress={() => {
+            dispatch({ type: actionTypes.RESET });
+            apiMe()
+            fetchData()
+          }}
+        />
+
       </View>
     </>
   )

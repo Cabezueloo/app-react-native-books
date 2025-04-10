@@ -5,6 +5,7 @@ import { apiFavoriteBooksIdDelete, apiFavoriteBooksPost, apiMediaObjectsIdGet } 
 import { useEffect, useState } from "react"
 import { useAuthAndStyle } from "../context/Context"
 import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 
 
@@ -31,6 +32,8 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
         }
         getImage();
         setFavoriteBook(currentUser.favoriteBooks || []);
+        
+        console.log(favoriteBook)
     }, [currentUser.favoriteBooks]); // Update when favorites change
 
 
@@ -60,7 +63,8 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
             try{
                 console.log(favoriteBookId)
             await apiFavoriteBooksIdDelete(favoriteBookId)
-            
+            setIsFavorite(!isFavorite)
+
             }catch (error){
                 console.error(error)
             }
@@ -73,12 +77,13 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
                 console.log(book["@id"])
                 console.log("api/user/"+currentUser.id)
             await apiFavoriteBooksPost({book:book["@id"],user:"api/users/"+currentUser.id})
-            
+            setIsFavorite(!isFavorite)
+
             }catch (error){
                 console.log(error)
             }
         }
-        setIsFavorite(!isFavorite)
+        
 
     }
 
@@ -108,9 +113,9 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
                     </View>
 
 
-                    <Pressable onPress={controllFavorite}>
+                    <Pressable onPressIn={controllFavorite}>
   {isFavorite ? (
-    <FontAwesome name="heart" size={24} color="#ff4081" />
+    <AntDesign name="heart" size={24} color="red"/>
   ) : (
     <FontAwesome name="heart-o" size={24} color="#d3d3d3" />
   )}
