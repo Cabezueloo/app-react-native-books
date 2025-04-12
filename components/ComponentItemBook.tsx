@@ -10,31 +10,40 @@ import { AntDesign } from '@expo/vector-icons';
 
 
 export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
-
+    //    console.log(book)
     const [imageURI, setImageURI] = useState('')
     const { currentUser } = useAuthAndStyle()
     const [favoriteBook, setFavoriteBook] = useState<FavoriteBookJsonldUserRead[]>([])
 
     const [isFavorite, setIsFavorite] = useState<boolean>(null)
-    const [favoriteBookId ,setFavoriteBookId] = useState("-1")
-
+    const [favoriteBookId, setFavoriteBookId] = useState("-1")
+    const { apiMe } = useAuthAndStyle()
 
     useEffect(() => {
-        // Fetch image and update favorite books
         const getImage = async () => {
             try {
-                const imageId = book.image.split("/")[3]
-                const image = await apiMediaObjectsIdGet(imageId)
-                setImageURI(image.contentUrl)
+                if (book.image && typeof book.image === "string") {
+                    // Split only if the string exists and is valid
+                    const parts = book.image.split("/");
+                    if (parts.length > 3) {
+                        const imageId = parts[3];
+                        const image = await apiMediaObjectsIdGet(imageId);
+                        setImageURI(image.contentUrl);
+                    } else {
+                        console.error("Unexpected image URL format:", book.image);
+                    }
+                } else {
+                    console.error("book.image is undefined or not a string:", book);
+                }
             } catch (error) {
-                console.error("Error loading image:", error)
+                console.error("Error loading image:", error);
             }
-        }
+        };
+
         getImage();
         setFavoriteBook(currentUser.favoriteBooks || []);
-        
-        console.log(favoriteBook)
     }, [currentUser.favoriteBooks]); // Update when favorites change
+
 
 
 
@@ -43,53 +52,67 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
     }, [favoriteBook, book])
 
 
-    const check_favorites =() : boolean=>{
+    const check_favorites = (): boolean => {
 
-        for (let index = 0; index < favoriteBook.length; index++) {
-            
-            if(favoriteBook[index].book?.split("/")[3] === book["@id"].split("/")[3]){
-                setFavoriteBookId(favoriteBook[index]["@id"].split("/")[3])
-                return true
+
+        try {
+
+            for (let index = 0; index < favoriteBook.length; index++) {
+
+                if (favoriteBook[index].book === book["@id"]) {
+                    console.log(favoriteBook[index]["@id"].split("/")[3])
+                    setFavoriteBookId(favoriteBook[index]["@id"].split("/")[3])
+                    return true
+                }
             }
+            return false
         }
-        return false
+        catch (error) {
+            console.log(favoriteBook[0].book)
+            console.log(book)
+            console.error(error)
+        }
+
     }
 
     const controllFavorite = async () => {
 
         if (isFavorite) {
             console.log("ES FAV")
-            
-            try{
-                console.log(favoriteBookId)
-            await apiFavoriteBooksIdDelete(favoriteBookId)
-            setIsFavorite(!isFavorite)
 
-            }catch (error){
+            try {
+                console.log(favoriteBookId)
+                await apiFavoriteBooksIdDelete(favoriteBookId)
+                setIsFavorite(!isFavorite)
+
+            } catch (error) {
                 console.error(error)
             }
             console.log("S")
         }
-        else{
+        else {
             console.log("NO FAV")
-            try{
+            try {
 
                 console.log(book["@id"])
-                console.log("api/user/"+currentUser.id)
-            await apiFavoriteBooksPost({book:book["@id"],user:"api/users/"+currentUser.id})
-            setIsFavorite(!isFavorite)
+                console.log("api/user/" + currentUser.id)
+                await apiFavoriteBooksPost({ book: book["@id"], user: "api/users/" + currentUser.id })
+                setIsFavorite(!isFavorite)
 
-            }catch (error){
+            } catch (error) {
                 console.log(error)
             }
         }
-        
+
+        apiMe()
 
     }
 
 
     return (
+
         <View style={styles.container}>
+
             <Image
                 style={styles.image}
                 source={{ uri: `http://192.168.1.24:8000/${imageURI}` }}
@@ -114,17 +137,17 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
 
 
                     <Pressable onPressIn={controllFavorite}>
-  {isFavorite ? (
-    <AntDesign name="heart" size={24} color="red"/>
-  ) : (
-    <FontAwesome name="heart-o" size={24} color="#d3d3d3" />
-  )}
-</Pressable>
+                        {isFavorite ? (
+                            <AntDesign name="heart" size={24} color="red" />
+                        ) : (
+                            <FontAwesome name="heart-o" size={24} color="#d3d3d3" />
+                        )}
+                    </Pressable>
 
 
                 </View>
             </View>
-            
+
         </View>
     )
 }

@@ -16,7 +16,7 @@ export const initialState = {
     SET_PAGE: 'SET_PAGE'
   };
   
-  export function reducer(state, action) {
+  export function reducer(state, action ) {
     switch (action.type) {
       case actionTypes.API_REQUEST:
         return {

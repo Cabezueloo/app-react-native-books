@@ -6,6 +6,7 @@ import { apiBooksGetCollection } from '../../../api/generated/helloAPIPlatform'
 import { ApiBooksGetCollectionOrderCreatedAt, ApiBooksGetCollectionOrderPrice, BookJsonldBookRead } from '../../../api/model'
 import { ItemBook } from '../../../components/ComponentItemBook'
 
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { useTranslation } from 'react-i18next'
 import { StringConstants } from '../../../configs'
@@ -53,7 +54,6 @@ const HomeScreen = () => {
         })
       });
 
-
       const booksFromResponse: BookJsonldBookRead[] = response['hydra:member'];
       if (booksFromResponse.length === 0) {
         dispatch({ type: actionTypes.API_LIST_END });
@@ -66,11 +66,17 @@ const HomeScreen = () => {
     }
 
   }
+
+
   useEffect(() => {
+    apiMe()
+  }, [])
 
+
+  useEffect(() => {
+    
     fetchData()
-    console.log(books.length)
-
+    
   }, [page])
 
 
@@ -78,9 +84,6 @@ const HomeScreen = () => {
     if (!loading && !isListEnd) {
 
       dispatch({ type: actionTypes.SET_PAGE, payload: page + 1 });
-    } else {
-      console.log(books.length)
-      console.log("LLENO")
     }
   };
 
@@ -135,7 +138,7 @@ const HomeScreen = () => {
 
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         {loading && page === 1 ? (
-          <ActivityIndicator size="large" color={colors.primary} />
+          <ActivityIndicator style={{flex:1}} size="large" color={colors.primary} />
         ) : (
           <>
             {error && <Text>Error: {error.message || 'Something went wrong'}</Text>}
@@ -170,6 +173,8 @@ const HomeScreen = () => {
             fetchData()
           }}
         />
+        <Text>{currentUser.email}</Text>
+        <Ionicons name="checkmark-circle" size={32} color="green" />
 
       </View>
     </>

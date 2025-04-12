@@ -39,7 +39,7 @@ const schema = yup.object().shape({
 
 const RegisterScreen = () => {
     const { t } = useTranslation();
-    const { signIn } = useAuthAndStyle()
+    const { signIn,apiMe } = useAuthAndStyle()
     const colorScheme = "light"
     const colors = lightColors
     const style = StyleLogin({ colorScheme, colors });
@@ -61,7 +61,8 @@ const RegisterScreen = () => {
             const responseLogin = await loginCheckPost({ email: newUser.email, password: newUser.password });
 
             if (responseLogin?.token) {
-
+                
+                
                 signIn(responseLogin.token)
 
 

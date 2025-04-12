@@ -55,7 +55,7 @@ export default function Start() {
               resizeMode: "cover",
             }}
           />
-          <Text style={style.basicLabel}>{t(StringConstants.developedBy)}</Text>
+          <Text style={{color:colors.accent}}>{t(StringConstants.developedBy)}</Text>
           <ActivityIndicator size={"large"} color={spinnerColor} />
         </SafeAreaView>
       </SafeAreaProvider>
