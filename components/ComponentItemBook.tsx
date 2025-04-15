@@ -5,7 +5,6 @@ import { apiFavoriteBooksIdDelete, apiFavoriteBooksPost, apiMediaObjectsIdGet } 
 import { useEffect, useState } from "react"
 import { useAuthAndStyle } from "../context/Context"
 import { FontAwesome } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
 
 
 
@@ -138,7 +137,7 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
 
                     <Pressable onPressIn={controllFavorite}>
                         {isFavorite ? (
-                            <AntDesign name="heart" size={24} color="red" />
+                            <FontAwesome name="heart-o" size={24} color="#ff4081" />
                         ) : (
                             <FontAwesome name="heart-o" size={24} color="#d3d3d3" />
                         )}

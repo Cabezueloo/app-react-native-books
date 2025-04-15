@@ -1,6 +1,5 @@
 //import { PAGE_HOME, PAGE_LOGIN, PAGE_REGISTER, PAGE_RESET_PASSWORD } from '@config';
 import { useCommonData } from '../services';
-import { darkColors, lightColors, StyleLogin } from '../styles';
 import { Redirect, router } from 'expo-router'
 import { useEffect, useState, } from 'react';
 import { Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
@@ -23,8 +22,8 @@ export default function Start() {
   
   const { isAuthenticated, isLoading, apiMe,colorScheme, colors} = useAuthAndStyle();
 
-  const style = StyleLogin({ colorScheme, colors })
-  const spinnerColor = colorScheme == 'dark' ? lightColors.background : darkColors.background
+  //TODO
+  const spinnerColor = colorScheme == 'dark' ? '#FFFFFFF' : '#FFFFFFF'
 
   
    // Add local state for initial loading

@@ -2,10 +2,6 @@ import { Text, View, Button, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { StringConstants } from '../../configs';
-import { StyleLogin } from '../../styles';
-
-
-
 
 import { Link, Redirect, router } from 'expo-router';
 import { useAuthAndStyle } from '../../context/Context';
@@ -19,6 +15,8 @@ import { storeData } from '../../utils/asyncStorage';
 import { LOCAL_STORAGE_KEY_TOKEN } from '../../constants/Common';
 import { ROUTES } from '../../constants/Routes';
 import { toastError, toastSuccess } from '../../utils/toast';
+import { ThemedText } from '../../components/ThemedText';
+import { ThemedView } from '../../components/ThemedView';
 
 
 
@@ -67,13 +65,13 @@ export default function LoginScreen() {
     
 
 
-    const style = StyleLogin({ colorScheme, colors })
+    console.log(colorScheme)
 
-
+    console.log(colors.text)
     return (
 
-        <View style={style.container}>
-            <Text style={style.title}>{t(StringConstants.login)}</Text>
+        <ThemedView type='container'>
+            <ThemedText type='title'>{t(StringConstants.login)}</ThemedText>
             <Formik
                 initialValues={{
                     email: '',
@@ -129,7 +127,7 @@ export default function LoginScreen() {
 
                 )}
             </Formik>
-        </View>
+        </ThemedView>
 
 
 

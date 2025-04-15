@@ -1,15 +1,14 @@
-import {Text, Button, View } from 'react-native';
+import {Button,  Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import {StackActions, useNavigation} from '@react-navigation/native';
 
-import {TextInputLogin,CustomButtonOne} from '../../components';
-import {StyleLogin} from '../../styles';
 import {StringConstants} from '../../configs'
-import { useContext, useState } from 'react';
+import {  useState } from 'react';
 import { Link } from 'expo-router';
 import { useCommonData } from '../../services';
 import { ROUTES } from '../../constants/Routes';
-
+import { ThemedView } from '../../components/ThemedView';
+import CustomTextInput from '../../components/CustomTextInput';
+import { ThemedText } from '../../components/ThemedText';
 
 
 const ResetPasswordScreen = () => {
@@ -18,17 +17,29 @@ const ResetPasswordScreen = () => {
     const {t} = useTranslation();
     
     
-    const style = StyleLogin({colorScheme,colors})
-
-    
     const [resetMail,setResetMail] = useState('')
+    console.log(colorScheme)
+
 
     return (
-            <View style={style.container} >
-                <Text style={style.title}>{t(StringConstants.forgetPassword)}</Text>
-                <TextInputLogin placeholderText={t(StringConstants.mailRecovery)} value={resetMail} onChange={ (newText) => setResetMail(newText)}/>
+            <ThemedView type='container'>
+                <ThemedText type='title'>{t(StringConstants.forgetPassword)}</ThemedText>
                 
-                <CustomButtonOne text={t(StringConstants.enter)}/>
+                <CustomTextInput
+                            autoComplete="email"
+                            placeholder={t(StringConstants.mailRecovery)}
+                            onChangeText={ (newText) => setResetMail(newText)}
+                            placeholderTextColor={colors.text}
+                            style={{color:colors.text}}
+                                                       
+                            errorStyle={{ color: colors.warning }}
+                        />
+                 <Button
+                            title= {"f"}
+                            onPress={() => Alert.alert(t(StringConstants.enter))}
+                            color={colors.accent}
+                        />
+                
                 
                 <Link href={ROUTES.PAGE_LOGIN} asChild>
                 <Button 
@@ -36,7 +47,7 @@ const ResetPasswordScreen = () => {
                 
                 />
                 </Link>
-            </View>
+            </ThemedView>
         );
 }
 

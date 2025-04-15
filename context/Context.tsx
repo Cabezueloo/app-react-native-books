@@ -7,7 +7,7 @@ import { getData, removeData, storeData } from '../utils/asyncStorage';
 import { router } from 'expo-router';
 
 import { createContext, useContext, useState } from 'react';
-import { lightColors, darkColors, Colors} from '../styles/theme'
+import { Colors, ColorsInterface } from '../constants/Colors';
 import { useColorScheme } from 'react-native';
 
 type ContextType = {
@@ -19,7 +19,7 @@ type ContextType = {
   isAuthenticated: boolean;
   currentUser?: UserJsonldUserRead;
   colorScheme: string;
-  colors:Colors;
+  colors:ColorsInterface
 };
 
 const Context = createContext<ContextType>(null!);
@@ -31,7 +31,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
 
   //const colorScheme : string = 'light'
   const colorScheme : string = useColorScheme()
-  const colors = colorScheme === 'dark' ? darkColors : lightColors;
+  const colors = colorScheme === 'dark' ? Colors.dark : Colors.light;
   
   const signIn = async (newToken: string) => {
     await storeData(LOCAL_STORAGE_KEY_TOKEN, newToken)

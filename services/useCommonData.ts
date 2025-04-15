@@ -1,9 +1,9 @@
 import {useColorScheme} from 'react-native';
-import { lightColors, darkColors } from '../styles';
+import { Colors } from '../constants/Colors';
 
 const useCommonData = () => {
-  const colorScheme : string = "light";
-  const colors = colorScheme === 'dark' ? darkColors : lightColors;
+  const colorScheme : string = useColorScheme();
+  const colors = colorScheme === 'dark' ? Colors.dark : Colors.light;
 
   return { colorScheme, colors};
 };

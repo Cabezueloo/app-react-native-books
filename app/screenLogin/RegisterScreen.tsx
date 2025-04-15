@@ -4,16 +4,16 @@ import { useTranslation } from 'react-i18next';
 import { Link, router } from 'expo-router';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { TextInputLogin, CustomButtonOne } from '../../components';
+
 import { StringConstants } from '../../configs';
-import { StyleLogin } from '../../styles';
-import { useCommonData } from '../../services';
-import { lightColors } from '../../styles';
+
 import CustomTextInput from '../../components/CustomTextInput';
 import { apiUsersPost, loginCheckPost } from '../../api/generated/helloAPIPlatform';
 import { UserJsonld, UserJsonldUserWrite } from '../../api/model';
 import { useAuthAndStyle } from '../../context/Context';
 import { ROUTES } from '../../constants/Routes';
+import { ThemedView } from '../../components/ThemedView';
+import { ThemedText } from '../../components/ThemedText';
 
 
 interface FormSchemaRegister {
@@ -39,10 +39,8 @@ const schema = yup.object().shape({
 
 const RegisterScreen = () => {
     const { t } = useTranslation();
-    const { signIn,apiMe } = useAuthAndStyle()
-    const colorScheme = "light"
-    const colors = lightColors
-    const style = StyleLogin({ colorScheme, colors });
+    const { signIn, apiMe, colors, colorScheme } = useAuthAndStyle()
+
     const [loading, setLoading] = React.useState(false);
 
     const onSubmit = async (values: FormSchemaRegister) => {
@@ -61,8 +59,8 @@ const RegisterScreen = () => {
             const responseLogin = await loginCheckPost({ email: newUser.email, password: newUser.password });
 
             if (responseLogin?.token) {
-                
-                
+
+
                 signIn(responseLogin.token)
 
 
@@ -75,8 +73,8 @@ const RegisterScreen = () => {
     };
 
     return (
-        <View style={style.container}>
-            <Text style={style.title}>{t(StringConstants.register)}</Text>
+        <ThemedView type='container'>
+            <ThemedText type='title'> {t(StringConstants.register)}</ThemedText>
             <Formik
                 initialValues={{
                     email: '',
@@ -91,10 +89,13 @@ const RegisterScreen = () => {
             >
                 {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                     <View>
+
                         <CustomTextInput
                             autoComplete="email"
                             placeholder={t(StringConstants.email)}
                             value={values.email}
+                            placeholderTextColor={colors.text}
+                            style={{ color: colors.text }}
                             onChangeText={handleChange('email')}
                             onBlur={handleBlur('email')}
                             error={errors.email}
@@ -104,6 +105,8 @@ const RegisterScreen = () => {
                             autoComplete="off"
                             placeholder={t(StringConstants.username)}
                             value={values.username}
+                            placeholderTextColor={colors.text}
+                            style={{ color: colors.text }}
                             onChangeText={handleChange('username')}
                             onBlur={handleBlur('username')}
                             error={errors.username}
@@ -113,6 +116,8 @@ const RegisterScreen = () => {
                             autoComplete="name"
                             placeholder={t(StringConstants.name)}
                             value={values.name}
+                            placeholderTextColor={colors.text}
+                            style={{ color: colors.text }}
                             onChangeText={handleChange('name')}
                             onBlur={handleBlur('name')}
                             error={errors.name}
@@ -122,6 +127,8 @@ const RegisterScreen = () => {
                             autoComplete="off"
                             placeholder={t(StringConstants.surname)}
                             value={values.surname}
+                            placeholderTextColor={colors.text}
+                            style={{ color: colors.text }}
                             onChangeText={handleChange('surname')}
                             onBlur={handleBlur('surname')}
                             error={errors.surname}
@@ -131,6 +138,8 @@ const RegisterScreen = () => {
                             autoComplete="password"
                             placeholder={t(StringConstants.password)}
                             value={values.password}
+                            placeholderTextColor={colors.text}
+                            style={{ color: colors.text }}
                             onChangeText={handleChange('password')}
                             onBlur={handleBlur('password')}
                             error={errors.password}
@@ -141,6 +150,8 @@ const RegisterScreen = () => {
                             autoComplete="password"
                             placeholder={t(StringConstants.confirmPassword)}
                             value={values.confirmPassword}
+                            placeholderTextColor={colors.text}
+                            style={{ color: colors.text }}
                             onChangeText={handleChange('confirmPassword')}
                             onBlur={handleBlur('confirmPassword')}
                             error={errors.confirmPassword}
@@ -165,7 +176,7 @@ const RegisterScreen = () => {
                     </View>
                 )}
             </Formik>
-        </View>
+        </ThemedView>
     );
 };
 
