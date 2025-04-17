@@ -17,5 +17,6 @@ export interface UserJsonldUserRead {
   name?: string;
   surname?: string;
   password?: string;
+  books?: string[];
   favoriteBooks?: FavoriteBookJsonldUserRead[];
 }

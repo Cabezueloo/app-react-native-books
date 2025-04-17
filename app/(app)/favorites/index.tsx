@@ -43,6 +43,7 @@ const FavoriteScreen = () => {
 
     useEffect(() => {
         fetchData()
+        console.log("Mis favoritos> ",favoriteBooks)
 
     }, [currentUser.favoriteBooks])
 

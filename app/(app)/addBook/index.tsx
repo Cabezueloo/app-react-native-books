@@ -17,6 +17,8 @@ import { router } from "expo-router";
 import { ROUTES } from "../../../constants/Routes";
 
 import { toastSuccess } from "../../../utils/toast";
+import { ThemedView } from "../../../components/ThemedView";
+import { ThemedText } from "../../../components/ThemedText";
 
 const AddBookScreen = () => {
 
@@ -132,9 +134,10 @@ const AddBookScreen = () => {
   return (
 
 
-    <View style={{ flex: 1, alignItems: 'center', backgroundColor: colors.background, padding: 30 }}>
 
-      <Text style={{ color: colors.text }}>{t(StringConstants.title_add)}</Text>
+      <ThemedView type="container">
+
+      <ThemedText type="title">{t(StringConstants.title_add)}</ThemedText>
 
       <Formik
         initialValues={{
@@ -262,8 +265,7 @@ const AddBookScreen = () => {
 
 
 
-    </View>
-  )
+      </ThemedView>  )
 
 }
 export default AddBookScreen;

@@ -9,7 +9,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 
 export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
-    //    console.log(book)
+     console.log(book)
     const [imageURI, setImageURI] = useState('')
     const { currentUser } = useAuthAndStyle()
     const [favoriteBook, setFavoriteBook] = useState<FavoriteBookJsonldUserRead[]>([])

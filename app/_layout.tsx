@@ -12,13 +12,13 @@ import React from 'react'
 export default function RootLayout() {
   const colorScheme = useColorScheme()
 
-  const barStyle = colorScheme=='dark'?'light-content':'dark-content'
-  const backgroundColor = colorScheme=='dark'?'#2C3E50':'#ECF0F1'
+  const barStyle = colorScheme=='dark'?'dark-content':'dark-content'
+  const backgroundColor = colorScheme=='dark'?'#2C3E50':'#2C3E50'
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={{flex:1}}>
-        <StatusBar barStyle={barStyle} backgroundColor={backgroundColor}/>
+        <StatusBar barStyle={barStyle} backgroundColor={backgroundColor} />
         <Provider>
             <Slot/>
             <Toast
