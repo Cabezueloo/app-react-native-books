@@ -15,7 +15,7 @@ export default defineConfig({
       },
     },
     input: {
-      target: process.env.OPENAPI_URL || "http://localhost:8000/api/docs.jsonopenapi", // Use env variable for Swagger URL
+      target:  "http://localhost:8000/api/docs.jsonopenapi", // Use env variable for Swagger URL
     },
   },
 });

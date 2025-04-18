@@ -23,12 +23,14 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
 const styles = StyleSheet.create({
     input: {
         // Add default styles for your input here if needed
-        borderWidth: 1,
-        borderColor: '#ccc',
+                borderColor: '#ccc',
         padding: 10,
-        borderRadius: 4,
         marginTop: 5,
         marginBottom: 5,
+        borderRadius: 8,
+        paddingHorizontal: 16,
+        marginVertical: 8,
+        borderWidth: 1,
         
     },
     errorText: {

@@ -4,16 +4,15 @@ import { getCategoryName } from "../constants/types"
 import { apiFavoriteBooksIdDelete, apiFavoriteBooksPost, apiMediaObjectsIdGet } from "../api/generated/helloAPIPlatform"
 import { useEffect, useState } from "react"
 import { useAuthAndStyle } from "../context/Context"
-import { FontAwesome } from '@expo/vector-icons';
-
-
+import  FontAwesome  from '@expo/vector-icons/FontAwesome';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import { ThemedText } from "./ThemedText"
 
 export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
-     console.log(book)
     const [imageURI, setImageURI] = useState('')
     const { currentUser } = useAuthAndStyle()
     const [favoriteBook, setFavoriteBook] = useState<FavoriteBookJsonldUserRead[]>([])
-
+    const [isInterchangeable,setIsInterchangeable] = useState(book.isInterchangeable==undefined?"Ud":"S")
     const [isFavorite, setIsFavorite] = useState<boolean>(null)
     const [favoriteBookId, setFavoriteBookId] = useState("-1")
     const { apiMe } = useAuthAndStyle()
@@ -59,7 +58,6 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
             for (let index = 0; index < favoriteBook.length; index++) {
 
                 if (favoriteBook[index].book === book["@id"]) {
-                    console.log(favoriteBook[index]["@id"].split("/")[3])
                     setFavoriteBookId(favoriteBook[index]["@id"].split("/")[3])
                     return true
                 }
@@ -67,17 +65,15 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
             return false
         }
         catch (error) {
-            console.log(favoriteBook[0].book)
-            console.log(book)
             console.error(error)
         }
 
     }
 
     const controllFavorite = async () => {
-
+        setIsInterchangeable(book.isInterchangeable)
+       
         if (isFavorite) {
-            console.log("ES FAV")
 
             try {
                 console.log(favoriteBookId)
@@ -87,10 +83,8 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
             } catch (error) {
                 console.error(error)
             }
-            console.log("S")
         }
         else {
-            console.log("NO FAV")
             try {
 
                 console.log(book["@id"])
@@ -107,11 +101,10 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
 
     }
 
-
     return (
 
         <View style={styles.container}>
-
+<ThemedText type="title">{isInterchangeable}</ThemedText>
             <Image
                 style={styles.image}
                 source={{ uri: `http://192.168.1.24:8000/${imageURI}` }}
@@ -131,14 +124,16 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
                         <Text style={styles.badgeText}>{getCategoryName(book.category)}</Text>
                     </View>
                     <View style={[styles.badge, styles.statusBadge]}>
-                        <Text style={styles.badgeText}>{book.status}</Text>
+                        <Text style={styles.badgeText}>{book.isInterchangeable ?
+                        <AntDesign name="swap" size={20} color='#d3d3d3'/>
+                        :<FontAwesome name="money" size={20} color='#d3d3d3' />}</Text>
                     </View>
 
 
                     <Pressable onPressIn={controllFavorite}>
                         {isFavorite ? (
-                            <FontAwesome name="heart-o" size={24} color="#ff4081" />
-                        ) : (
+                        <FontAwesome name="heart" size={24} color="#e12866" />
+    ) : (
                             <FontAwesome name="heart-o" size={24} color="#d3d3d3" />
                         )}
                     </Pressable>

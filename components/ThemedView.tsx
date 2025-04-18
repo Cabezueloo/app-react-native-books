@@ -5,14 +5,14 @@ import { useThemeColor } from '../hooks/useThemeColor';
 export type ThemedViewProps = ViewProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'container',
+  type?: 'default' | 'container' | 'containerItems',
 
 };
 
 export function ThemedView({ style, lightColor, darkColor, type='default' , ...otherProps }: ThemedViewProps) {
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
 
-  return <View style={[{ backgroundColor }, type === 'container' ? styles.container : undefined]} {...otherProps} />;
+  return <View style={[{ backgroundColor }, type === 'container' ? styles.container : undefined, type==='containerItems' ? styles.containerItems : undefined]} {...otherProps} />;
 }
 const styles = StyleSheet.create({
   container: {
@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  containerItems:{
+    flex:1
+  }
 
 
 })

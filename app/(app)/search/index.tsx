@@ -5,18 +5,14 @@ import { useAuthAndStyle } from '../../../context/Context'
 import { apiBooksGetCollection } from '../../../api/generated/helloAPIPlatform'
 import { ApiBooksGetCollectionOrderCreatedAt, ApiBooksGetCollectionOrderPrice, BookJsonldBookRead } from '../../../api/model'
 import { ItemBook } from '../../../components/ComponentItemBook'
-
-import Ionicons from '@expo/vector-icons/Ionicons';
-
 import { useTranslation } from 'react-i18next'
 import { StringConstants } from '../../../configs'
 import MultiSelect from 'react-native-multiple-select';
 import { Picker } from '@react-native-picker/picker'
-import { init } from 'i18next'
 import { actionTypes, initialState, reducer } from '../../../constants/Reducer'
 
 const HomeScreen = () => {
-  const { signOut, currentUser,apiMe, colors } = useAuthAndStyle()
+  const { currentUser,apiMe, colors } = useAuthAndStyle()
   const [search, setSearch] = useState<string>('')
 
   type valueType = 'createdAt' | 'price'
@@ -132,7 +128,15 @@ const HomeScreen = () => {
           </Picker>
         </View>
       </View>
-
+      <Button
+          color={colors.primary}
+          title="Buscar"
+          onPress={() => {
+            dispatch({ type: actionTypes.RESET });
+            apiMe()
+            fetchData()
+          }}
+        />
 
 
 
@@ -159,23 +163,7 @@ const HomeScreen = () => {
           </>
         )}
 
-        <Button
-          color={colors.primary}
-          title="Sign out"
-          onPress={signOut}
-        />
-        <Button
-          color={colors.primary}
-          title="Buscar"
-          onPress={() => {
-            dispatch({ type: actionTypes.RESET });
-            apiMe()
-            fetchData()
-          }}
-        />
-        <Text>{currentUser.email}</Text>
-        <Ionicons name="checkmark-circle" size={32} color="green" />
-
+      
       </View>
     </>
   )

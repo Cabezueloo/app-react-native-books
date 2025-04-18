@@ -9,15 +9,16 @@ import { ActivityIndicator } from "react-native-paper";
 import { ItemBook } from "../../../components/ComponentItemBook";
 import { BookJsonldBookRead } from "../../../api/model";
 
+
+
 const ProfileScreen = () => {
 
-    const { colors, currentUser } = useAuthAndStyle();
+    const { signOut,colors, currentUser } = useAuthAndStyle();
 
     const [isEditable, setIsEditable] = useState<boolean>(false)
     const [myBooks, setMyBooks] = useState<BookJsonldBookRead[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
-    console.log(currentUser)
     const fetchData = async () => {
 
 
@@ -28,7 +29,6 @@ const ProfileScreen = () => {
             // Map over the favoriteBooks to create an array of promises
             const promises = currentUser.books.map(async element => {
                 const id = element.split("/")[3];
-                console.log(id)
                 return await apiBooksIdGet(id);
             });
 
@@ -46,7 +46,6 @@ const ProfileScreen = () => {
 
     useEffect(() => {
         fetchData()
-        console.log("Mislibros_> ", myBooks)
         setIsLoading(false)
     }, [currentUser.books])
 
@@ -55,7 +54,7 @@ const ProfileScreen = () => {
 
 
 
-
+<>
 
         <ThemedView type="container">
 
@@ -114,38 +113,45 @@ const ProfileScreen = () => {
             }
 
             <Button disabled={!isEditable} title="Cancelar" onPress={() => { }}></Button>
+            <Button
+          color={colors.primary}
+          title="Sign out"
+          onPress={signOut}
+        />
+       
+                </ThemedView>
 
-            <ThemedText type="subtitle">Mis libros</ThemedText>
-            {isLoading ?
-                (<ActivityIndicator style={{ flex: 1 }} size="large" color={colors.primary} />) :
+            <ThemedView type="containerItems">
+            <ThemedText type="subtitle" style={{justifyContent:'center'}}>Mis libros</ThemedText>
+                {isLoading ?
+                    (<ActivityIndicator style={{ flex: 1 }} size="large" color={colors.primary} />) :
 
-                <>
-                    {myBooks.length != 0 ?
-                        <FlatList
-                            numColumns={2}
-                            data={myBooks}  // Use the books from the reducer state
-                            renderItem={({ item }) => <ItemBook book={item} />}
-                            keyExtractor={(item) => item['@id'] || Math.random().toString()}
-                            contentContainerStyle={{ padding: 16 }}
-                        />
+                    <>
+                        {myBooks.length != 0 ?
+                            <FlatList
+                                numColumns={2}
+                                data={myBooks}  // Use the books from the reducer state
+                                renderItem={({ item }) => <ItemBook book={item} />}
+                                keyExtractor={(item) => item['@id'] || Math.random().toString()}
+                                contentContainerStyle={{ padding: 16 }}
+                            />
 
 
-                        :
-                        <View style={{
-                            flex: 1,
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}>
-                            <Text style={{ color: colors.primary }}>Todavía no tienes ningún favorito, a que esperas?</Text>
-                        </View>}
-                </>
-            }
-
+                            :
+                            <View style={{
+                                flex: 1,
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>
+                                <Text style={{ color: colors.primary }}>Todavía no tienes ningún favorito, a que esperas?</Text>
+                            </View>}
+                    </>
+                }
 
         </ThemedView>
 
 
-
+        </>
 
 
     )

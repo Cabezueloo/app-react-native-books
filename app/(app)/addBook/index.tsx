@@ -24,10 +24,11 @@ const AddBookScreen = () => {
 
   const { currentUser, isLoading, colors } = useAuthAndStyle()
   const { t } = useTranslation()
-  const [categoryValue, setCategoryValue] = useState(1);
-
   const [isInterchangeable, setIsInterchangeable] = useState<boolean>(false)
-  const toggleSwitch = () => setIsInterchangeable(previousState => !previousState);
+  const toggleSwitch = () => { 
+  setIsInterchangeable(!isInterchangeable)
+  console.log(isInterchangeable) 
+};
   const [selectedImage, setSelectedImage] = useState(null);
 
 
@@ -101,27 +102,24 @@ const AddBookScreen = () => {
           
       const resImage = await apiMediaObjectsPost({ file: file as unknown as Blob, // Type assertion to satisfy the Blob type
       });
-      console.log('Response:', resImage); // Log the entire response
-      console.log(resImage["@id"]);
-
+      console.log(isInterchangeable)
 
       const data: BookJsonldBookWrite = {
         name: values.name,
         author: values.author,
         price: parseFloat(values.price+""),
         category: values.category,
-        isInterchangeable: isInterchangeable,
+        isInterchangeable: true,
         ubicatedIn: 0,
         description: values.description,
         status: "Available",
         ownerId: currentUser.id,
         image: resImage["@id"]
       }
-        console.log('a')
 
-      const response = await apiBooksPost(data)
+      await apiBooksPost(data)
       
-      router.navigate(ROUTES.PAGE_SEARCH)
+      //router.navigate(ROUTES.PAGE_SEARCH)
       toastSuccess("Subido");
 
     } catch (error) {
@@ -242,9 +240,7 @@ const AddBookScreen = () => {
 
 
             </View>
-            {Object.keys(errors).length > 0 && (
-              <Text style={{ color: "red" }}>Validation Errors: {JSON.stringify(errors)}</Text>
-            )}
+           
             <Button title="Subir" onPress={() => handleSubmit()} />
 
 
