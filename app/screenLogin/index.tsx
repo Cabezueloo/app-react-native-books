@@ -62,12 +62,6 @@ export default function LoginScreen() {
     const { signIn, setIsLoading, isLoading,colorScheme,colors } = useAuthAndStyle();
 
 
-    
-
-
-    console.log(colorScheme)
-
-    console.log(colors.text)
     return (
 
         <ThemedView type='container'>

@@ -29,5 +29,7 @@ export const StringConstants = {
     "orderByDescPrice":'orderByDescPrice',
     "orderByMoreRecent":'orderByMoreRecent',
     "orderByMoreOld":'orderByMoreOld',
-    "orderBy":"orderBy"
+    "orderBy":"orderBy",
+    "onlySwap":"onlySwap",
+    "onlyMoney":"onlyMoney"
 }

@@ -13,7 +13,7 @@ import { BookJsonldBookRead } from "../../../api/model";
 
 const ProfileScreen = () => {
 
-    const { signOut,colors, currentUser } = useAuthAndStyle();
+    const { signOut, colors, currentUser } = useAuthAndStyle();
 
     const [isEditable, setIsEditable] = useState<boolean>(false)
     const [myBooks, setMyBooks] = useState<BookJsonldBookRead[]>([])
@@ -54,75 +54,81 @@ const ProfileScreen = () => {
 
 
 
-<>
+        <>
 
-        <ThemedView type="container">
+            <ThemedView type="container">
 
-            <ThemedText type="title"> Profile</ThemedText>
+                <ThemedText type="title"> Profile</ThemedText>
 
-            <CustomTextInput
-                editable={isEditable}
-                value={currentUser.name}
-                placeholderTextColor={colors.text}
-                style={{ color: colors.text }}
-            />
-
-
-            <CustomTextInput
-                editable={isEditable}
-                value={currentUser.surname}
-                placeholderTextColor={colors.text}
-                style={{ color: colors.text }}
-            />
-
-            <CustomTextInput
-                editable={isEditable}
-                value={currentUser.username}
-                placeholderTextColor={colors.text}
-                style={{ color: colors.text }}
-            />
-
-            <CustomTextInput
-                editable={isEditable}
-                value={currentUser.email}
-                placeholderTextColor={colors.text}
-                style={{ color: colors.text }}
-            />
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                    <CustomTextInput
+                        editable={isEditable}
+                        value={currentUser.name}
+                        placeholderTextColor={colors.text}
+                        style={{ color: colors.text, marginEnd: 50 }}
+                    />
 
 
-            <CustomTextInput
-                editable={isEditable}
-                placeholder="Current password"
-                placeholderTextColor={colors.text}
-                style={{ color: colors.text }}
-            />
+                    <CustomTextInput
+                        editable={isEditable}
+                        value={currentUser.surname}
+                        placeholderTextColor={colors.text}
+                        style={{ color: colors.text }}
+                    />
 
 
-            <CustomTextInput
+                </View>
 
-                placeholder="New password"
-                placeholderTextColor={colors.text}
-                style={{ color: colors.text }}
-            />
+                <CustomTextInput
+                    editable={isEditable}
+                    value={currentUser.username}
+                    placeholderTextColor={colors.text}
+                    style={{ color: colors.text }}
+                />
+
+                <CustomTextInput
+                    editable={isEditable}
+                    value={currentUser.email}
+                    placeholderTextColor={colors.text}
+                    style={{ color: colors.text }}
+                />
 
 
-            {!isEditable ?
-                <Button title="Editar" onPress={() => { setIsEditable(true) }} color={colors.warning}></Button>
-                :
-                <Button title="Guardar" onPress={() => { }} color={colors.secondary}></Button>
-            }
+                <CustomTextInput
+                    editable={isEditable}
+                    placeholder="Current password"
+                    placeholderTextColor={colors.text}
+                    style={{ color: colors.text }}
+                />
 
-            <Button disabled={!isEditable} title="Cancelar" onPress={() => { }}></Button>
-            <Button
-          color={colors.primary}
-          title="Sign out"
-          onPress={signOut}
-        />
-       
-                </ThemedView>
 
-            <ThemedView type="containerItems">
-            <ThemedText type="subtitle" style={{justifyContent:'center'}}>Mis libros</ThemedText>
+                <CustomTextInput
+
+                    placeholder="New password"
+                    placeholderTextColor={colors.text}
+                    style={{ color: colors.text }}
+                />
+
+                <View style={{ flexDirection: 'row' }}>
+
+                    {!isEditable ?
+                        <Button title="Editar" onPress={() => { setIsEditable(true) }} color={colors.warning}></Button>
+                        :
+                        <Button title="Guardar" onPress={() => { }} color={colors.secondary}></Button>
+                    }
+
+                    <Button disabled={!isEditable} title="Cancelar" onPress={() => { }}></Button>
+                </View>
+                <Button
+                    color={colors.primary}
+                    title="Sign out"
+                    onPress={signOut}
+                />
+
+            </ThemedView>
+
+            <ThemedView style={{ marginTop: 50 }} type="containerItems">
+                <ThemedText type="subtitle" style={{ alignContent: 'center', textAlign: 'center' }}>Mis libros</ThemedText>
                 {isLoading ?
                     (<ActivityIndicator style={{ flex: 1 }} size="large" color={colors.primary} />) :
 
@@ -148,7 +154,7 @@ const ProfileScreen = () => {
                     </>
                 }
 
-        </ThemedView>
+            </ThemedView>
 
 
         </>

@@ -16,6 +16,7 @@ name?: string;
 author?: string;
 category?: number;
 'category[]'?: number[];
+isInterchangeable?: boolean;
 'price[between]'?: string;
 'price[gt]'?: string;
 'price[gte]'?: string;

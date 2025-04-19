@@ -21,7 +21,7 @@ const HomeScreen = () => {
   const [selectedCategory, setSelectedCategory] = useState<number[]>([])
   const { t } = useTranslation()
   const [selectedOrder, setSelectedOrder] = useState<{ value: valueType; by: byType } | null>(null);
-
+  const [selectedIsInterchangeable, setSelectedIsInterchangeable] = useState<boolean| null>(null)
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const { books, loading, error, page, isListEnd } = state;
@@ -47,7 +47,9 @@ const HomeScreen = () => {
         ...(selectedOrder && {
           [`order[${selectedOrder.value}]`]: selectedOrder.by as ApiBooksGetCollectionOrderCreatedAt | ApiBooksGetCollectionOrderPrice
 
-        })
+        }),
+        ...(selectedIsInterchangeable !== null ? { isInterchangeable: selectedIsInterchangeable } : {})
+
       });
 
       const booksFromResponse: BookJsonldBookRead[] = response['hydra:member'];
@@ -96,7 +98,32 @@ const HomeScreen = () => {
       />
 
       <View style={{ flexDirection: 'row' }}>
+       
         <View style={{ flex: 1 }}>
+          <Picker
+            selectedValue={selectedOrder}
+            onValueChange={(itemValue) => setSelectedOrder(itemValue)}
+          >
+            <Picker.Item label={t(StringConstants.orderBy)} value={null} key={0} />
+            <Picker.Item label={t(StringConstants.orderByAscPrice)} value={{ value: 'price', by: 'asc' }} key={1} />
+            <Picker.Item label={t(StringConstants.orderByDescPrice)} value={{ value: 'price', by: 'desc' }} key={2} />
+            <Picker.Item label={t(StringConstants.orderByMoreOld)} value={{ value: 'createdAt', by: 'asc' }} key={3} />
+            <Picker.Item label={t(StringConstants.orderByMoreRecent)} value={{ value: 'createdAt', by: 'desc' }} key={4} />
+          </Picker>
+        </View>
+        <View style={{ flex: 1 }}>
+          <Picker
+            selectedValue={selectedIsInterchangeable}
+            onValueChange={(itemValue) => setSelectedIsInterchangeable(itemValue)}
+          >
+            <Picker.Item label={t(StringConstants.orderBy)} value={null} key={0} />
+            <Picker.Item label={t(StringConstants.onlySwap)} value={true} key={1} />
+            <Picker.Item label={t(StringConstants.onlyMoney)} value={false} key={2} />
+          </Picker>
+        </View>
+      </View>
+      <View style={{flexDirection:'row'}}>
+      <View style={{ flex: 1 }}>
           <MultiSelect
             hideTags
             items={items}
@@ -113,21 +140,10 @@ const HomeScreen = () => {
             itemTextColor="#000"
             displayKey="name"
             hideSubmitButton={true}
+            
           />
+          </View>
         </View>
-        <View style={{ flex: 1 }}>
-          <Picker
-            selectedValue={selectedOrder}
-            onValueChange={(itemValue) => setSelectedOrder(itemValue)}
-          >
-            <Picker.Item label={t(StringConstants.orderBy)} value={null} key={0} />
-            <Picker.Item label={t(StringConstants.orderByAscPrice)} value={{ value: 'price', by: 'asc' }} key={1} />
-            <Picker.Item label={t(StringConstants.orderByDescPrice)} value={{ value: 'price', by: 'desc' }} key={2} />
-            <Picker.Item label={t(StringConstants.orderByMoreOld)} value={{ value: 'createdAt', by: 'asc' }} key={3} />
-            <Picker.Item label={t(StringConstants.orderByMoreRecent)} value={{ value: 'createdAt', by: 'desc' }} key={4} />
-          </Picker>
-        </View>
-      </View>
       <Button
           color={colors.primary}
           title="Buscar"

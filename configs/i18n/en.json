@@ -24,5 +24,7 @@
     "orderByAscPrice": "Price: Low to High",
     "orderByDescPrice": "Price: High to Low",
     "orderByMoreRecent": "Newest First",
-    "orderByMoreOld": "Oldest First"
+    "orderByMoreOld": "Oldest First",
+    "onlySwap":"Only swap",
+    "onlyMoney":"Only Money"
 }

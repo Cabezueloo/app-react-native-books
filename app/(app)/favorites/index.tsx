@@ -3,6 +3,8 @@ import { useAuthAndStyle } from "../../../context/Context"
 import { ItemBook } from "../../../components/ComponentItemBook"
 import { useEffect, useState } from "react"
 import { apiBooksIdGet } from "../../../api/generated/helloAPIPlatform"
+import { ThemedText } from "../../../components/ThemedText"
+import { ThemedView } from "../../../components/ThemedView"
 
 const FavoriteScreen = () => {
     const { currentUser, colors } = useAuthAndStyle()
@@ -50,8 +52,8 @@ const FavoriteScreen = () => {
 
     return (
 
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
-
+        <ThemedView type="containerItems">
+                <ThemedText style={{alignContent:'center',textAlign:'center'}} type="title">  Your Favorites</ThemedText>
 
             {isLoading ?
                 (<ActivityIndicator style={{ flex: 1 }} size="large" color={colors.primary} />) :
@@ -77,7 +79,7 @@ const FavoriteScreen = () => {
                         </View>}
                 </>
             }
-        </View>
+        </ThemedView>
     )
 
 }

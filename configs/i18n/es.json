@@ -24,6 +24,9 @@
     "orderByDescPrice":"Precio descendiente",
     "orderByMoreRecent":"Más reciente",
     "orderByMoreOld":"Menos reciente",
-    "orderBy":"Sin preferencia"
+    "orderBy":"Sin preferencia",
+    "onlySwap":"Solo intercanbiables",
+    "onlyMoney":"Solo dinero"
+
     
 }

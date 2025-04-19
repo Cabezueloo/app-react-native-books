@@ -12,7 +12,7 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
     const [imageURI, setImageURI] = useState('')
     const { currentUser } = useAuthAndStyle()
     const [favoriteBook, setFavoriteBook] = useState<FavoriteBookJsonldUserRead[]>([])
-    const [isInterchangeable,setIsInterchangeable] = useState(book.isInterchangeable==undefined?"Ud":"S")
+    
     const [isFavorite, setIsFavorite] = useState<boolean>(null)
     const [favoriteBookId, setFavoriteBookId] = useState("-1")
     const { apiMe } = useAuthAndStyle()
@@ -71,7 +71,7 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
     }
 
     const controllFavorite = async () => {
-        setIsInterchangeable(book.isInterchangeable)
+        
        
         if (isFavorite) {
 
@@ -104,7 +104,7 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
     return (
 
         <View style={styles.container}>
-<ThemedText type="title">{isInterchangeable}</ThemedText>
+
             <Image
                 style={styles.image}
                 source={{ uri: `http://192.168.1.24:8000/${imageURI}` }}
