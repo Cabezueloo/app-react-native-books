@@ -4,15 +4,18 @@ import { getCategoryName } from "../constants/types"
 import { apiFavoriteBooksIdDelete, apiFavoriteBooksPost, apiMediaObjectsIdGet } from "../api/generated/helloAPIPlatform"
 import { useEffect, useState } from "react"
 import { useAuthAndStyle } from "../context/Context"
-import  FontAwesome  from '@expo/vector-icons/FontAwesome';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { ThemedText } from "./ThemedText"
+import { router } from "expo-router"
+import { toastError } from "../utils/toast"
+import { ROUTES } from "../constants/Routes"
 
 export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
     const [imageURI, setImageURI] = useState('')
     const { currentUser } = useAuthAndStyle()
     const [favoriteBook, setFavoriteBook] = useState<FavoriteBookJsonldUserRead[]>([])
-    
+
     const [isFavorite, setIsFavorite] = useState<boolean>(null)
     const [favoriteBookId, setFavoriteBookId] = useState("-1")
     const { apiMe } = useAuthAndStyle()
@@ -71,12 +74,11 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
     }
 
     const controllFavorite = async () => {
-        
-       
+
+
         if (isFavorite) {
 
             try {
-                console.log(favoriteBookId)
                 await apiFavoriteBooksIdDelete(favoriteBookId)
                 setIsFavorite(!isFavorite)
 
@@ -87,8 +89,8 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
         else {
             try {
 
-                console.log(book["@id"])
-                console.log("api/user/" + currentUser.id)
+                // console.log(book["@id"])
+                // console.log("api/user/" + currentUser.id)
                 await apiFavoriteBooksPost({ book: book["@id"], user: "api/users/" + currentUser.id })
                 setIsFavorite(!isFavorite)
 
@@ -100,47 +102,59 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
         apiMe()
 
     }
+    const openMessages = () => {
+        if(parseInt(book.owner.split("/")[3])==currentUser.id){
+           toastError("Don't talk whit you") 
+        }else{
+
+            router.push({pathname:"messages/chat", params: { bookId: book["@id"],reciver: book.owner }})
+        }
+    }
 
     return (
 
         <View style={styles.container}>
+            
+            <Text>{book["@id"]}</Text>
+            <Pressable onPress={openMessages}>
 
-            <Image
-                style={styles.image}
-                source={{ uri: `http://192.168.1.24:8000/${imageURI}` }}
-                resizeMode="cover"
-            />
+                <Image
+                    style={styles.image}
+                    source={{ uri: `http://192.168.1.24:8000/${imageURI}` }}
+                    resizeMode="cover"
+                />
 
-            <View style={styles.detailsContainer}>
-                <Text style={styles.title} numberOfLines={2}>{book.name}</Text>
-                <Text style={styles.author}>{book.author}</Text>
+                <View style={styles.detailsContainer}>
+                    <Text style={styles.title} numberOfLines={2}>{book.name}</Text>
+                    <Text style={styles.author}>{book.author}</Text>
 
-                <View style={styles.priceContainer}>
-                    <Text style={styles.price}>${book.price}</Text>
-                </View>
-
-                <View style={styles.metaContainer}>
-                    <View style={[styles.badge, styles.categoryBadge]}>
-                        <Text style={styles.badgeText}>{getCategoryName(book.category)}</Text>
-                    </View>
-                    <View style={[styles.badge, styles.statusBadge]}>
-                        <Text style={styles.badgeText}>{book.isInterchangeable ?
-                        <AntDesign name="swap" size={20} color='#d3d3d3'/>
-                        :<FontAwesome name="money" size={20} color='#d3d3d3' />}</Text>
+                    <View style={styles.priceContainer}>
+                        <Text style={styles.price}>${book.price}</Text>
                     </View>
 
+                    <View style={styles.metaContainer}>
+                        <View style={[styles.badge, styles.categoryBadge]}>
+                            <Text style={styles.badgeText}>{getCategoryName(book.category)}</Text>
+                        </View>
+                        <View style={[styles.badge, styles.statusBadge]}>
+                            <Text style={styles.badgeText}>{book.isInterchangeable ?
+                                <AntDesign name="swap" size={20} color='#d3d3d3' />
+                                : <FontAwesome name="money" size={20} color='#d3d3d3' />}</Text>
+                        </View>
 
-                    <Pressable onPressIn={controllFavorite}>
-                        {isFavorite ? (
-                        <FontAwesome name="heart" size={24} color="#e12866" />
-    ) : (
-                            <FontAwesome name="heart-o" size={24} color="#d3d3d3" />
-                        )}
-                    </Pressable>
+
+                        <Pressable onPressIn={controllFavorite}>
+                            {isFavorite ? (
+                                <FontAwesome name="heart" size={24} color="#e12866" />
+                            ) : (
+                                <FontAwesome name="heart-o" size={24} color="#d3d3d3" />
+                            )}
+                        </Pressable>
 
 
+                    </View>
                 </View>
-            </View>
+            </Pressable>
 
         </View>
     )

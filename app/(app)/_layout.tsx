@@ -39,6 +39,17 @@ export default function AppLayout() {
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} />,
         }}
       />
+         <Tabs.Screen
+        name={ROUTES.PAGE_HOME_MESSAGES}
+        options={{
+          title: 'Messages',
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="comment" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="messages/chat"
+        options={{ href: null, /* also you can hide header if needed */ }}
+      />
     </Tabs>
 
   );

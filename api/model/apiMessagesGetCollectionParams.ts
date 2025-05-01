@@ -10,4 +10,10 @@ export type ApiMessagesGetCollectionParams = {
  * The collection page number
  */
 page?: number;
+'sender.id'?: number;
+'sender.id[]'?: number[];
+'receiver.id'?: number;
+'receiver.id[]'?: number[];
+'fromBook.id'?: number;
+'fromBook.id[]'?: number[];
 };

@@ -37,7 +37,6 @@ const ProfileScreen = () => {
 
             // Once all are resolved, update state
             setMyBooks(results);
-            console.log("Loaded books count:", results.length);
         } catch (error) {
             console.error("Error fetching favorite books:", error);
         }

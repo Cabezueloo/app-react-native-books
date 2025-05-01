@@ -6,6 +6,7 @@ export const ROUTES = {
     PAGE_SEARCH : 'search/', // screens/screenApp//HomeScreen.js
     PAGE_FAVORITES : 'favorites/index',
     PAGE_PROFILE : 'profile/index',
-    PAGE_ADD : 'addBook/index'
+    PAGE_ADD : 'addBook/index',
+    PAGE_HOME_MESSAGES: 'messages/index'
 
 } as const

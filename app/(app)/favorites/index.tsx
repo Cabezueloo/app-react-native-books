@@ -34,7 +34,6 @@ const FavoriteScreen = () => {
 
             // Once all are resolved, update state
             setFavoriteBooks(results);
-            console.log("Loaded books count:", results.length);
         } catch (error) {
             console.error("Error fetching favorite books:", error);
         } finally {
