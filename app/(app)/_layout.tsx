@@ -32,18 +32,18 @@ export default function AppLayout() {
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="plus" color={color} />,
         }}
       />
+        <Tabs.Screen
+       name={ROUTES.PAGE_HOME_MESSAGES}
+       options={{
+         title: 'Messages',
+         tabBarIcon: ({ color }) => <FontAwesome size={28} name="comment" color={color} />,
+       }}
+     />
       <Tabs.Screen
         name={ROUTES.PAGE_PROFILE}
         options={{
           title: 'Profile',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} />,
-        }}
-      />
-         <Tabs.Screen
-        name={ROUTES.PAGE_HOME_MESSAGES}
-        options={{
-          title: 'Messages',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="comment" color={color} />,
         }}
       />
       <Tabs.Screen

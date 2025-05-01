@@ -5,11 +5,13 @@ import { apiMessagesGetCollection, apiMessagesPost } from '../../../api/generate
 import { useAuthAndStyle } from '../../../context/Context';
 
 const ChatScreen = () => {
+  console.log("HOAL")
   const { bookId, reciver } = useLocalSearchParams();
   // extract numeric IDs from path params
   const bookIdNum = parseInt((bookId as string).split('/').pop()!);
+  console.log("bookIdNum",bookIdNum)
   const reciverNum = parseInt((reciver as string).split('/').pop()!);
-
+  console.log("reciverNum",reciverNum)
   const { currentUser } = useAuthAndStyle();
 
   const [messages, setMessages] = useState([]);
@@ -21,8 +23,28 @@ const ChatScreen = () => {
         'sender.id': currentUser.id,
         'fromBook.id': bookIdNum,
         'receiver.id': reciverNum,
+        
       });
-      setMessages(res['hydra:member']);
+
+      const resD = await apiMessagesGetCollection({
+        'sender.id': reciverNum,
+        'fromBook.id': bookIdNum,
+        'receiver.id': currentUser.id,
+      });
+      const msg = [...res["hydra:member"],...resD["hydra:member"]]
+      const sortedArray: { createdAt?: string; }[] = msg.sort((n1,n2) => {
+        if (n1.createdAt > n2.createdAt) {
+            return 1;
+        }
+    
+        if (n1.createdAt < n2.createdAt) {
+            return -1;
+        }
+    
+        return 0;
+    });
+    
+      setMessages(sortedArray)
     } catch (err) {
       console.error('Failed to fetch messages', err);
     }
@@ -31,6 +53,8 @@ const ChatScreen = () => {
   useEffect(() => {
     fetchMessages();
     // Optionally: poll every 10 seconds
+    console.log("messages -> ",messages)
+
     const interval = setInterval(fetchMessages, 10000);
     return () => clearInterval(interval);
   }, [fetchMessages]);

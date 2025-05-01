@@ -2,12 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, FlatList, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuthAndStyle } from '../../../context/Context';
-import { apiMessagesGetCollection } from '../../../api/generated/helloAPIPlatform';
+import { apiMessagesGetCollection, apiUsersIdGet } from '../../../api/generated/helloAPIPlatform';
+import { UserJsonldUserRead } from '../../../api/model';
 
 interface Conversation {
   bookUri: string;
   bookId: number;
   senderUri: string;
+  infoBuyer: UserJsonldUserRead;
 }
 
 const HomeMessagesScreen = () => {
@@ -30,24 +32,41 @@ const HomeMessagesScreen = () => {
       const msgs = res['hydra:member'];
 
       // Group messages by fromBook URI, keep only one entry per book
-      const grouped: Record<string, string> = {};
+      const grouped: Record<string, Set<String>> = {};
       msgs.forEach((msg: { fromBook: string; sender: string }) => {
 
-        console.log(msg)
         const bookUri = msg.fromBook;
-        // overwrite or first; we only need one sender per book
-        grouped[bookUri] = msg.sender;
+        if (!grouped[bookUri]) {
+          grouped[bookUri] = new Set<string>();
+        }
+
+        // add this sender to the Set for that book
+        grouped[bookUri].add(msg.sender);
       });
 
+      console.log(grouped)
+
+
+
       // Build array of conversations
-      const convs: Conversation[] = Object.entries(grouped).map(
-        ([bookUri, senderUri]) => ({
-          bookUri,
-          bookId: parseInt(bookUri.split('/').pop()!, 10),
-          senderUri,
-        })
+      const convPromises: Promise<Conversation>[] = Object.entries(grouped).flatMap(
+        ([bookUri, senders]) =>
+          Array.from(senders).map(async (senderUri) => {
+            const userId = parseInt(senderUri.split('/').pop()!, 10);
+            const user = await apiUsersIdGet(String(userId));
+            return {
+              bookUri,
+              bookId: parseInt(bookUri.split('/').pop()!, 10),
+              senderUri: String(senderUri),
+              infoBuyer: user,
+            };
+          })
       );
-      console.log(convs)
+
+      // Wait for all user fetches to finish
+      const convs: Conversation[] = await Promise.all(convPromises);
+
+
       setConversations(convs);
     } catch (err) {
       console.error('Failed to fetch messages', err);
@@ -87,14 +106,28 @@ const HomeMessagesScreen = () => {
   return (
     <FlatList
       data={conversations}
-      keyExtractor={(item) => item.bookUri}
+      keyExtractor={(item) => `${item.bookUri}|${item.senderUri}`}
       contentContainerStyle={styles.list}
       renderItem={({ item }) => (
         <TouchableOpacity
-          style={[styles.row]}
+          style={styles.card}
           onPress={() => openChat(item.bookId, item.senderUri)}
         >
-          <Text style={[styles.text, { color: colors.text }]}>Boddddddddddok #{item.bookId}</Text>
+          <View>
+          <Text style={[styles.username, { color: colors.text }]}>
+            {item.infoBuyer.name}
+          </Text>
+          <Text style={[styles.username, { color: colors.text }]}>
+            {item.infoBuyer.surname}
+          </Text>
+
+          </View>
+          <Text style={[styles.username, { color: colors.text }]}>
+            {item.infoBuyer.username}
+          </Text>
+          <Text style={[styles.bookId, { color: colors.text }]}>
+            Book #{item.bookId}
+          </Text>
         </TouchableOpacity>
       )}
     />
@@ -107,6 +140,27 @@ const styles = StyleSheet.create({
   text: { fontSize: 16 },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   emptyText: { fontSize: 16 },
+  card: {
+    backgroundColor: 'white',      // or colors.cardBackground
+    borderRadius: 8,               // rounded corners
+    padding: 12,                   // inner spacing
+    marginBottom: 12,              // spacing between cards
+    // iOS shadow
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    // Android shadow
+    elevation: 3,
+  },
+  username: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  bookId: {
+    fontSize: 14,
+  },
 });
 
 export default HomeMessagesScreen;
