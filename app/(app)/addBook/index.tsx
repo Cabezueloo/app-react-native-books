@@ -27,7 +27,6 @@ const AddBookScreen = () => {
   const [isInterchangeable, setIsInterchangeable] = useState<boolean>(false)
   const toggleSwitch = () => { 
   setIsInterchangeable(!isInterchangeable)
-  console.log(isInterchangeable) 
 };
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -43,10 +42,9 @@ const AddBookScreen = () => {
     });
 
     if (!result.canceled) {
-      console.log("Si");
       setSelectedImage(result.assets[0]);
     } else {
-      alert('You did not select any image.');
+      alert('Ningúna imagen seleccionada');
     }
 
 
@@ -89,7 +87,6 @@ const AddBookScreen = () => {
 
 
   const onSubmit = async (values: FormAddBook) => {
-    console.log("Enviar")
 
     // Call API endpoint
     try {
@@ -102,7 +99,6 @@ const AddBookScreen = () => {
           
       const resImage = await apiMediaObjectsPost({ file: file as unknown as Blob, // Type assertion to satisfy the Blob type
       });
-      console.log(isInterchangeable)
 
       const data: BookJsonldBookWrite = {
         name: values.name,
@@ -234,7 +230,7 @@ const AddBookScreen = () => {
               </Picker>
 
 
-              <Button title="Choose from Device" onPress={() => pickImageAsync()} />
+              <Button title="Elige imágen " onPress={() => pickImageAsync()} />
 
 
 

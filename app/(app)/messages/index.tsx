@@ -4,6 +4,8 @@ import { useRouter } from 'expo-router';
 import { useAuthAndStyle } from '../../../context/Context';
 import { apiMessagesGetCollection, apiUsersIdGet } from '../../../api/generated/helloAPIPlatform';
 import { UserJsonldUserRead } from '../../../api/model';
+import { ThemedView } from '../../../components/ThemedView';
+import { ThemedText } from '../../../components/ThemedText';
 
 interface Conversation {
   bookUri: string;
@@ -29,6 +31,8 @@ const HomeMessagesScreen = () => {
         'fromBook.id[]': myBooksId,
         'receiver.id': currentUser.id,
       });
+
+      
       const msgs = res['hydra:member'];
 
       // Group messages by fromBook URI, keep only one entry per book
@@ -44,7 +48,6 @@ const HomeMessagesScreen = () => {
         grouped[bookUri].add(msg.sender);
       });
 
-      console.log(grouped)
 
 
 
@@ -97,13 +100,15 @@ const HomeMessagesScreen = () => {
 
   if (conversations.length === 0) {
     return (
-      <View style={styles.center}>
-        <Text style={[styles.emptyText, { color: colors.text }]}>No messages for your books yet.</Text>
-      </View>
+      <ThemedView type='default'>
+        <ThemedText style={[styles.emptyText, { color: colors.text }]}>No messages for your books yet.</ThemedText>
+        </ThemedView>
+
     );
   }
 
   return (
+    <ThemedView type='default'>
     <FlatList
       data={conversations}
       keyExtractor={(item) => `${item.bookUri}|${item.senderUri}`}
@@ -130,7 +135,8 @@ const HomeMessagesScreen = () => {
           </Text>
         </TouchableOpacity>
       )}
-    />
+      />
+      </ThemedView>
   );
 };
 

@@ -115,7 +115,7 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
 
         <View style={styles.container}>
             
-            <Text>{book["@id"]}</Text>
+            
             <Pressable onPress={openMessages}>
 
                 <Image

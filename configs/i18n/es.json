@@ -26,7 +26,19 @@
     "orderByMoreOld":"Menos reciente",
     "orderBy":"Sin preferencia",
     "onlySwap":"Solo intercanbiables",
-    "onlyMoney":"Solo dinero"
+    "onlyMoney":"Solo dinero",
+    "home":"Inicio",
+    "favorites":"Favoritos",
+    "upload" :"Subir",
+    "messages":"Mensajes",
+    "profile":"Perfil",
+    "show":"Mostrar",
+    "hide":"Ocultar",
+    "name_book":"Nombre del libro",
+    "author":"Autor",
+    "price":"Precio",
+    "description":"Descripcion"
+
 
     
 }

@@ -5,13 +5,10 @@ import { apiMessagesGetCollection, apiMessagesPost } from '../../../api/generate
 import { useAuthAndStyle } from '../../../context/Context';
 
 const ChatScreen = () => {
-  console.log("HOAL")
   const { bookId, reciver } = useLocalSearchParams();
-  // extract numeric IDs from path params
+
   const bookIdNum = parseInt((bookId as string).split('/').pop()!);
-  console.log("bookIdNum",bookIdNum)
   const reciverNum = parseInt((reciver as string).split('/').pop()!);
-  console.log("reciverNum",reciverNum)
   const { currentUser } = useAuthAndStyle();
 
   const [messages, setMessages] = useState([]);
@@ -19,11 +16,11 @@ const ChatScreen = () => {
 
   const fetchMessages = useCallback(async () => {
     try {
+      //Lo hago así porque es la manera más fácil, debería de modificar la base de datos o hacer más llamadas a la API
       const res = await apiMessagesGetCollection({
         'sender.id': currentUser.id,
         'fromBook.id': bookIdNum,
-        'receiver.id': reciverNum,
-        
+        'receiver.id': reciverNum,        
       });
 
       const resD = await apiMessagesGetCollection({
@@ -32,6 +29,7 @@ const ChatScreen = () => {
         'receiver.id': currentUser.id,
       });
       const msg = [...res["hydra:member"],...resD["hydra:member"]]
+      //Order by date
       const sortedArray: { createdAt?: string; }[] = msg.sort((n1,n2) => {
         if (n1.createdAt > n2.createdAt) {
             return 1;
@@ -52,9 +50,8 @@ const ChatScreen = () => {
 
   useEffect(() => {
     fetchMessages();
-    // Optionally: poll every 10 seconds
-    console.log("messages -> ",messages)
 
+    //Each 10s check messagess
     const interval = setInterval(fetchMessages, 10000);
     return () => clearInterval(interval);
   }, [fetchMessages]);
@@ -89,7 +86,6 @@ const ChatScreen = () => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={90}
     >
       <FlatList

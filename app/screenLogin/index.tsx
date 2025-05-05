@@ -30,8 +30,8 @@ export default function LoginScreen() {
         password: string
     }
     const schema = yup.object().shape({
-        email: yup.string().email('Invalid email').required('Required'),
-        password: yup.string().required('Required')
+        email: yup.string().email('Correo invalido').required('Requerido'),
+        password: yup.string().required('Requerido')
     });
 
 
@@ -44,11 +44,11 @@ export default function LoginScreen() {
             if (response?.token) {
                 await storeData(LOCAL_STORAGE_KEY_TOKEN,response.token)
 
-                toastSuccess("Welcome")
+                toastSuccess("Bienvenido")
                 router.navigate(ROUTES.PAGE_SEARCH)
             }
         } catch (err) {
-            toastError("Invalid credeentials")
+            toastError("Credenciales erroneas")
 
         } finally {
             setIsLoading(false);
@@ -88,6 +88,8 @@ export default function LoginScreen() {
                             errorStyle={{ color: colors.warning }}
                         />
                         <CustomTextInput
+                            secureTextEntry
+                            showPasswordToggle
                             autoComplete="off"
                             placeholder={t(StringConstants.password)}
                             value={values.password}
@@ -99,7 +101,11 @@ export default function LoginScreen() {
                             errorStyle={{ color: colors.warning }}
                         />
 
-                        <Button title={t(StringConstants.enter)}
+                        <Button 
+                        
+                        title={t(StringConstants.enter)}
+                        color={colors.accent}
+
                             disabled={isLoading}
                             onPress={() => handleSubmit()} />
 

@@ -57,7 +57,7 @@ const ProfileScreen = () => {
 
             <ThemedView type="container">
 
-                <ThemedText type="title"> Profile</ThemedText>
+                <ThemedText type="title">Perfil</ThemedText>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <CustomTextInput

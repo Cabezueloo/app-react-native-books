@@ -12,13 +12,11 @@ import { ThemedText } from '../../components/ThemedText';
 
 
 const ResetPasswordScreen = () => {
-    console.log("ENTRA RESET PASSWORD SCREEN")
     const {colorScheme, colors} = useCommonData()
     const {t} = useTranslation();
     
     
     const [resetMail,setResetMail] = useState('')
-    console.log(colorScheme)
 
 
     return (
@@ -35,7 +33,7 @@ const ResetPasswordScreen = () => {
                             errorStyle={{ color: colors.warning }}
                         />
                  <Button
-                            title= {"f"}
+                            title= {"Enviar correo de confirmación"}
                             onPress={() => Alert.alert(t(StringConstants.enter))}
                             color={colors.accent}
                         />
