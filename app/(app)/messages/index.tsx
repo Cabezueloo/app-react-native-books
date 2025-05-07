@@ -2,12 +2,13 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, FlatList, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuthAndStyle } from '../../../context/Context';
-import { apiMessagesGetCollection, apiUsersIdGet } from '../../../api/generated/helloAPIPlatform';
-import { UserJsonldUserRead } from '../../../api/model';
+import { apiBooksIdGet, apiMessagesGetCollection, apiUsersIdGet } from '../../../api/generated/helloAPIPlatform';
+import { BookJsonldBookRead, UserJsonldUserRead } from '../../../api/model';
 import { ThemedView } from '../../../components/ThemedView';
 import { ThemedText } from '../../../components/ThemedText';
 
 interface Conversation {
+  book: BookJsonldBookRead,
   bookUri: string;
   bookId: number;
   senderUri: string;
@@ -32,7 +33,7 @@ const HomeMessagesScreen = () => {
         'receiver.id': currentUser.id,
       });
 
-      
+
       const msgs = res['hydra:member'];
 
       // Group messages by fromBook URI, keep only one entry per book
@@ -44,22 +45,28 @@ const HomeMessagesScreen = () => {
           grouped[bookUri] = new Set<string>();
         }
 
-        // add this sender to the Set for that book
         grouped[bookUri].add(msg.sender);
       });
 
-
-
-
-      // Build array of conversations
       const convPromises: Promise<Conversation>[] = Object.entries(grouped).flatMap(
+
         ([bookUri, senders]) =>
           Array.from(senders).map(async (senderUri) => {
             const userId = parseInt(senderUri.split('/').pop()!, 10);
             const user = await apiUsersIdGet(String(userId));
+            const bookId = bookUri.split('/').pop()!
+            console.log(bookUri)
+            const book = await apiBooksIdGet(bookId).then(book => {
+              return book;
+            }
+            )
+
+
+
             return {
+              book: book,
               bookUri,
-              bookId: parseInt(bookUri.split('/').pop()!, 10),
+              bookId: parseInt(bookId, 10),
               senderUri: String(senderUri),
               infoBuyer: user,
             };
@@ -80,6 +87,7 @@ const HomeMessagesScreen = () => {
 
   useEffect(() => {
     fetchMessages();
+
   }, []);
 
   const openChat = (bookId: number, senderUri: string) => {
@@ -100,73 +108,57 @@ const HomeMessagesScreen = () => {
 
   if (conversations.length === 0) {
     return (
-      <ThemedView type='default'>
-        <ThemedText style={[styles.emptyText, { color: colors.text }]}>No messages for your books yet.</ThemedText>
-        </ThemedView>
+      <ThemedView type='containerItems'>
+        <ThemedText style={[styles.emptyText, { color: colors.text }]}>No tienes ningúna conversación</ThemedText>
+      </ThemedView>
 
     );
   }
 
   return (
-    <ThemedView type='default'>
-    <FlatList
-      data={conversations}
-      keyExtractor={(item) => `${item.bookUri}|${item.senderUri}`}
-      contentContainerStyle={styles.list}
-      renderItem={({ item }) => (
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() => openChat(item.bookId, item.senderUri)}
-        >
-          <View>
-          <Text style={[styles.username, { color: colors.text }]}>
-            {item.infoBuyer.name}
-          </Text>
-          <Text style={[styles.username, { color: colors.text }]}>
-            {item.infoBuyer.surname}
-          </Text>
+    <ThemedView type='containerItems'>
+      <FlatList
 
-          </View>
-          <Text style={[styles.username, { color: colors.text }]}>
-            {item.infoBuyer.username}
-          </Text>
-          <Text style={[styles.bookId, { color: colors.text }]}>
-            Book #{item.bookId}
-          </Text>
-        </TouchableOpacity>
-      )}
+        data={conversations}
+        keyExtractor={(item) => `${item.bookUri}|${item.senderUri}`}
+        contentContainerStyle={styles.list}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => openChat(item.bookId, item.senderUri)}
+          >
+            <View>
+              <ThemedText type='default'>
+                Nombre: {item.infoBuyer.name}
+              </ThemedText>
+              <ThemedText>
+                Usuario: {item.infoBuyer.surname}
+              </ThemedText>
+
+            </View>
+            <ThemedText type='default'>
+              Titulo: {item.book.name}
+            </ThemedText>
+            <ThemedText type='default'>
+              Precio: {item.book.price}
+            </ThemedText>
+          </TouchableOpacity>
+        )}
       />
-      </ThemedView>
+    </ThemedView>
   );
 };
 
 const styles = StyleSheet.create({
   list: { padding: 16 },
-  row: { padding: 12, borderBottomWidth: 1 },
-  text: { fontSize: 16 },
-  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   emptyText: { fontSize: 16 },
   card: {
-    backgroundColor: 'white',      // or colors.cardBackground
-    borderRadius: 8,               // rounded corners
-    padding: 12,                   // inner spacing
-    marginBottom: 12,              // spacing between cards
-    // iOS shadow
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    // Android shadow
+    backgroundColor: 'white',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 12,
     elevation: 3,
-  },
-  username: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 4,
-  },
-  bookId: {
-    fontSize: 14,
-  },
+  }
 });
 
 export default HomeMessagesScreen;

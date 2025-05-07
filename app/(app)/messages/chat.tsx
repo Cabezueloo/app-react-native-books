@@ -3,6 +3,8 @@ import { View, FlatList, Text, TextInput, TouchableOpacity, StyleSheet, Keyboard
 import { useLocalSearchParams } from 'expo-router';
 import { apiMessagesGetCollection, apiMessagesPost } from '../../../api/generated/helloAPIPlatform';
 import { useAuthAndStyle } from '../../../context/Context';
+import { ThemedView } from '../../../components/ThemedView';
+import { ThemedText } from '../../../components/ThemedText';
 
 const ChatScreen = () => {
   const { bookId, reciver } = useLocalSearchParams();
@@ -77,16 +79,14 @@ const ChatScreen = () => {
     const isMe = item.sender === currentUser.id || item.sender.includes(`users/${currentUser.id}`);
     return (
       <View style={[styles.bubble, isMe ? styles.myBubble : styles.theirBubble]}>
-        <Text style={styles.messageText}>{item.text}</Text>
+        <ThemedText type='default'>{item.text}</ThemedText>
         <Text style={styles.timeText}>{new Date(item.createdAt).toLocaleTimeString()}</Text>
       </View>
     );
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      keyboardVerticalOffset={90}
+    <ThemedView type='containerItems'    
     >
       <FlatList
         data={messages}
@@ -99,13 +99,13 @@ const ChatScreen = () => {
           style={styles.input}
           value={text}
           onChangeText={setText}
-          placeholder="Type a message..."
+          placeholder="Escribe un mensaje"
         />
         <TouchableOpacity onPress={sendMessage} style={styles.sendButton}>
-          <Text style={styles.sendText}>Send</Text>
+          <Text style={{ color: '#fff', fontWeight: 'bold'}}>Enviar</Text>
         </TouchableOpacity>
       </View>
-    </KeyboardAvoidingView>
+    </ThemedView>
   );
 };
 
@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
   inputContainer: { flexDirection: 'row', alignItems: 'center', padding: 8, borderTopWidth: 1, borderColor: '#ddd' },
   input: { flex: 1, borderWidth: 1, borderColor: '#ccc', borderRadius: 20, paddingHorizontal: 12, paddingVertical: 6, marginRight: 8 },
   sendButton: { backgroundColor: '#2196F3', borderRadius: 20, paddingHorizontal: 16, paddingVertical: 10 },
-  sendText: { color: '#fff', fontWeight: 'bold' },
 });
 
 export default ChatScreen;

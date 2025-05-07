@@ -93,20 +93,7 @@ const ProfileScreen = () => {
                 />
 
 
-                <CustomTextInput
-                    editable={isEditable}
-                    placeholder="Current password"
-                    placeholderTextColor={colors.text}
-                    style={{ color: colors.text }}
-                />
-
-
-                <CustomTextInput
-
-                    placeholder="New password"
-                    placeholderTextColor={colors.text}
-                    style={{ color: colors.text }}
-                />
+                
 
                 <View style={{ flexDirection: 'row' }}>
 
@@ -116,7 +103,7 @@ const ProfileScreen = () => {
                         <Button title="Guardar" onPress={() => { }} color={colors.secondary}></Button>
                     }
 
-                    <Button disabled={!isEditable} title="Cancelar" onPress={() => { }}></Button>
+                    <Button disabled={!isEditable} title="Cancelar" onPress={() => {setIsEditable(!isEditable) }}></Button>
                 </View>
                 <Button
                     color={colors.primary}

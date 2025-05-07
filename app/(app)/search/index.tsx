@@ -21,7 +21,7 @@ const HomeScreen = () => {
   const [selectedCategory, setSelectedCategory] = useState<number[]>([])
   const { t } = useTranslation()
   const [selectedOrder, setSelectedOrder] = useState<{ value: valueType; by: byType } | null>(null);
-  const [selectedIsInterchangeable, setSelectedIsInterchangeable] = useState<boolean| null>(null)
+  const [selectedIsInterchangeable, setSelectedIsInterchangeable] = useState<number>(1)
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const { books, loading, error, page, isListEnd } = state;
@@ -31,11 +31,10 @@ const HomeScreen = () => {
     { id: 2, name: t(StringConstants.adventure) },
     { id: 3, name: t(StringConstants.mystery) },
     { id: 4, name: t(StringConstants.sci_fiction) }
-    // ... other items
   ];
 
   const fetchData = async () => {
-    
+    console.log(selectedIsInterchangeable)
     if (isListEnd) return
     dispatch({ type: actionTypes.API_REQUEST });
     try {
@@ -48,7 +47,7 @@ const HomeScreen = () => {
           [`order[${selectedOrder.value}]`]: selectedOrder.by as ApiBooksGetCollectionOrderCreatedAt | ApiBooksGetCollectionOrderPrice
 
         }),
-        ...(selectedIsInterchangeable !== null ? { isInterchangeable: selectedIsInterchangeable } : {})
+        ...(selectedIsInterchangeable !== 1 ? { isInterchangeable: selectedIsInterchangeable==2?true:false } : {})
 
       });
 
@@ -89,7 +88,7 @@ const HomeScreen = () => {
     <>
       <SearchBar
         platform="default"
-        placeholder="Search books..."
+        placeholder="Buscar libros..."
         onChangeText={setSearch}
         value={search}
         lightTheme
@@ -113,12 +112,16 @@ const HomeScreen = () => {
         </View>
         <View style={{ flex: 1 }}>
           <Picker
-            selectedValue={selectedIsInterchangeable}
-            onValueChange={(itemValue) => setSelectedIsInterchangeable(itemValue)}
+            selectedValue={1}
+            onValueChange={(itemValue) => {
+              console.log(itemValue)
+              setSelectedIsInterchangeable(itemValue)
+            
+            }}
           >
-            <Picker.Item label={t(StringConstants.orderBy)} value={null} key={0} />
-            <Picker.Item label={t(StringConstants.onlySwap)} value={true} key={1} />
-            <Picker.Item label={t(StringConstants.onlyMoney)} value={false} key={2} />
+            <Picker.Item label={t(StringConstants.orderBy)} value={1} key={0} />
+            <Picker.Item label={t(StringConstants.onlySwap)} value={2} key={1} />
+            <Picker.Item label={t(StringConstants.onlyMoney)} value={3} key={2} />
           </Picker>
         </View>
       </View>
@@ -130,17 +133,9 @@ const HomeScreen = () => {
             uniqueKey="id"
             onSelectedItemsChange={setSelectedCategory}
             selectedItems={selectedCategory}
-            selectText="Select Categories"
-            searchInputPlaceholderText="Search Categories..."
-            tagRemoveIconColor="#CCC"
-            tagBorderColor="#CCC"
-            tagTextColor="#000"
-            selectedItemTextColor="#CCC"
-            selectedItemIconColor="#CCC"
-            itemTextColor="#000"
-            displayKey="name"
-            hideSubmitButton={true}
-            
+            selectText="Categorías"
+            searchInputPlaceholderText="Buscar categorías..."
+            hideSubmitButton={true}            
           />
           </View>
         </View>

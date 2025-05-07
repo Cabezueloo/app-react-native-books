@@ -66,20 +66,20 @@ const AddBookScreen = () => {
 
   const formAddBookSchema = yup.object().shape({
 
-    name: yup.string().required('Book name is required'),
-    author: yup.string().required('Author is required'),
+    name: yup.string().required('Requerido'),
+    author: yup.string().required('Requerido'),
     price: yup
       .number()
-      .required('Price is required')
-      .min(1, 'Price must be a positive number'),
+      .required('Requerido')
+      .min(1, 'Numero positivo'),
     category: yup
       .number()
       .nullable() // allow null in the form state until a valid selection is made
-      .required('Category is required'),
+      .required('Requerido'),
     is_interchangeable: yup
       .boolean()
-      .required('Interchangeability must be specified'),
-    description: yup.string().required('Description is required'),
+      .required(''),
+    description: yup.string().required('Requerido'),
 
 
 
@@ -105,7 +105,7 @@ const AddBookScreen = () => {
         author: values.author,
         price: parseFloat(values.price+""),
         category: values.category,
-        isInterchangeable: true,
+        isInterchangeable: values.is_interchangeable,
         ubicatedIn: 0,
         description: values.description,
         status: "Available",
