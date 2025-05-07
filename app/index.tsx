@@ -16,7 +16,6 @@ import { useAuthAndStyle } from '../context/Context';
 
 export default function Start() {
 
-  console.log("ENTRA START")
   const { t } = useTranslation()
 
   

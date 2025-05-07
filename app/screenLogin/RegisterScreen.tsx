@@ -26,15 +26,15 @@ interface FormSchemaRegister {
 }
 
 const schema = yup.object().shape({
-    email: yup.string().email('Invalid email').required('Required'),
-    username: yup.string().required('Required'),
-    name: yup.string().required('Required'),
-    surname: yup.string().required('Required'),
-    password: yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
+    email: yup.string().email('Correo invalido').required('Requerido'),
+    username: yup.string().required('Requerido'),
+    name: yup.string().required('Requerido'),
+    surname: yup.string().required('Requerido'),
+    password: yup.string().min(6, 'Minimo 6 carácteres').required('Requerido'),
     confirmPassword: yup
         .string()
-        .oneOf([yup.ref('password'), null], 'Passwords must match')
-        .required('Required'),
+        .oneOf([yup.ref('password'), null], 'Deben de ser iguales')
+        .required('Requerido'),
 });
 
 const RegisterScreen = () => {
@@ -44,7 +44,7 @@ const RegisterScreen = () => {
     const [loading, setLoading] = React.useState(false);
 
     const onSubmit = async (values: FormSchemaRegister) => {
-        console.log("Form values -> ", values);
+        
         const newUser: UserJsonldUserWrite = {
             username: values.username,
             email: values.email,
@@ -52,7 +52,6 @@ const RegisterScreen = () => {
             surname: values.surname,
             password: values.password
         };
-        console.log(newUser)
         try {
             const response = await apiUsersPost(newUser)
 
@@ -135,6 +134,8 @@ const RegisterScreen = () => {
                             errorStyle={{ color: colors.warning }}
                         />
                         <CustomTextInput
+                            secureTextEntry
+                            showPasswordToggle
                             autoComplete="password"
                             placeholder={t(StringConstants.password)}
                             value={values.password}
@@ -147,6 +148,8 @@ const RegisterScreen = () => {
                         />
 
                         <CustomTextInput
+                            secureTextEntry
+                            showPasswordToggle
                             autoComplete="password"
                             placeholder={t(StringConstants.confirmPassword)}
                             value={values.confirmPassword}

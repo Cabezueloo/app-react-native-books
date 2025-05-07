@@ -3,15 +3,14 @@ import { View, FlatList, Text, TextInput, TouchableOpacity, StyleSheet, Keyboard
 import { useLocalSearchParams } from 'expo-router';
 import { apiMessagesGetCollection, apiMessagesPost } from '../../../api/generated/helloAPIPlatform';
 import { useAuthAndStyle } from '../../../context/Context';
+import { ThemedView } from '../../../components/ThemedView';
+import { ThemedText } from '../../../components/ThemedText';
 
 const ChatScreen = () => {
-  console.log("HOAL")
   const { bookId, reciver } = useLocalSearchParams();
-  // extract numeric IDs from path params
+
   const bookIdNum = parseInt((bookId as string).split('/').pop()!);
-  console.log("bookIdNum",bookIdNum)
   const reciverNum = parseInt((reciver as string).split('/').pop()!);
-  console.log("reciverNum",reciverNum)
   const { currentUser } = useAuthAndStyle();
 
   const [messages, setMessages] = useState([]);
@@ -19,11 +18,11 @@ const ChatScreen = () => {
 
   const fetchMessages = useCallback(async () => {
     try {
+      //Lo hago así porque es la manera más fácil, debería de modificar la base de datos o hacer más llamadas a la API
       const res = await apiMessagesGetCollection({
         'sender.id': currentUser.id,
         'fromBook.id': bookIdNum,
-        'receiver.id': reciverNum,
-        
+        'receiver.id': reciverNum,        
       });
 
       const resD = await apiMessagesGetCollection({
@@ -32,6 +31,7 @@ const ChatScreen = () => {
         'receiver.id': currentUser.id,
       });
       const msg = [...res["hydra:member"],...resD["hydra:member"]]
+      //Order by date
       const sortedArray: { createdAt?: string; }[] = msg.sort((n1,n2) => {
         if (n1.createdAt > n2.createdAt) {
             return 1;
@@ -52,9 +52,8 @@ const ChatScreen = () => {
 
   useEffect(() => {
     fetchMessages();
-    // Optionally: poll every 10 seconds
-    console.log("messages -> ",messages)
 
+    //Each 10s check messagess
     const interval = setInterval(fetchMessages, 10000);
     return () => clearInterval(interval);
   }, [fetchMessages]);
@@ -80,17 +79,14 @@ const ChatScreen = () => {
     const isMe = item.sender === currentUser.id || item.sender.includes(`users/${currentUser.id}`);
     return (
       <View style={[styles.bubble, isMe ? styles.myBubble : styles.theirBubble]}>
-        <Text style={styles.messageText}>{item.text}</Text>
+        <ThemedText type='default'>{item.text}</ThemedText>
         <Text style={styles.timeText}>{new Date(item.createdAt).toLocaleTimeString()}</Text>
       </View>
     );
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={90}
+    <ThemedView type='containerItems'    
     >
       <FlatList
         data={messages}
@@ -103,13 +99,13 @@ const ChatScreen = () => {
           style={styles.input}
           value={text}
           onChangeText={setText}
-          placeholder="Type a message..."
+          placeholder="Escribe un mensaje"
         />
         <TouchableOpacity onPress={sendMessage} style={styles.sendButton}>
-          <Text style={styles.sendText}>Send</Text>
+          <Text style={{ color: '#fff', fontWeight: 'bold'}}>Enviar</Text>
         </TouchableOpacity>
       </View>
-    </KeyboardAvoidingView>
+    </ThemedView>
   );
 };
 
@@ -124,7 +120,6 @@ const styles = StyleSheet.create({
   inputContainer: { flexDirection: 'row', alignItems: 'center', padding: 8, borderTopWidth: 1, borderColor: '#ddd' },
   input: { flex: 1, borderWidth: 1, borderColor: '#ccc', borderRadius: 20, paddingHorizontal: 12, paddingVertical: 6, marginRight: 8 },
   sendButton: { backgroundColor: '#2196F3', borderRadius: 20, paddingHorizontal: 16, paddingVertical: 10 },
-  sendText: { color: '#fff', fontWeight: 'bold' },
 });
 
 export default ChatScreen;

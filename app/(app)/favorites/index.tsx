@@ -52,7 +52,7 @@ const FavoriteScreen = () => {
     return (
 
         <ThemedView type="containerItems">
-                <ThemedText style={{alignContent:'center',textAlign:'center'}} type="title">  Your Favorites</ThemedText>
+                <ThemedText style={{alignContent:'center',textAlign:'center'}} type="title">Tús Favoritos</ThemedText>
 
             {isLoading ?
                 (<ActivityIndicator style={{ flex: 1 }} size="large" color={colors.primary} />) :

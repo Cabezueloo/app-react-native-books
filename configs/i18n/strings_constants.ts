@@ -31,5 +31,13 @@ export const StringConstants = {
     "orderByMoreOld":'orderByMoreOld',
     "orderBy":"orderBy",
     "onlySwap":"onlySwap",
-    "onlyMoney":"onlyMoney"
+    "onlyMoney":"onlyMoney",
+    "home":"home",
+    "favorites":"favorites",
+    "upload" :"upload",
+    "messages":"messages",
+    "profile":"profile",
+    "show":"show",
+    "hide":"hide"
+    
 }

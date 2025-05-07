@@ -26,5 +26,17 @@
     "orderByMoreRecent": "Newest First",
     "orderByMoreOld": "Oldest First",
     "onlySwap":"Only swap",
-    "onlyMoney":"Only Money"
+    "onlyMoney":"Only Money",
+    "home":"Home",
+    "favorites":"Favorites",
+    "upload" :"Upload",
+    "messages":"Messages",
+    "profile":"Profile",
+    "show":"Show",
+    "hide":"Hide",
+    "name_book":"Name book",
+    "author":"Author",
+"price":"Price",
+    "description":"Description"
+
 }

@@ -42,7 +42,6 @@ export function Provider({ children }: { children: React.ReactNode }) {
   };
 
   const signOut = async () => {
-    console.log("entra sign out")
     await removeData(LOCAL_STORAGE_KEY_TOKEN)
     setIsAuthenticated(false);
     router.replace(ROUTES.PAGE_LOGIN)
@@ -55,7 +54,6 @@ export function Provider({ children }: { children: React.ReactNode }) {
     
     try {
       const token = await getData(LOCAL_STORAGE_KEY_TOKEN);
-      console.log(token)
       if (!token)
       { 
     
@@ -65,7 +63,6 @@ export function Provider({ children }: { children: React.ReactNode }) {
 
       
       const currentUser = await me();
-      console.log("Current user despues de hacer el me ->",currentUser)
       
       if(currentUser != undefined)
       {

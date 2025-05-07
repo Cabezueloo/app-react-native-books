@@ -12,13 +12,19 @@ export type ThemedViewProps = ViewProps & {
 export function ThemedView({ style, lightColor, darkColor, type='default' , ...otherProps }: ThemedViewProps) {
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
 
-  return <View style={[{ backgroundColor }, type === 'container' ? styles.container : undefined, type==='containerItems' ? styles.containerItems : undefined]} {...otherProps} />;
+  return <View style={[{ backgroundColor }, type === 'container' ? styles.container : undefined,
+     type==='containerItems' ? styles.containerItems : undefined,
+     type==='default' ? styles.default : undefined
+    ]} {...otherProps} />;
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  default:{
+
   },
   containerItems:{
     flex:1
