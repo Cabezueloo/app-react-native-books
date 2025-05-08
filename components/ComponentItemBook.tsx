@@ -102,7 +102,7 @@ export const ItemBook = ({ book }: { book: BookJsonldBookRead }) => {
     }
     const openMessages = () => {
         if(parseInt(book.owner.split("/")[3])==currentUser.id){
-           toastError("Don't talk whit you") 
+           toastError("Mismo propietario") 
         }else{
 
             router.push({pathname:"messages/chat", params: { bookId: book["@id"],reciver: book.owner }})

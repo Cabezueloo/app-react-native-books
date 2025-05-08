@@ -27,7 +27,6 @@ const HomeMessagesScreen = () => {
 
   const fetchMessages = useCallback(async () => {
     setLoading(true);
-    console.log("ss")
     try {
       const res = await apiMessagesGetCollection({
         'fromBook.id[]': myBooksId,
@@ -41,7 +40,6 @@ const HomeMessagesScreen = () => {
 
 
       const msgs = [...res['hydra:member'],...resSend['hydra:member']];
-
       // Group messages by fromBook URI, keep only one entry per book
       const grouped: Record<string, Set<String>> = {};
       msgs.forEach((msg: { fromBook: string; sender: string }) => {
@@ -61,14 +59,13 @@ const HomeMessagesScreen = () => {
             const userId = parseInt(senderUri.split('/').pop()!, 10);
             const user = await apiUsersIdGet(String(userId));
             const bookId = bookUri.split('/').pop()!
-            console.log(bookUri)
             const book = await apiBooksIdGet(bookId).then(book => {
               return book;
             }
             )
 
 
-            if(userId!=currentUser.id){
+            if(userId!=currentUser.id || parseInt(book['@id'].split('/').pop()!, 10)!=currentUser.id){
               
             
             return {
@@ -88,7 +85,6 @@ const HomeMessagesScreen = () => {
 
       // Wait for all user fetches to finish
       const convs: Conversation[] = await Promise.all(convPromises);
-
       
       const cleanedArray = convs.filter(subArray => subArray.book);
       setConversations(cleanedArray);
