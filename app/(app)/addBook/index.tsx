@@ -1,4 +1,4 @@
-import { Button, Switch, Text, TextInput, View } from "react-native"
+import { Button, Switch,View } from "react-native"
 import { useAuthAndStyle } from "../../../context/Context"
 import { useTranslation } from "react-i18next"
 import { Picker } from '@react-native-picker/picker';
@@ -11,10 +11,8 @@ import { useState } from "react";
 
 import { Formik } from "formik"
 import CustomTextInput from "../../../components/CustomTextInput"
-import { apiBooksPost, apiMediaObjectsPost, useApiBooksPost } from "../../../api/generated/helloAPIPlatform";
-import { ApiMediaObjectsPostBody, BookJsonldBookWrite, BookJsonldUserRead, UserJsonldUserRead } from "../../../api/model";
-import { router } from "expo-router";
-import { ROUTES } from "../../../constants/Routes";
+import { apiBooksPost, apiMediaObjectsPost } from "../../../api/generated/helloAPIPlatform";
+import { BookJsonldBookWrite,} from "../../../api/model";
 
 import { toastSuccess } from "../../../utils/toast";
 import { ThemedView } from "../../../components/ThemedView";
@@ -22,7 +20,7 @@ import { ThemedText } from "../../../components/ThemedText";
 
 const AddBookScreen = () => {
 
-  const { currentUser, isLoading, colors } = useAuthAndStyle()
+  const { currentUser,colors,apiMe } = useAuthAndStyle()
   const { t } = useTranslation()
   const [isInterchangeable, setIsInterchangeable] = useState<boolean>(false)
   const toggleSwitch = () => { 
@@ -116,6 +114,7 @@ const AddBookScreen = () => {
       await apiBooksPost(data)
       
       //router.navigate(ROUTES.PAGE_SEARCH)
+      await apiMe()
       toastSuccess("Subido");
 
     } catch (error) {

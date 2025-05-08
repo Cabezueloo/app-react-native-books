@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, View, Button, TextInput } from 'react-native';
+import { View, Button } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Link, router } from 'expo-router';
+import { Link} from 'expo-router';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -9,7 +9,7 @@ import { StringConstants } from '../../configs';
 
 import CustomTextInput from '../../components/CustomTextInput';
 import { apiUsersPost, loginCheckPost } from '../../api/generated/helloAPIPlatform';
-import { UserJsonld, UserJsonldUserWrite } from '../../api/model';
+import { UserJsonldUserWrite } from '../../api/model';
 import { useAuthAndStyle } from '../../context/Context';
 import { ROUTES } from '../../constants/Routes';
 import { ThemedView } from '../../components/ThemedView';

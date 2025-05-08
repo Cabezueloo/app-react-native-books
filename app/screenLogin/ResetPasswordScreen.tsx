@@ -4,15 +4,16 @@ import { useTranslation } from 'react-i18next';
 import {StringConstants} from '../../configs'
 import {  useState } from 'react';
 import { Link } from 'expo-router';
-import { useCommonData } from '../../services';
+
 import { ROUTES } from '../../constants/Routes';
 import { ThemedView } from '../../components/ThemedView';
 import CustomTextInput from '../../components/CustomTextInput';
 import { ThemedText } from '../../components/ThemedText';
+import { useAuthAndStyle } from '../../context/Context';
 
 
 const ResetPasswordScreen = () => {
-    const {colorScheme, colors} = useCommonData()
+    const {colorScheme, colors} = useAuthAndStyle()
     const {t} = useTranslation();
     
     

@@ -1,10 +1,7 @@
-import { useFonts } from 'expo-font';
-import { useEffect } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider } from '../context/Context'
 import { Slot } from 'expo-router';
 
-import { StatusBar, Text, useColorScheme } from 'react-native';
+import { StatusBar,  useColorScheme } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import React from 'react'

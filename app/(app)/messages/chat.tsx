@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, FlatList, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, FlatList, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { apiMessagesGetCollection, apiMessagesPost } from '../../../api/generated/helloAPIPlatform';
 import { useAuthAndStyle } from '../../../context/Context';
@@ -54,7 +54,7 @@ const ChatScreen = () => {
     fetchMessages();
 
     //Each 10s check messagess
-    const interval = setInterval(fetchMessages, 10000);
+    const interval = setInterval(fetchMessages, 5000);
     return () => clearInterval(interval);
   }, [fetchMessages]);
 

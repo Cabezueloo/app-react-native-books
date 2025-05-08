@@ -1,16 +1,11 @@
 //import { PAGE_HOME, PAGE_LOGIN, PAGE_REGISTER, PAGE_RESET_PASSWORD } from '@config';
-import { useCommonData } from '../services';
-import { Redirect, router } from 'expo-router'
+import { Redirect,} from 'expo-router'
 import { useEffect, useState, } from 'react';
 import { Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { StringConstants } from '../configs';
 import { PaperProvider } from 'react-native-paper';
-import { LoginCheckPostBody } from '../api/model';
-import { loginCheckPost } from '../api/generated/helloAPIPlatform';
-import { storeData } from '../utils/asyncStorage';
-import { LOCAL_STORAGE_KEY_TOKEN } from '../constants/Common';
 import { ROUTES } from '../constants/Routes';
 import { useAuthAndStyle } from '../context/Context';
 

@@ -1,5 +1,5 @@
 import { me } from '../api/generated/helloAPIPlatform';
-import { UserJsonld, UserJsonldUserRead } from '../api/model';
+import { UserJsonldUserRead } from '../api/model';
 import { LOCAL_STORAGE_KEY_TOKEN } from '../constants/Common';
 import { ROUTES } from '../constants/Routes';
 import { getData, removeData, storeData } from '../utils/asyncStorage';

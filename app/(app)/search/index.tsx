@@ -34,7 +34,6 @@ const HomeScreen = () => {
   ];
 
   const fetchData = async () => {
-    console.log(selectedIsInterchangeable)
     if (isListEnd) return
     dispatch({ type: actionTypes.API_REQUEST });
     try {
@@ -93,7 +92,7 @@ const HomeScreen = () => {
         value={search}
         lightTheme
         round
-        onClear={undefined}
+        onClear={() => { setSearch('') }}
         clearIcon={false}
       />
 
@@ -115,7 +114,6 @@ const HomeScreen = () => {
           <Picker
             selectedValue={1}
             onValueChange={(itemValue) => {
-              console.log(itemValue)
               setSelectedIsInterchangeable(itemValue)
             
             }}

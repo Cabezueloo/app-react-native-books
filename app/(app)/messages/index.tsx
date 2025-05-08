@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, FlatList, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useState, useEffect, useCallback } from 'react';
+import { View, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { useNavigation, useRouter } from 'expo-router';
 import { useAuthAndStyle } from '../../../context/Context';
 import { apiBooksIdGet, apiMessagesGetCollection, apiUsersIdGet } from '../../../api/generated/helloAPIPlatform';
 import { BookJsonldBookRead, UserJsonldUserRead } from '../../../api/model';
@@ -27,14 +27,20 @@ const HomeMessagesScreen = () => {
 
   const fetchMessages = useCallback(async () => {
     setLoading(true);
+    console.log("ss")
     try {
       const res = await apiMessagesGetCollection({
         'fromBook.id[]': myBooksId,
         'receiver.id': currentUser.id,
       });
 
+      const resSend = await apiMessagesGetCollection({
+        
+        'sender.id': currentUser.id,
+      });
 
-      const msgs = res['hydra:member'];
+
+      const msgs = [...res['hydra:member'],...resSend['hydra:member']];
 
       // Group messages by fromBook URI, keep only one entry per book
       const grouped: Record<string, Set<String>> = {};
@@ -62,7 +68,9 @@ const HomeMessagesScreen = () => {
             )
 
 
-
+            if(userId!=currentUser.id){
+              
+            
             return {
               book: book,
               bookUri,
@@ -70,14 +78,20 @@ const HomeMessagesScreen = () => {
               senderUri: String(senderUri),
               infoBuyer: user,
             };
+          }else{
+            return{
+              
+            }
+          }
           })
       );
 
       // Wait for all user fetches to finish
       const convs: Conversation[] = await Promise.all(convPromises);
 
-
-      setConversations(convs);
+      
+      const cleanedArray = convs.filter(subArray => subArray.book);
+      setConversations(cleanedArray);
     } catch (err) {
       console.error('Failed to fetch messages', err);
     } finally {
@@ -85,10 +99,17 @@ const HomeMessagesScreen = () => {
     }
   }, []);
 
-  useEffect(() => {
-    fetchMessages();
+  const navigation = useNavigation();
 
-  }, []);
+  useEffect(() => {
+   
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchMessages();
+    });
+
+    return unsubscribe; // cleanup on unmo
+
+  }, [navigation]);
 
   const openChat = (bookId: number, senderUri: string) => {
     const senderId = parseInt(senderUri.split('/').pop()!, 10);
@@ -100,9 +121,9 @@ const HomeMessagesScreen = () => {
 
   if (loading) {
     return (
-      <View style={styles.center}>
+      <ThemedView type='container'>
         <ActivityIndicator size="large" color={colors.primary} />
-      </View>
+        </ThemedView>
     );
   }
 

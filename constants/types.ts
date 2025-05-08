@@ -15,7 +15,6 @@ export enum BookCategory {
 
 
 
-// Example usage:
 export function getCategoryName(category: BookCategory): string {
     switch (category) {
         case BookCategory.Fiction:

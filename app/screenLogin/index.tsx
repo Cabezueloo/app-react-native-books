@@ -1,9 +1,9 @@
-import { Text, View, Button, Alert } from 'react-native';
+import { View, Button } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { StringConstants } from '../../configs';
 
-import { Link, Redirect, router } from 'expo-router';
+import { Link,router } from 'expo-router';
 import { useAuthAndStyle } from '../../context/Context';
 import { loginCheckPost } from '../../api/generated/helloAPIPlatform';
 
@@ -39,7 +39,6 @@ export default function LoginScreen() {
         setIsLoading(true);
         try {
 
-            console.log("A")
             const response = await loginCheckPost({ email: values.email, password: values.password });
             if (response?.token) {
                 await storeData(LOCAL_STORAGE_KEY_TOKEN,response.token)

@@ -1,5 +1,5 @@
 
-import { Slot, Stack, Tabs } from "expo-router"
+import { Tabs } from "expo-router"
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { ROUTES } from "../../constants/Routes";
 import { useAuthAndStyle } from "../../context/Context";
