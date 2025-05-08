@@ -93,7 +93,8 @@ const HomeScreen = () => {
         value={search}
         lightTheme
         round
-        onClear={() => { setSearch('') }}
+        onClear={undefined}
+        clearIcon={false}
       />
 
       <View style={{ flexDirection: 'row' }}>
